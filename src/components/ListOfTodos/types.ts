@@ -1,4 +1,4 @@
-import { Todos } from "../../todos";
+import { Todos } from "todos";
 
 export default interface ComponentProps {
   todos: Todos[];

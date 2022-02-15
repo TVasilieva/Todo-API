@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react";
 import "./App.css";
-import InputForAdding from "./components/InputForAdding";
-import ListOfTodos from "./components/ListOfTodos";
-import ShownItems from "./components/ShownItems";
-import { todos } from "./todos";
+import InputForAdding from "components/InputForAdding";
+import ListOfTodos from "components/ListOfTodos";
+import ShownItems from "components/ShownItems";
+import { todos } from "todos";
 
 const App: FC = () => {
   const [completed, setCompleted] = useState<boolean>(false);
