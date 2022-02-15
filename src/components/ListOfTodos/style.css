@@ -1,0 +1,6 @@
+.listOfTodos {
+  height: 20em;
+  display: grid;
+  grid-template-columns: 1fr;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}

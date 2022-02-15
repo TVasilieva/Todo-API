@@ -1,0 +1,35 @@
+.actions-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 3% 5%;
+  background-color: #fff;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.4);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
+}
+
+.categories {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.08em;
+}
+
+.categories span {
+  margin-right: 8%;
+  cursor: pointer;
+}
+
+.completed:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+.active {
+  color: rgba(43, 130, 230, 0.9);
+}
+
+span:hover {
+  color: #000;
+}

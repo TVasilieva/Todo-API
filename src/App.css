@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Bradley Hand", cursive;
+}
+
+body {
+  background: no-repeat url(../public/assets/bg.jpg);
+  background-size: 100% 45vh;
+}
+
+.bg-image {
+  height: 45vh;
+  background: linear-gradient(
+    to right,
+    rgba(153, 13, 189, 0.6),
+    rgba(109, 179, 242, 0.6) 250px
+  );
+}
+
+h1 {
+  margin-bottom: 8%;
+  font: 2.5em "Fira Sans", sans-serif;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1440px;
+  padding: 5% 20%;
+  justify-content: center;
+}
