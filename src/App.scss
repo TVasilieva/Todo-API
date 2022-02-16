@@ -2,7 +2,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Bradley Hand", cursive;
 }
 
 h1 {
@@ -15,16 +14,41 @@ h1 {
 }
 
 .greeting {
-  text-align: center;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -60%);
+  text-align: center;
   font: 3em "Fira Sans", sans-serif;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
   letter-spacing: 0.42em;
+}
+
+.login-btn {
+  position: absolute;
+  padding: 20px;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  text-align: center;
+  background-color: rgba(75, 14, 133, 0.5);
+  color: rgba(255, 255, 255, 0.4);
+  font: 1em "Fira Sans", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  border: 8px solid rgba(255, 255, 255, 0.4);
+  height: 132px;
+  width: 132px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  border: 10px solid rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 //add btn

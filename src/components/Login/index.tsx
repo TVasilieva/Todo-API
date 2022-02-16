@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 
+import CloseIcon from "@mui/icons-material/Close";
+
 import "./style.css";
 import ComponentProps, { LoginHeader, SignUp } from "./types";
 
-const Login: FC<ComponentProps> = (props) => {
+const Login: FC<ComponentProps> = ({ onClose }) => {
   const loginHeaderInfo: LoginHeader[] = [
     { id: "tab-1", className: "sign-in", name: "In" },
     { id: "tab-2", className: "sign-up", name: "Up" },
@@ -72,6 +74,9 @@ const Login: FC<ComponentProps> = (props) => {
   return (
     <div className="login-wrap">
       <div className="login-html">
+        <div className="close-login" onClick={onClose}>
+          <CloseIcon fontSize="large" color="info" />
+        </div>
         {loginHeader}
         <div className="login-form">
           <div className="sign-in-htm">

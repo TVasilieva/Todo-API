@@ -1,4 +1,6 @@
-export default interface ComponentProps {}
+export default interface ComponentProps {
+  onClose: () => void;
+}
 
 export type LoginHeader = {
   id: string;
