@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import InputForAdding from "../../components/InputForAdding";
 import ListOfTodos from "../../components/ListOfTodos";
 import ShownItems from "../../components/ShownItems";
@@ -8,6 +8,8 @@ import ComponentProps from "./types";
 import "./style.css";
 
 const AppPage: FC<ComponentProps> = () => {
+  const [completed, setCompleted] = useState<boolean>(false);
+
   return (
     <div className="user-page">
       <h1>todo</h1>

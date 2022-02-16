@@ -11,15 +11,13 @@ import NotFoundPage from "./pages/NotFoundPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App: FC = () => {
-  const [completed, setCompleted] = useState<boolean>(false);
-
   return (
     <Layout>
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<Login />} />
-          {false ? (
+          {true ? (
             <Route path="/todo" element={<AppPage />} />
           ) : (
             <Route path="*" element={<NotFoundPage />} />
