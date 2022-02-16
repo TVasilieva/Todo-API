@@ -3,7 +3,12 @@ import React, { FC } from "react";
 import "./style.css";
 import ComponentProps from "./types";
 
-const ShownItems: FC<ComponentProps> = () => {
+const ShownItems: FC<ComponentProps> = ({
+  todos,
+  showAll,
+  showActive,
+  showCompleted,
+}) => {
   return (
     <div className="actions-container">
       <div className="left-side">
@@ -12,13 +17,15 @@ const ShownItems: FC<ComponentProps> = () => {
       </div>
       <div className="categories">
         <div>
-          <span className="active">All</span>
+          <span className="active" onClick={showAll}>
+            All
+          </span>
         </div>
         <div>
-          <span>Active</span>
+          <span onClick={showActive}>Active</span>
         </div>
         <div>
-          <span>Completed</span>
+          <span onClick={showCompleted}>Completed</span>
         </div>
       </div>
     </div>

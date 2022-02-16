@@ -9,14 +9,39 @@ import "./style.css";
 
 const AppPage: FC<ComponentProps> = () => {
   const [completed, setCompleted] = useState<boolean>(false);
-  const [sortedTodos, setSortedTodos] = useState<Todos[]>([]);
+  const [shownTodos, setShownTodos] = useState<Todos[]>([]);
+
+  const showAll = (): void => {
+    setShownTodos(todos);
+  };
+
+  const showActive = (): void => {
+    setShownTodos(
+      todos.filter((el) => {
+        return el.status === "active";
+      })
+    );
+  };
+
+  const showCompleted = (): void => {
+    setShownTodos(
+      todos.filter((el) => {
+        return el.status === "completed";
+      })
+    );
+  };
 
   return (
     <div className="user-page">
       <h1>todo</h1>
       <InputForAdding />
-      <ListOfTodos todos={sortedTodos} />
-      <ShownItems />
+      <ListOfTodos todos={shownTodos} />
+      <ShownItems
+        todos={shownTodos}
+        showAll={showAll}
+        showActive={showActive}
+        showCompleted={showCompleted}
+      />
     </div>
   );
 };
