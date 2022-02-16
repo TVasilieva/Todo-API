@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import "./style.css";
-import { todos } from "../../todos";
-import TodoItem from "../TodoItem";
+import { todos } from "todos";
+import TodoItem from "components/TodoItem";
 
 import ComponentProps from "./types";
 
