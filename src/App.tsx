@@ -19,7 +19,11 @@ const App: FC = () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/todo" element={<AppPage />} />
+          {false ? (
+            <Route path="/todo" element={<AppPage />} />
+          ) : (
+            <Route path="*" element={<NotFoundPage />} />
+          )}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

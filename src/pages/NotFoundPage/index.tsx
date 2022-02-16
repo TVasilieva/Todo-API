@@ -15,7 +15,7 @@ const NotFoundPage: FC<ComponentProps> = () => {
           navigate("/");
         }}
       >
-        Go back to the Home page
+        Turn back to the Home page
       </button>
     </>
   );
