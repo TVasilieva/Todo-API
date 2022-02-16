@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import InputForAdding from "../../components/InputForAdding";
 import ListOfTodos from "../../components/ListOfTodos";
 import ShownItems from "../../components/ShownItems";
@@ -8,34 +8,45 @@ import ComponentProps from "./types";
 import "./style.css";
 
 const AppPage: FC<ComponentProps> = () => {
-  const [completed, setCompleted] = useState<boolean>(false);
   const [shownTodos, setShownTodos] = useState<Todos[]>([]);
+  // @mock
+  const [staticTodos, setStaticTodos] = useState<Todos[]>(todos);
+
+  useEffect(() => {
+    setShownTodos(staticTodos);
+  }, [staticTodos]);
+
+  // useEffect(() => {
+  //   console.log(staticTodos);
+  // }, [staticTodos]);
 
   const showAll = (): void => {
-    setShownTodos(todos);
+    setShownTodos(staticTodos);
   };
 
   const showActive = (): void => {
-    setShownTodos(
-      todos.filter((el) => {
-        return el.status === "active";
-      })
-    );
+    const active = staticTodos.filter((el) => el.active === true);
+    setShownTodos(active);
   };
 
   const showCompleted = (): void => {
-    setShownTodos(
-      todos.filter((el) => {
-        return el.status === "completed";
-      })
+    const completed = staticTodos.filter((el) => el.active === false);
+    setShownTodos(completed);
+  };
+
+  const handleComplete = (id: number) => (): void => {
+    const newTodos = staticTodos.map((todo) =>
+      todo.id === id ? { ...todo, active: !todo.active } : todo
     );
+    setStaticTodos(newTodos);
+    console.log(id);
   };
 
   return (
     <div className="user-page">
       <h1>todo</h1>
       <InputForAdding />
-      <ListOfTodos todos={shownTodos} />
+      <ListOfTodos todos={shownTodos} setShownTodos={handleComplete} />
       <ShownItems
         todos={shownTodos}
         showAll={showAll}

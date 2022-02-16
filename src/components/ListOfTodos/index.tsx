@@ -4,9 +4,16 @@ import TodoItem from "../TodoItem";
 
 import ComponentProps from "./types";
 
-const ListOfTodos: FC<ComponentProps> = ({ todos }) => {
+const ListOfTodos: FC<ComponentProps> = ({ todos, setShownTodos }) => {
   const todoItems = todos.map((el: any) => {
-    return <TodoItem key={el.id} data={el.name} />;
+    return (
+      <TodoItem
+        key={el.id}
+        todo={el}
+        todos={todos}
+        setShownTodos={setShownTodos}
+      />
+    );
   });
 
   return (

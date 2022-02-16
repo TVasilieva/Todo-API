@@ -9,15 +9,19 @@ const ShownItems: FC<ComponentProps> = ({
   showActive,
   showCompleted,
 }) => {
+  const itemsLeft = todos.filter((el) => el.active).length;
+
   return (
     <div className="actions-container">
       <div className="left-side">
-        <div>5 items left</div>
-        <div className="completed">Clear Completed</div>
+        <div>{itemsLeft} items left</div>
+        <div className="clear-completed" onClick={showAll}>
+          Clear Completed
+        </div>
       </div>
       <div className="categories">
         <div>
-          <span className="active" onClick={showAll}>
+          <span className="active-choice" onClick={showAll}>
             All
           </span>
         </div>
