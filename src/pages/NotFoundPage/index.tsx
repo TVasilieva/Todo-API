@@ -3,22 +3,22 @@ import { useNavigate } from "react-router-dom";
 import ComponentProps from "./types";
 import "./style.css";
 
-const MainPage: FC<ComponentProps> = () => {
+const NotFoundPage: FC<ComponentProps> = () => {
   const navigate = useNavigate();
 
   return (
     <>
-      <h2 className="greeting">todo app</h2>
+      <h2 className="error">404 not found</h2>
       <button
-        className="login-btn"
+        className="home"
         onClick={() => {
-          navigate("/login");
+          navigate("/");
         }}
       >
-        Login
+        Go back to the Home page
       </button>
     </>
   );
 };
 
-export default MainPage;
+export default NotFoundPage;

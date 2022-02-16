@@ -1,11 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import InputForAdding from "../../components/InputForAdding";
 import ListOfTodos from "../../components/ListOfTodos";
 import ShownItems from "../../components/ShownItems";
 
 import { todos } from "../../todos";
+import ComponentProps from "./types";
+import "./style.css";
 
-function AppPage() {
+const AppPage: FC<ComponentProps> = () => {
   return (
     <div className="user-page">
       <h1>todo</h1>
@@ -14,6 +16,6 @@ function AppPage() {
       <ShownItems />
     </div>
   );
-}
+};
 
 export default AppPage;
