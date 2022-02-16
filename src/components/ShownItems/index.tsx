@@ -6,13 +6,21 @@ import ComponentProps from "./types";
 const ShownItems: FC<ComponentProps> = () => {
   return (
     <div className="actions-container">
-      <div>5 items left</div>
-      <div className="categories">
-        <span className="active">All</span>
-        <span>Active</span>
-        <span>Completed</span>
+      <div className="left-side">
+        <div>5 items left</div>
+        <div className="completed">Clear Completed</div>
       </div>
-      <div className="completed">Clear Completed</div>
+      <div className="categories">
+        <div>
+          <span className="active">All</span>
+        </div>
+        <div>
+          <span>Active</span>
+        </div>
+        <div>
+          <span>Completed</span>
+        </div>
+      </div>
     </div>
   );
 };

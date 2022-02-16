@@ -2,22 +2,29 @@
   display: flex;
   justify-content: space-between;
   padding: 3% 5%;
+  margin-top: 2px;
   background-color: #fff;
-  font-size: 0.8em;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.4);
   border-radius: 0 0 5px 5px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
 }
 
+.left-side {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
 .categories {
   display: flex;
   justify-content: space-between;
-  font-size: 1.08em;
+  align-items: center;
+  font-size: 1.1em;
 }
 
-.categories span {
-  margin-right: 8%;
+.categories div {
+  margin: 0 7px;
   cursor: pointer;
 }
 
@@ -32,4 +39,15 @@
 
 span:hover {
   color: #000;
+}
+
+@media (max-width: 700px) {
+  .actions-container {
+    flex-direction: column;
+    height: 13vh;
+  }
+  .left-side {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
