@@ -1,11 +1,12 @@
 export default interface ComponentProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export type LoginHeader = {
   id: string;
   className: string;
   name: string;
+  checked: boolean;
 };
 
 export type SignUp = {
