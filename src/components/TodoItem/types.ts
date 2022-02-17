@@ -1,7 +1,7 @@
-import { Todos } from "../../todos";
+import { Todo } from "../../todos";
 
 export default interface ComponentProps {
-  todo: Todos;
-  setShownTodos:any;
-  todos: Todos[]
+  todo: Todo;
+  setShownTodos: any;
+  todos: Todo[];
 }
