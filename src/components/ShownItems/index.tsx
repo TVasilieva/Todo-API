@@ -4,32 +4,30 @@ import "./style.css";
 import ComponentProps from "./types";
 
 const ShownItems: FC<ComponentProps> = ({
-  todos,
-  showAll,
-  showActive,
-  showCompleted,
+  filter,
+  activeTodoLength,
+  onChangeFilter,
 }) => {
-  const itemsLeft = todos.filter((el) => el.active).length;
-
+  console.log(filter);
   return (
     <div className="actions-container">
       <div className="left-side">
-        <div>{itemsLeft} items left</div>
-        <div className="clear-completed" onClick={showAll}>
+        <div>{activeTodoLength} items left</div>
+        <div className="clear-completed" onClick={onChangeFilter("all")}>
           Clear Completed
         </div>
       </div>
       <div className="categories">
         <div>
-          <span className="active-choice" onClick={showAll}>
+          <span className="active-choice" onClick={onChangeFilter("all")}>
             All
           </span>
         </div>
         <div>
-          <span onClick={showActive}>Active</span>
+          <span onClick={onChangeFilter("active")}>Active</span>
         </div>
         <div>
-          <span onClick={showCompleted}>Completed</span>
+          <span onClick={onChangeFilter("completed")}>Completed</span>
         </div>
       </div>
     </div>

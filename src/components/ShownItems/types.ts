@@ -1,8 +1,10 @@
-import { Todos } from "../../todos";
+import { Filter } from "../../pages/AppPage/types";
 
 export default interface ComponentProps {
-  todos: Todos[];
-  showAll: () => void;
-  showActive: () => void;
-  showCompleted: () => void;
+  filter: Filter;
+  activeTodoLength: number;
+  onChangeFilter: any;
+  // showAll: () => void;
+  // showActive: () => void;
+  // showCompleted: () => void;
 }

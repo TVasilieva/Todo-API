@@ -12,7 +12,7 @@ const TodoItem: FC<ComponentProps> = ({ todo, setShownTodos }) => {
 
   return (
     <>
-      <div className={classNames} onClick={setShownTodos(todo.id)}>
+      <div className={classNames}>
         <input
           type="checkbox"
           id={todo.name}

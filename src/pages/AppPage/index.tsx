@@ -4,34 +4,28 @@ import ListOfTodos from "../../components/ListOfTodos";
 import ShownItems from "../../components/ShownItems";
 
 import { Todos, todos } from "../../todos";
-import ComponentProps from "./types";
+import ComponentProps, { Filter } from "./types";
 import "./style.css";
 
 const AppPage: FC<ComponentProps> = () => {
+  const [filter, setFilter] = useState<Filter>("all");
   const [shownTodos, setShownTodos] = useState<Todos[]>([]);
   // @mock
   const [staticTodos, setStaticTodos] = useState<Todos[]>(todos);
 
   useEffect(() => {
-    setShownTodos(staticTodos);
-  }, [staticTodos]);
+    if (filter === "active") {
+      return setShownTodos(staticTodos.filter((todo) => todo.active));
+    }
+    if (filter === "completed") {
+      return setShownTodos(staticTodos.filter((todo) => !todo.active));
+    }
 
-  // useEffect(() => {
-  //   console.log(staticTodos);
-  // }, [staticTodos]);
+    return setShownTodos(staticTodos);
+  }, [filter, staticTodos]);
 
-  const showAll = (): void => {
-    setShownTodos(staticTodos);
-  };
-
-  const showActive = (): void => {
-    const active = staticTodos.filter((el) => el.active === true);
-    setShownTodos(active);
-  };
-
-  const showCompleted = (): void => {
-    const completed = staticTodos.filter((el) => el.active === false);
-    setShownTodos(completed);
+  const handleChangeFilter = (filter: Filter) => (): void => {
+    setFilter(filter);
   };
 
   const handleComplete = (id: number) => (): void => {
@@ -39,8 +33,9 @@ const AppPage: FC<ComponentProps> = () => {
       todo.id === id ? { ...todo, active: !todo.active } : todo
     );
     setStaticTodos(newTodos);
-    console.log(id);
   };
+
+  const activeTodoLength = shownTodos.filter((todo) => todo.active).length;
 
   return (
     <div className="user-page">
@@ -48,10 +43,9 @@ const AppPage: FC<ComponentProps> = () => {
       <InputForAdding />
       <ListOfTodos todos={shownTodos} setShownTodos={handleComplete} />
       <ShownItems
-        todos={shownTodos}
-        showAll={showAll}
-        showActive={showActive}
-        showCompleted={showCompleted}
+        filter={filter}
+        activeTodoLength={activeTodoLength}
+        onChangeFilter={handleChangeFilter}
       />
     </div>
   );
