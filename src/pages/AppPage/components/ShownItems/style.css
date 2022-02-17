@@ -42,6 +42,28 @@ span:hover {
   color: rgba(43, 130, 230, 0.9);
 }
 
+.logoutBtn {
+  position: absolute;
+  padding: 10px;
+  bottom: -9%;
+  left: 50%;
+  transform: translate(-50%, 9%);
+  background: none;
+  color: #aaa;
+  font: 1.1em "Fira Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 @media (max-width: 700px) {
   .actions-container {
     flex-direction: column;

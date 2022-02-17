@@ -11,13 +11,13 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { setTodos } from "../../state/todos/actions";
 
-const AppPage: FC<ComponentProps> = ({ todos, setTodos }) => {
+const AppPage: FC<ComponentProps> = ({ todos, setTodos, user }) => {
   const [filter, setFilter] = useState<Filter>("all");
   const [shownTodos, setShownTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
-    const todosLS = localStorage.getItem("todos") || "[]";
-    setTodos(JSON.parse(todosLS));
+    //const todosLS = localStorage.getItem("todos") || "[]";
+    user && setTodos(todos);
   }, []);
 
   useEffect(() => {
@@ -69,6 +69,7 @@ const AppPage: FC<ComponentProps> = ({ todos, setTodos }) => {
 
 const mapStateToProps = (state: any): StateProps => ({
   todos: state.todos.todos,
+  user: state.user.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
