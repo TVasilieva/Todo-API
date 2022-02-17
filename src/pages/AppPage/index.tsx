@@ -43,7 +43,6 @@ const AppPage: FC<ComponentProps> = () => {
       <InputForAdding />
       <ListOfTodos todos={shownTodos} setShownTodos={handleComplete} />
       <ShownItems
-        filter={filter}
         activeTodoLength={activeTodoLength}
         onChangeFilter={handleChangeFilter}
       />

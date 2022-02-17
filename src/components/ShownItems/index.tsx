@@ -4,11 +4,9 @@ import "./style.css";
 import ComponentProps from "./types";
 
 const ShownItems: FC<ComponentProps> = ({
-  filter,
   activeTodoLength,
   onChangeFilter,
 }) => {
-  console.log(filter);
   return (
     <div className="actions-container">
       <div className="left-side">
