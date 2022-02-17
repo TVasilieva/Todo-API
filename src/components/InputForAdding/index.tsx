@@ -20,11 +20,13 @@ const InputForAdding: FC<ComponentProps> = ({ addTodo }) => {
   const handleAddTodo = (): void => {
     addTodo({
       id: Math.random(),
-      name: value,
+      name: value[0].toUpperCase() + value.slice(1),
       active: true,
     });
     setValue("");
   };
+
+  const disabled = !value;
 
   return (
     <div>
@@ -40,6 +42,7 @@ const InputForAdding: FC<ComponentProps> = ({ addTodo }) => {
         color="secondary"
         aria-label="add"
         onClick={handleAddTodo}
+        disabled={disabled}
       >
         <AddIcon />
       </Fab>
