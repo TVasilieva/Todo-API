@@ -1,11 +1,7 @@
 import { Todo } from "todos";
 
-export default interface ComponentProps extends DispatchProps, StateProps {}
-
-export interface StateProps {
-  todos: Todo[];
-}
+export default interface ComponentProps extends DispatchProps {}
 
 export interface DispatchProps {
-  addTodos: (todo: Todo) => void;
+  addTodo: (todo: Todo) => void;
 }

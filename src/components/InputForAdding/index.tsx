@@ -3,14 +3,14 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
 import "./style.css";
-import ComponentProps, { DispatchProps, StateProps } from "./types";
+import ComponentProps, { DispatchProps } from "./types";
 
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { addTodos } from "../../state/todos/actions";
+import { addTodo } from "../../state/todos/actions";
 import { Todo } from "todos";
 
-const InputForAdding: FC<ComponentProps> = ({ addTodos }) => {
+const InputForAdding: FC<ComponentProps> = ({ addTodo }) => {
   const [value, setValue] = useState<string>("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +18,7 @@ const InputForAdding: FC<ComponentProps> = ({ addTodos }) => {
   };
 
   const handleAddTodo = (): void => {
-    addTodos({
+    addTodo({
       id: Math.random(),
       name: value,
       active: true,
@@ -47,17 +47,13 @@ const InputForAdding: FC<ComponentProps> = ({ addTodos }) => {
   );
 };
 
-const mapStateToProps = (state: any): StateProps => ({
-  todos: state.todos.todos,
-});
-
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  addTodos: (todo: Todo) => {
-    dispatch(addTodos(todo));
+  addTodo: (todo: Todo) => {
+    dispatch(addTodo(todo));
   },
 });
 
-export default connect<StateProps, DispatchProps>(
-  mapStateToProps,
+export default connect<any, DispatchProps>(
+  undefined,
   mapDispatchToProps
 )(InputForAdding);
