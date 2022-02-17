@@ -7,7 +7,7 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  setTodos: (courses: Todo[]) => void;
+  setTodos: (todos: Todo[]) => void;
 }
 
 export type Filter = "clear" | "all" | "active" | "completed";

@@ -3,7 +3,7 @@ import InputForAdding from "../../components/InputForAdding";
 import ListOfTodos from "../../components/ListOfTodos";
 import ShownItems from "./components/ShownItems";
 
-import { Todo, todos } from "../../todos";
+import { Todo } from "../../todos";
 import ComponentProps, { Filter, DispatchProps, StateProps } from "./types";
 import "./style.css";
 
