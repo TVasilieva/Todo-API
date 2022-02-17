@@ -1,6 +1,7 @@
-import { Filter } from "../../pages/AppPage/types";
+import { Filter } from "../../types";
 
 export default interface ComponentProps {
   activeTodoLength: number;
   onChangeFilter: (filter: Filter) => () => void;
+  filter: Filter;
 }

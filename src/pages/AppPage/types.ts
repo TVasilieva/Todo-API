@@ -1,3 +1,3 @@
 export default interface ComponentProps {}
 
-export type Filter = "all" | "active" | "completed";
+export type Filter = "clear" | "all" | "active" | "completed";

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import InputForAdding from "../../components/InputForAdding";
 import ListOfTodos from "../../components/ListOfTodos";
-import ShownItems from "../../components/ShownItems";
+import ShownItems from "./components/ShownItems";
 
 import { Todos, todos } from "../../todos";
 import ComponentProps, { Filter } from "./types";
@@ -17,8 +17,17 @@ const AppPage: FC<ComponentProps> = () => {
     if (filter === "active") {
       return setShownTodos(staticTodos.filter((todo) => todo.active));
     }
+
     if (filter === "completed") {
       return setShownTodos(staticTodos.filter((todo) => !todo.active));
+    }
+
+    if (filter === "clear") {
+      setFilter("all");
+      for (let i in staticTodos) {
+        staticTodos[i].active = true;
+      }
+      return setShownTodos(staticTodos);
     }
 
     return setShownTodos(staticTodos);
@@ -43,6 +52,7 @@ const AppPage: FC<ComponentProps> = () => {
       <InputForAdding />
       <ListOfTodos todos={shownTodos} setShownTodos={handleComplete} />
       <ShownItems
+        filter={filter}
         activeTodoLength={activeTodoLength}
         onChangeFilter={handleChangeFilter}
       />

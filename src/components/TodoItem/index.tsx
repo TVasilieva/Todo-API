@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-
+import classNames from "classnames";
 import "./style.css";
 import ComponentProps from "./types";
 
@@ -8,11 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const TodoItem: FC<ComponentProps> = ({ todo, setShownTodos }) => {
-  let classNames = "round " + (todo.active ? "active" : "completed");
+  const style = classNames("round", !todo.active && "complited");
 
   return (
     <>
-      <div className={classNames}>
+      <div className={style}>
         <input
           type="checkbox"
           id={todo.name}
