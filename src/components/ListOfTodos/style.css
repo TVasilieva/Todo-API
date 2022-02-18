@@ -5,3 +5,17 @@
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   font-family: "Bradley Hand", cursive;
 }
+
+.listOfEmptyTodos {
+  display: flex;
+  padding: 20px;
+  min-height: 20vh;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 5px 5px 0 0;
+  font: 1.5em "Bradley Hand", cursive;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.3);
+}

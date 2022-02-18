@@ -1,3 +1,7 @@
+import { Todos } from "../../todos";
+
 export default interface ComponentProps {
-    data: string;
+  todo: Todos;
+  setShownTodos:any;
+  todos: Todos[]
 }
