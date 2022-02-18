@@ -1,24 +1,32 @@
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import ComponentProps from "./types";
+import ComponentProps, { StateProps } from "./types";
 import "./style.css";
 
-const MainPage: FC<ComponentProps> = () => {
+import { connect } from "react-redux";
+
+const MainPage: FC<ComponentProps> = ({ user }) => {
   const navigate = useNavigate();
 
   return (
     <>
       <h2 className="greeting">todo app</h2>
-      <button
-        className="login-btn"
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        Login
-      </button>
+      {!user && (
+        <button
+          className="login-btn"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Login
+        </button>
+      )}
     </>
   );
 };
 
-export default MainPage;
+const mapStateToProps = (state: any): StateProps => ({
+  user: state.user.user,
+});
+
+export default connect<StateProps>(mapStateToProps)(MainPage);

@@ -1,6 +1,6 @@
-import { Todos } from "todos";
+import { Todo } from "todos";
 
 export default interface ComponentProps {
-  todos: Todos[];
+  todos: Todo[];
   setShownTodos: any;
 }

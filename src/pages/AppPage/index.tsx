@@ -3,45 +3,52 @@ import InputForAdding from "../../components/InputForAdding";
 import ListOfTodos from "../../components/ListOfTodos";
 import ShownItems from "./components/ShownItems";
 
-import { Todos, todos } from "../../todos";
-import ComponentProps, { Filter } from "./types";
+import { Todo } from "../../todos";
+import ComponentProps, { Filter, DispatchProps, StateProps } from "./types";
 import "./style.css";
 
-const AppPage: FC<ComponentProps> = () => {
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
+import { setTodos } from "../../state/todos/actions";
+
+const AppPage: FC<ComponentProps> = ({ todos, setTodos, user }) => {
   const [filter, setFilter] = useState<Filter>("all");
-  const [shownTodos, setShownTodos] = useState<Todos[]>([]);
-  // @mock
-  const [staticTodos, setStaticTodos] = useState<Todos[]>(todos);
+  const [shownTodos, setShownTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    //const todosLS = localStorage.getItem("todos") || "[]";
+    user && setTodos(todos);
+  }, []);
 
   useEffect(() => {
     if (filter === "active") {
-      return setShownTodos(staticTodos.filter((todo) => todo.active));
+      return setShownTodos(todos.filter((todo) => todo.active));
     }
 
     if (filter === "completed") {
-      return setShownTodos(staticTodos.filter((todo) => !todo.active));
+      return setShownTodos(todos.filter((todo) => !todo.active));
     }
 
     if (filter === "clear") {
       setFilter("all");
-      for (let i in staticTodos) {
-        staticTodos[i].active = true;
+      for (let i in todos) {
+        todos[i].active = true;
       }
-      return setShownTodos(staticTodos);
+      return setShownTodos(todos);
     }
 
-    return setShownTodos(staticTodos);
-  }, [filter, staticTodos]);
+    return setShownTodos(todos);
+  }, [filter, todos]);
 
   const handleChangeFilter = (filter: Filter) => (): void => {
     setFilter(filter);
   };
 
   const handleComplete = (id: number) => (): void => {
-    const newTodos = staticTodos.map((todo) =>
+    const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, active: !todo.active } : todo
     );
-    setStaticTodos(newTodos);
+    setTodos(newTodos);
   };
 
   const activeTodoLength = shownTodos.filter((todo) => todo.active).length;
@@ -60,4 +67,18 @@ const AppPage: FC<ComponentProps> = () => {
   );
 };
 
-export default AppPage;
+const mapStateToProps = (state: any): StateProps => ({
+  todos: state.todos.todos,
+  user: state.user.user,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  setTodos: (todos: Todo[]) => {
+    dispatch(setTodos(todos));
+  },
+});
+
+export default connect<StateProps, DispatchProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppPage);

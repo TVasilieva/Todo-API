@@ -1,14 +1,21 @@
 import React, { FC } from "react";
 import classNames from "classnames";
 import "./style.css";
-import ComponentProps from "./types";
+import ComponentProps, { DispatchProps } from "./types";
 
 import IconButton from "@mui/material/IconButton";
-
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-const TodoItem: FC<ComponentProps> = ({ todo, setShownTodos }) => {
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
+import { removeTodo } from "../../state/todos/actions";
+
+const TodoItem: FC<ComponentProps> = ({ todo, setShownTodos, removeTodo }) => {
   const style = classNames("round", !todo.active && "complited");
+
+  const handleRemoveTodo = (id: number) => (): void => {
+    removeTodo(id);
+  };
 
   return (
     <>
@@ -22,12 +29,24 @@ const TodoItem: FC<ComponentProps> = ({ todo, setShownTodos }) => {
           onChange={setShownTodos(todo.id)}
         />
         <label htmlFor={todo.name}>{todo.name}</label>
-        <IconButton aria-label="delete" size="large">
+        <IconButton
+          aria-label="delete"
+          size="large"
+          onClick={handleRemoveTodo(todo.id)}
+        >
           <DeleteOutlineIcon />
         </IconButton>
       </div>
     </>
   );
 };
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  removeTodo: (id: number) => {
+    dispatch(removeTodo(id));
+  },
+});
 
-export default TodoItem;
+export default connect<any, DispatchProps>(
+  undefined,
+  mapDispatchToProps
+)(TodoItem);
