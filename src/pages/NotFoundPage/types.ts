@@ -1,1 +1,3 @@
-export default interface ComponentProps {}
+export default interface ComponentProps {
+  turnPage: () => void;
+}

@@ -1,26 +1,20 @@
 import React, { FC, Fragment, useState } from "react";
-
-import CloseIcon from "@mui/icons-material/Close";
-
 import "./style.css";
-import ComponentProps, {
-  LoginHeader,
-  SignUp,
-  SignIn,
-  StateProps,
-  DispatchProps,
-  SignInInputs,
-  SignUpInputs,
-} from "./types";
+import { LoginHeader, SignUp, SignIn, SignBtn } from "./types";
 import { useNavigate } from "react-router-dom";
-import LoginPortal from "../LoginPortal";
+import { getUser } from "state/user/selectors";
+import { setAccount } from "state/user/actions";
+import { useAppDispatch, useAppSelector } from "state";
+import usePortal from "react-useportal";
 
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
-import { setUser } from "state/user/actions";
-import { User } from "user";
+import ComponentLogin from "./component";
+import { User } from "models/user";
 
-const Login: FC<ComponentProps> = ({ onClose, setUser, user }) => {
+const Login: FC = () => {
+  const dispatch = useAppDispatch();
+
+  const account = useAppSelector(getUser);
+
   const [signInValue, setSignIn] = useState<any>({
     usernameIn: "",
     passwordIn: "",
@@ -33,10 +27,50 @@ const Login: FC<ComponentProps> = ({ onClose, setUser, user }) => {
     email: "",
   });
 
+  const { Portal } = usePortal({
+    bindTo: document && (document.getElementById("portal-root") as HTMLElement),
+  });
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setSignIn({ ...signInValue, [name]: value });
     setSignUp({ ...signUpValue, [name]: value });
+  };
+
+  let navigate = useNavigate();
+
+  const handleSignIn = (): void => {
+    const usersLS: string = localStorage.getItem("users") || "[]";
+    const currentUser = JSON.parse(usersLS).find((user: User) => user.id === 8);
+    if (currentUser) {
+      dispatch(
+        setAccount({
+          id: currentUser.id,
+          username: currentUser.username,
+          password: currentUser.password,
+          email: currentUser.email,
+        })
+      );
+    }
+    if (currentUser) navigate("/todo");
+  };
+
+  const handleSignUp = (): void => {
+    const usersLS: string = localStorage.getItem("users") || "[]";
+    const excistingUser = JSON.parse(usersLS).find(
+      (user: User) => user.id === 8
+    );
+    if (!excistingUser) {
+      dispatch(
+        setAccount({
+          id: signUpValue.id,
+          username: signUpValue.username,
+          password: signUpValue.password,
+          email: signUpValue.email,
+        })
+      );
+    }
+    if (account) navigate("/todo");
   };
 
   const loginHeaderInfo: LoginHeader[] = [
@@ -134,29 +168,19 @@ const Login: FC<ComponentProps> = ({ onClose, setUser, user }) => {
     );
   });
 
-  const signBtn: string[] = ["Sign In", "Sign Up"];
-
-  let navigate = useNavigate();
-
-  const letUserEntrance = (): void => {
-    const usersLS: string = localStorage.getItem("users") || "[]";
-    const currentUser: User = JSON.parse(usersLS).filter(
-      (el: User) => el.username === "Eric Cartman"
-    );
-    currentUser && setUser(currentUser);
-    console.log(currentUser);
-    console.log(user);
-    currentUser ? navigate("/todo") : navigate("/");
-  };
+  const signBtn: SignBtn[] = [
+    { name: "Sign In", onClick: handleSignIn },
+    { name: "Sign Up", onClick: handleSignUp },
+  ];
 
   const signBtns = signBtn.map((el) => {
     return (
-      <div className="group" key={el}>
+      <div className="group" key={el.name}>
         <input
           type="submit"
           className="button"
-          value={el}
-          onClick={letUserEntrance}
+          value={el.name}
+          onClick={el.onClick}
         />
       </div>
     );
@@ -167,46 +191,16 @@ const Login: FC<ComponentProps> = ({ onClose, setUser, user }) => {
   };
 
   return (
-    <LoginPortal>
-      <div className="login-wrap">
-        <div className="login-html">
-          <div className="close-login" onClick={closeLoginModal}>
-            <CloseIcon fontSize="large" color="info" />
-          </div>
-          {loginHeader}
-          <div className="login-form">
-            <div className="sign-in-htm">
-              {signInGroup}
-              <div className="group">
-                <input id="check" type="checkbox" className="check" />
-                <label htmlFor="check">
-                  <span className="icon"></span> Keep me Signed in
-                </label>
-              </div>
-              {signBtns[0]}
-            </div>
-            <div className="sign-up-htm">
-              {signUpGroup}
-              {signBtns[1]}
-            </div>
-          </div>
-        </div>
-      </div>
-    </LoginPortal>
+    <Portal>
+      <ComponentLogin
+        closeLoginModal={closeLoginModal}
+        loginHeader={loginHeader}
+        signInGroup={signInGroup}
+        signUpGroup={signUpGroup}
+        signBtns={signBtns}
+      />
+    </Portal>
   );
 };
 
-const mapStateToProps = (state: any): StateProps => ({
-  user: state.user.user,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  setUser: (user: User) => {
-    dispatch(setUser(user));
-  },
-});
-
-export default connect<StateProps, DispatchProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default Login;

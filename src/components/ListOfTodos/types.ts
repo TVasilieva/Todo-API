@@ -1,6 +1,10 @@
-import { Todo } from "todos";
+import { Todo } from "models/todo";
+
+export default interface Props {
+  setShownTodos: any;
+}
 
 export default interface ComponentProps {
-  todos: Todo[];
-  setShownTodos: any;
+  todos?: Todo[];
+  todoItems?: JSX.Element[];
 }

@@ -1,7 +1,13 @@
-import { Filter } from "../../types";
+import { Filter } from "models/filter";
 
-export default interface ComponentProps {
+export default interface Props {
+  filter: Filter;
   activeTodoLength: number;
   onChangeFilter: (filter: Filter) => () => void;
-  filter: Filter;
+}
+export default interface ComponentProps {
+  isActive?: any;
+  activeTodoLength: number;
+  onChangeFilter: (filter: Filter) => () => void;
+  handleLogout?: () => void;
 }

@@ -1,15 +1,11 @@
-import { Todo } from "todos";
-import { User } from "user";
+import { Filter } from "models/filter";
+import { User } from "models/user";
 
-export default interface ComponentProps extends DispatchProps, StateProps {}
-
-export interface StateProps {
-  todos: Todo[];
-  user: User;
+export default interface ComponentProps {
+  account: User | null;
+  filter: Filter;
+  activeTodoLength: number;
+  handleComplete: (id: number) => void;
+  handleChangeFilter: (filter: Filter) => () => void;
+  handleLogout: () => void;
 }
-
-export interface DispatchProps {
-  setTodos: (todos: Todo[]) => void;
-}
-
-export type Filter = "clear" | "all" | "active" | "completed";

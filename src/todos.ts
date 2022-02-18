@@ -1,3 +1,5 @@
+import { Todo } from "models/todo";
+
 export const todos: Todo[] = [
   { id: 0, name: "Jog around the park", active: false },
   { id: 1, name: "10 minutes meditation", active: true },
@@ -5,9 +7,3 @@ export const todos: Todo[] = [
   { id: 3, name: "Pick up groceries", active: false },
   { id: 4, name: "Complete Todo App", active: true },
 ];
-
-export type Todo = {
-  id: number;
-  name: string;
-  active: boolean;
-};
