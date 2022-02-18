@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import "./style.css";
 import ComponentProps from "./types";
 
-const ComponentShownItems: FC<ComponentProps> = ({
+const ComponentFooter: FC<ComponentProps> = ({
   isActive,
   activeTodoLength,
   onChangeFilter,
@@ -49,4 +49,4 @@ const ComponentShownItems: FC<ComponentProps> = ({
   );
 };
 
-export default ComponentShownItems;
+export default ComponentFooter;

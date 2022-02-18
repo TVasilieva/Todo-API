@@ -1,4 +1,4 @@
-import { Filter } from "models/filter";
+import { Filter } from "pages/AppPage/types";
 
 export default interface Props {
   filter: Filter;

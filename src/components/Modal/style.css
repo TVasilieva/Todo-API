@@ -1,0 +1,27 @@
+.overlay {
+  backdrop-filter: blur(5px);
+  justify-content: center;
+}
+.modal {
+  z-index: 1;
+  position: absolute !important;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(8, 8, 85, 0.883);
+  padding: 30px;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  align-items: center;
+  width: 70%;
+  max-width: 550px;
+  border-radius: 20px;
+  box-shadow: 0 13px 20px 0 rgba(0, 0, 0, 0.8);
+}
+
+.close {
+  position: absolute !important;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}

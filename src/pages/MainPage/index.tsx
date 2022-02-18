@@ -1,22 +1,41 @@
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, useState } from "react";
 import { getUser } from "state/user/selectors";
 import { useAppSelector } from "state";
 import "./style.css";
 
 import ComponentMainPage from "./component";
+import { Errors } from "./types";
 
 const MainPage: FC = () => {
   const account = useAppSelector(getUser);
 
-  const navigate = useNavigate();
+  const [isInOpen, setIsInOpen] = useState<boolean>(false);
+  const [isUpOpen, setIsUpOpen] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Errors>({
+    accountExcists: "",
+    notEqualPasswords: "",
+    wrongEmailOrPassword: "",
+    notValidEmail: "",
+    notValidPassword: "",
+  });
 
-  const openLoginModal = (): void => {
-    navigate("/login");
+  const toggleInModal = (): void => {
+    setIsInOpen(!isInOpen);
+  };
+
+  const toggleUpModal = (): void => {
+    setIsUpOpen(!isUpOpen);
   };
 
   return (
-    <ComponentMainPage account={account} openLoginModal={openLoginModal} />
+    <ComponentMainPage
+      account={account}
+      errors={errors}
+      toggleInModal={toggleInModal}
+      toggleUpModal={toggleUpModal}
+      isInOpen={isInOpen}
+      isUpOpen={isUpOpen}
+    />
   );
 };
 

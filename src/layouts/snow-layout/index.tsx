@@ -10,7 +10,7 @@ const Layout: FC<ComponentProps> = (props) => {
   return (
     <div className="bg-image">
       <div className="bg-gradient">
-        {snowflakes}
+        <div className="snowflakes">{snowflakes}</div>
         <div className="container">{props.children}</div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 .bg-image {
-  overflow: hidden;
   background: no-repeat url(../../../public/assets/bg.jpg);
   background-size: auto 100vh;
   filter: drop-shadow(0 0 10px white);
@@ -20,11 +19,19 @@
   flex-direction: column;
   position: relative;
   margin: 0 auto;
-  padding: 8%;
   height: 100%;
   width: 100%;
   max-width: 1440px;
   justify-content: center;
+}
+
+.snowflakes {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 @function random_range($min, $max) {

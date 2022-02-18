@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "state";
 import { getTodos } from "state/todos/selectors";
 import { removeTodo } from "state/todos/actions";
 
-import TodoItem from "components/TodoItem";
+import TodoItem from "pages/AppPage/components/TodoItem";
 import ComponentListOfTodos from "./component";
 
 import { Todo } from "models/todo";

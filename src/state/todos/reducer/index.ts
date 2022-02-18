@@ -1,4 +1,5 @@
-import { TodosActions } from "../actions";
+import { TodoActionsType } from "utils/ActionTypes";
+import { TodosActions } from "state/todos/actions";
 import { TodosReducer } from "./types";
 
 const initialState: TodosReducer = {
@@ -7,7 +8,7 @@ const initialState: TodosReducer = {
 
 export const todosReducer = (
   state = initialState,
-  action: any
+  action: TodoActionsType
 ): TodosReducer => {
   switch (action.type) {
     case TodosActions.SET_TODOS:

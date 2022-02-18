@@ -1,4 +1,3 @@
-import { Filter } from "models/filter";
 import { User } from "models/user";
 
 export default interface ComponentProps {
@@ -9,3 +8,5 @@ export default interface ComponentProps {
   handleChangeFilter: (filter: Filter) => () => void;
   handleLogout: () => void;
 }
+
+export type Filter = "clear" | "all" | "active" | "completed";

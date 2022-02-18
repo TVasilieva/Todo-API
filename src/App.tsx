@@ -2,8 +2,7 @@ import React, { FC } from "react";
 
 import "./App.scss";
 
-import Layout from "components/Layout";
-import Login from "components/Login";
+import Layout from "layouts/snow-layout";
 import MainPage from "pages/MainPage";
 import AppPage from "pages/AppPage";
 import NotFoundPage from "pages/NotFoundPage";
@@ -19,7 +18,6 @@ const App: FC = () => {
         <Router>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/todo" element={<AppPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

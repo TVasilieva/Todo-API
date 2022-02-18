@@ -1,11 +1,12 @@
+import AddBtn from "components/AddBtn";
 import React, { FC, useState } from "react";
 import { useAppDispatch } from "state";
 import { addTodo } from "state/todos/actions";
 
-import ComponentInputForAdding from "./component";
+import ComponentTextarea from "./component";
 import "./style.css";
 
-const InputForAdding: FC = () => {
+const Textarea: FC = () => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<string>("");
@@ -26,15 +27,16 @@ const InputForAdding: FC = () => {
   };
 
   const disabled = !value;
+  const placeholder = "Currently typing...";
 
   return (
-    <ComponentInputForAdding
+    <ComponentTextarea
+      Icon={<AddBtn disabled={disabled} handleAddTodo={handleAddTodo} />}
       value={value}
-      disabled={disabled}
-      handleAddTodo={handleAddTodo}
+      placeholder={placeholder}
       handleChange={handleChange}
     />
   );
 };
 
-export default InputForAdding;
+export default Textarea;

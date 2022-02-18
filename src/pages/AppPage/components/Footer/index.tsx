@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import "./style.css";
 import Props from "./types";
 
-import ComponentShownItems from "./component";
-import { Filter } from "models/filter";
+import ComponentFooter from "./component";
+import { Filter } from "pages/AppPage/types";
 
-const ShownItems: FC<Props> = ({
+const Footer: FC<Props> = ({
   filter,
   activeTodoLength,
   onChangeFilter,
@@ -16,7 +16,7 @@ const ShownItems: FC<Props> = ({
   };
 
   return (
-    <ComponentShownItems
+    <ComponentFooter
       filter={filter}
       activeTodoLength={activeTodoLength}
       onChangeFilter={onChangeFilter}
@@ -26,4 +26,4 @@ const ShownItems: FC<Props> = ({
   );
 };
 
-export default ShownItems;
+export default Footer;
