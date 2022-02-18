@@ -2,11 +2,11 @@ import React, { FC } from "react";
 
 import "./App.scss";
 
-import Layout from "./components/Layout";
-import Login from "./components/Login";
-import MainPage from "./pages/MainPage";
-import AppPage from "./pages/AppPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import Layout from "components/Layout";
+import Login from "components/Login";
+import MainPage from "pages/MainPage";
+import AppPage from "pages/AppPage";
+import NotFoundPage from "pages/NotFoundPage";
 
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
