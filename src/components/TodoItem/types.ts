@@ -1,11 +1,12 @@
-import { Todo } from "../../todos";
+import { Todo } from "models/todo";
 
-export default interface ComponentProps extends DispatchProps {
+export default interface Props {
   todo: Todo;
   setShownTodos: any;
-  todos: Todo[];
 }
 
-export interface DispatchProps {
-  removeTodo: (id: number) => void;
+export default interface ComponentProps {
+  todo: Todo;
+  handleRemoveTodo: any;
+  setShownTodos: any;
 }

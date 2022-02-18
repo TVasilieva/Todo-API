@@ -8,12 +8,9 @@ import MainPage from "pages/MainPage";
 import AppPage from "pages/AppPage";
 import NotFoundPage from "pages/NotFoundPage";
 
-import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { rootReducer } from "./state";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-export const store = createStore(rootReducer);
+import { store } from "state";
 
 const App: FC = () => {
   return (

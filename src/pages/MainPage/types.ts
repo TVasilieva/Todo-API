@@ -1,7 +1,6 @@
-import { User } from "user";
+import { User } from "models/user";
 
-export default interface ComponentProps extends StateProps {}
-
-export interface StateProps {
-  user: User | null;
+export default interface ComponentProps {
+  account: User | null;
+  openLoginModal: () => void;
 }

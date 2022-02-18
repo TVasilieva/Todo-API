@@ -1,4 +1,4 @@
-import { Todo } from "todos";
+import { Todo } from "models/todo";
 
 export interface TodosReducer {
   todos: Todo[];

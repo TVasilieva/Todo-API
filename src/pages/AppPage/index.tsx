@@ -1,23 +1,30 @@
 import React, { FC, useEffect, useState } from "react";
-import InputForAdding from "../../components/InputForAdding";
-import ListOfTodos from "../../components/ListOfTodos";
-import ShownItems from "./components/ShownItems";
-
-import { Todo } from "../../todos";
-import ComponentProps, { Filter, DispatchProps, StateProps } from "./types";
+import ComponentAppPage from "./component";
 import "./style.css";
 
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
-import { setTodos } from "../../state/todos/actions";
+import { useAppDispatch, useAppSelector } from "state";
+import { setTodos } from "state/todos/actions";
+import { getTodos } from "state/todos/selectors";
+import { getUser } from "state/user/selectors";
+import { Todo } from "models/todo";
+import { Filter } from "models/filter";
+import { Logout } from "state/user/actions";
+import { useNavigate } from "react-router-dom";
 
-const AppPage: FC<ComponentProps> = ({ todos, setTodos, user }) => {
+const AppPage: FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const todos = useAppSelector(getTodos);
+  const account = useAppSelector(getUser);
+
   const [filter, setFilter] = useState<Filter>("all");
   const [shownTodos, setShownTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
-    //const todosLS = localStorage.getItem("todos") || "[]";
-    user && setTodos(todos);
+    if (account) {
+      dispatch(setTodos(todos));
+    }
   }, []);
 
   useEffect(() => {
@@ -40,6 +47,11 @@ const AppPage: FC<ComponentProps> = ({ todos, setTodos, user }) => {
     return setShownTodos(todos);
   }, [filter, todos]);
 
+  const handleLogout = (): void => {
+    dispatch(Logout());
+    navigate("/");
+  };
+
   const handleChangeFilter = (filter: Filter) => (): void => {
     setFilter(filter);
   };
@@ -54,31 +66,15 @@ const AppPage: FC<ComponentProps> = ({ todos, setTodos, user }) => {
   const activeTodoLength = shownTodos.filter((todo) => todo.active).length;
 
   return (
-    <div className="user-page">
-      <h1>todo</h1>
-      <InputForAdding />
-      <ListOfTodos todos={shownTodos} setShownTodos={handleComplete} />
-      <ShownItems
-        filter={filter}
-        activeTodoLength={activeTodoLength}
-        onChangeFilter={handleChangeFilter}
-      />
-    </div>
+    <ComponentAppPage
+      account={account}
+      filter={filter}
+      activeTodoLength={activeTodoLength}
+      handleComplete={handleComplete}
+      handleChangeFilter={handleChangeFilter}
+      handleLogout={handleLogout}
+    />
   );
 };
 
-const mapStateToProps = (state: any): StateProps => ({
-  todos: state.todos.todos,
-  user: state.user.user,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  setTodos: (todos: Todo[]) => {
-    dispatch(setTodos(todos));
-  },
-});
-
-export default connect<StateProps, DispatchProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(AppPage);
+export default AppPage;

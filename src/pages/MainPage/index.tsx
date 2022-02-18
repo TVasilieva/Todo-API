@@ -1,32 +1,23 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import ComponentProps, { StateProps } from "./types";
+import { getUser } from "state/user/selectors";
+import { useAppSelector } from "state";
 import "./style.css";
 
-import { connect } from "react-redux";
+import ComponentMainPage from "./component";
 
-const MainPage: FC<ComponentProps> = ({ user }) => {
+const MainPage: FC = () => {
+  const account = useAppSelector(getUser);
+
   const navigate = useNavigate();
 
+  const openLoginModal = (): void => {
+    navigate("/login");
+  };
+
   return (
-    <>
-      <h2 className="greeting">todo app</h2>
-      {!user && (
-        <button
-          className="login-btn"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Login
-        </button>
-      )}
-    </>
+    <ComponentMainPage account={account} openLoginModal={openLoginModal} />
   );
 };
 
-const mapStateToProps = (state: any): StateProps => ({
-  user: state.user.user,
-});
-
-export default connect<StateProps>(mapStateToProps)(MainPage);
+export default MainPage;

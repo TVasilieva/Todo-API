@@ -1,7 +1,9 @@
-import { User } from "user";
-
-export default interface ComponentProps extends DispatchProps, StateProps {
-  onClose?: () => void;
+export default interface ComponentProps {
+  closeLoginModal: () => void;
+  loginHeader: JSX.Element[];
+  signInGroup: JSX.Element[];
+  signUpGroup: JSX.Element[];
+  signBtns: JSX.Element[];
 }
 
 export type LoginHeader = {
@@ -39,10 +41,7 @@ export type SignUpInputs = {
   email: string;
 };
 
-export interface StateProps {
-  user: User | null;
-}
-
-export interface DispatchProps {
-  setUser: (user: User) => void;
-}
+export type SignBtn = {
+  name: string;
+  onClick: () => void;
+};

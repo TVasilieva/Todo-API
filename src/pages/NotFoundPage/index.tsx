@@ -1,24 +1,15 @@
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import ComponentProps from "./types";
+import ComponentNotFoundPage from "./component";
 import "./style.css";
 
-const NotFoundPage: FC<ComponentProps> = () => {
+const NotFoundPage: FC = () => {
   const navigate = useNavigate();
+  const turnPage = (): void => {
+    navigate("/");
+  };
 
-  return (
-    <>
-      <h2 className="error">404 not found</h2>
-      <button
-        className="home"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Turn back to the Home page
-      </button>
-    </>
-  );
+  return <ComponentNotFoundPage turnPage={turnPage} />;
 };
 
 export default NotFoundPage;

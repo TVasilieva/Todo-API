@@ -1,5 +1,5 @@
-import { User } from "user";
+import { User } from "models/user";
 
 export interface UserReducer {
-  user: User | null;
+  account: User | null;
 }

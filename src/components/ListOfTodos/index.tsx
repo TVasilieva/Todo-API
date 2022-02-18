@@ -1,29 +1,41 @@
 import React, { FC } from "react";
 import "./style.css";
-import TodoItem from "../TodoItem";
+import Props from "./types";
+import { useAppDispatch, useAppSelector } from "state";
+import { getTodos } from "state/todos/selectors";
+import { removeTodo } from "state/todos/actions";
 
-import ComponentProps from "./types";
+import TodoItem from "components/TodoItem";
+import ComponentListOfTodos from "./component";
 
-const ListOfTodos: FC<ComponentProps> = ({ todos, setShownTodos }) => {
-  const todoItems = todos.map((el: any) => {
+import { Todo } from "models/todo";
+
+const ListOfTodos: FC<Props> = ({ setShownTodos }) => {
+  const dispatch = useAppDispatch();
+
+  const todos = useAppSelector(getTodos);
+
+  const handleRemoveTodo = (id: number) => (): void => {
+    dispatch(removeTodo(id));
+  };
+
+  const todoItems = todos.map((todo: Todo) => {
     return (
       <TodoItem
-        key={el.id}
-        todo={el}
-        todos={todos}
+        key={todo.id}
+        todo={todo}
         setShownTodos={setShownTodos}
+        handleRemoveTodo={handleRemoveTodo}
       />
     );
   });
 
   return (
-    <>
-      {todos.length ? (
-        <div className="listOfTodos">{todoItems}</div>
-      ) : (
-        <div className="listOfEmptyTodos">Your list of todos is empty</div>
-      )}
-    </>
+    <ComponentListOfTodos
+      todos={todos}
+      todoItems={todoItems}
+      setShownTodos={setShownTodos}
+    />
   );
 };
 
