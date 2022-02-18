@@ -1,22 +1,14 @@
 input[type="checkbox"] {
-  visibility: hidden;
+  display: none;
 }
 
 .round {
   position: relative;
   display: flex;
-  padding: 15px 40px;
+  padding: 15px 15px 15px 55px;
   background-color: #fff;
   align-items: center;
-}
-
-.round::after {
-  position: absolute;
-  border: 1px solid skyblue;
-  content: "";
-  width: 99.7%;
-  top: 63px;
-  left: 0;
+  justify-content: space-between;
 }
 
 .round label {
@@ -27,7 +19,7 @@ input[type="checkbox"] {
 
 .round label::before {
   position: absolute;
-  top: 20px;
+  top: 35%;
   left: 15px;
   border: 1px solid skyblue;
   content: "";
@@ -51,11 +43,6 @@ input[type="checkbox"] {
   color: white;
 }
 
-/* .round input[type="checkbox"]:checked + label {
-  background-color: #66bb6a;
-  border-color: #66bb6a;
-} */
-
 .round input[type="checkbox"]:checked + label {
   color: gray;
   text-decoration: line-through;
@@ -65,10 +52,11 @@ input[type="checkbox"] {
   border-radius: 8px 8px 0 0;
 }
 
+.remove-wrap {
+  position: relative;
+}
+
 .remove {
-  position: absolute;
-  right: 10px;
-  top: 35%;
   width: 35px;
   height: 35px;
   opacity: 0.5;
@@ -82,7 +70,6 @@ input[type="checkbox"] {
 .remove::before,
 .remove::after {
   position: absolute;
-  left: 15px;
   content: "";
   height: 1.5em;
   width: 1px;

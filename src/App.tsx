@@ -1,24 +1,31 @@
-import React, { FC, useState } from "react";
-import "./App.css";
-import InputForAdding from "components/InputForAdding";
-import ListOfTodos from "components/ListOfTodos";
-import ShownItems from "components/ShownItems";
-import { todos } from "todos";
+import React, { FC } from "react";
+
+import "./App.scss";
+
+import Layout from "components/Layout";
+import Login from "components/Login";
+import MainPage from "pages/MainPage";
+import AppPage from "pages/AppPage";
+import NotFoundPage from "pages/NotFoundPage";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App: FC = () => {
-  const [completed, setCompleted] = useState<boolean>(false);
-
   return (
-    <>
-      <div className="bg-image">
-        <div className="container">
-          <h1>todo</h1>
-          <InputForAdding />
-          <ListOfTodos todos={todos} />
-          <ShownItems />
-        </div>
-      </div>
-    </>
+    <Layout>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<Login />} />
+          {false ? (
+            <Route path="/todo" element={<AppPage />} />
+          ) : (
+            <Route path="*" element={<NotFoundPage />} />
+          )}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Router>
+    </Layout>
   );
 };
 
