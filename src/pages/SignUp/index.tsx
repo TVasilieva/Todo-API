@@ -2,13 +2,14 @@ import React, { FC, useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "state/user/selectors";
-import { setAccount } from "state/user/actions";
+import { registrationRequest, setAccount } from "state/user/actions";
 import { createTodoList } from "state/todos/actions";
 import { useAppDispatch, useAppSelector } from "state";
 
 import ComponentSignUp from "./component";
 import { User } from "models/user";
 import ComponentProps, { SignUpValue } from "./types";
+import { RegistrationRequest } from "api/auth";
 
 let id = 1000;
 
@@ -31,28 +32,36 @@ const SignUp: FC<ComponentProps> = ({ isOpen, onClose, errors }) => {
   };
 
   const handleSignUp = (): void => {
-    const usersLS: string = localStorage.getItem("users") || "[]";
-    const excistingUser = JSON.parse(usersLS).find(
-      (user: User) => user.email === signUpValue.email
-    );
-    if (!excistingUser && signUpValue.password === signUpValue.repeatPassword) {
-      const newId = id++;
-      dispatch(
-        setAccount({
-          id: newId,
-          username: signUpValue.username,
-          password: signUpValue.password,
-          email: signUpValue.email,
-        })
-      );
-      dispatch(
-        createTodoList({
-          id: newId,
-          listOfTodos: [],
-        })
-      );
-    }
-    if (account) navigate("/todo");
+    // const usersLS: string = localStorage.getItem("users") || "[]";
+    // const excistingUser = JSON.parse(usersLS).find(
+    //   (user: User) => user.email === signUpValue.email
+    // );
+    // if (!excistingUser && signUpValue.password === signUpValue.repeatPassword) {
+    //   const newId = id++;
+    //   // dispatch(
+    //   //   setAccount({
+    //   //     id: newId,
+    //   //     username: signUpValue.username,
+    //   //     password: signUpValue.password,
+    //   //     email: signUpValue.email,
+    //   //   })
+    //   // );
+    //   // dispatch(
+    //   //   createTodoList({
+    //   //     id: newId,
+    //   //     listOfTodos: [],
+    //   //   })
+    //   // );
+    // }
+    // if (account) navigate("/todo");
+
+    const data: RegistrationRequest = {
+      name: signUpValue.username,
+      email: signUpValue.email,
+      password: signUpValue.password,
+    };
+
+    dispatch(registrationRequest(data));
   };
   const disabled =
     !signUpValue.email && !signUpValue.password && !signUpValue.repeatPassword;
