@@ -3,3 +3,8 @@ export interface Todo {
   name: string;
   active: boolean;
 }
+
+export interface Todo2 {
+  id: number;
+  listOfTodos: Todo[];
+}
