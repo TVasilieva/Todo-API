@@ -8,7 +8,7 @@ import { getTodos } from "state/todos/selectors";
 import { getUser } from "state/user/selectors";
 import { Todo } from "models/todo";
 
-import { Logout } from "state/user/actions";
+import { logout } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { Filter } from "./types";
 
@@ -25,13 +25,13 @@ const AppPage: FC = () => {
   // const [staticTodos, setstaticTodos] = useState<Todo[]>(todos);
 
   useEffect(() => {
-    const todosLS = localStorage.getItem("todos") || "[]";
-    if (account) {
-      const todosToDisplay = JSON.parse(todosLS).filter(
-        (todo: Todo) => todo.id === account.id
-      );
-      dispatch(setTodos(todosToDisplay[0].listOfTodos));
-    }
+    // const todosLS = localStorage.getItem("todos") || "[]";
+    // if (account) {
+    //   const todosToDisplay = JSON.parse(todosLS).filter(
+    //     (todo: Todo) => todo.id === account.id
+    //   );
+    //   dispatch(setTodos(todosToDisplay[0].listOfTodos));
+    // }
   }, []);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const AppPage: FC = () => {
   }, [filter]);
 
   const handleLogout = (): void => {
-    dispatch(Logout());
+    dispatch(logout());
     navigate("/");
   };
 

@@ -17,7 +17,7 @@ const ComponentAppPage: FC<ComponentProps> = ({
   return (
     <div className="user-page">
       <h1>todo</h1>
-      {account && <h2>Welcome, {account.username}!</h2>}
+      {account && <h2>Welcome, {account.name}!</h2>}
       <Textarea />
       <ListOfTodos setShownTodos={handleComplete} />
       <Footer

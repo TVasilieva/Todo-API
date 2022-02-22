@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import { setAccount } from "state/user/actions";
+import { loginRequest } from "state/user/actions";
 import { useAppDispatch } from "state";
 
 import ComponentSignIn from "./component";
-import { User } from "models/user";
 import Props, { SignInValue } from "./types";
+import { LoginRequest } from "api/auth";
 
 const SignIn: FC<Props> = ({ isOpen, onClose, errors }) => {
   const dispatch = useAppDispatch();
@@ -23,24 +23,14 @@ const SignIn: FC<Props> = ({ isOpen, onClose, errors }) => {
   };
 
   const handleSignIn = (): void => {
-    const usersLS: string = localStorage.getItem("users") || "[]";
-    const currentUser = JSON.parse(usersLS).find(
-      (user: User) =>
-        user.email === signInValue.email &&
-        user.password === signInValue.password
-    );
+    // if (currentUser) navigate("/todo");
 
-    if (currentUser) {
-      dispatch(
-        setAccount({
-          id: currentUser.id,
-          username: currentUser.username,
-          password: currentUser.password,
-          email: currentUser.email,
-        })
-      );
-    }
-    if (currentUser) navigate("/todo");
+    const data: LoginRequest = {
+      email: signInValue.email,
+      password: signInValue.password,
+    };
+
+    dispatch(loginRequest(data));
   };
 
   return (
