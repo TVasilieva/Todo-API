@@ -11,6 +11,7 @@ import { Todo } from "models/todo";
 import { logout } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { Filter } from "./types";
+import { LocalStorage } from "constants/localStorage";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -57,6 +58,7 @@ const AppPage: FC = () => {
 
   const handleLogout = (): void => {
     dispatch(logout());
+    localStorage.removeItem(LocalStorage.Token);
     navigate("/");
   };
 

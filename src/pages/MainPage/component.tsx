@@ -15,7 +15,7 @@ const ComponentMainPage: FC<ComponentProps> = ({
 }) => {
   return (
     <div className="main-page">
-      <h2 className="greeting">todo app</h2>
+      <div className="greeting">todo app</div>
       {!account && (
         <div className="login-btn">
           <button className="login-btn__btn" onClick={toggleInModal}>

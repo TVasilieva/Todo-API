@@ -23,14 +23,13 @@ const SignIn: FC<Props> = ({ isOpen, onClose, errors }) => {
   };
 
   const handleSignIn = (): void => {
-    // if (currentUser) navigate("/todo");
-
     const data: LoginRequest = {
       email: signInValue.email,
       password: signInValue.password,
     };
 
     dispatch(loginRequest(data));
+    navigate("/todo");
   };
 
   return (
