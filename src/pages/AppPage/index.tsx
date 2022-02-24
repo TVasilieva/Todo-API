@@ -5,7 +5,7 @@ import "./style.css";
 import { useAppDispatch, useAppSelector } from "state";
 import { getTodosRequest } from "state/todos/actions";
 import { getTodos } from "state/todos/selectors";
-import { getUser } from "state/user/selectors";
+import { getIsLoading, getUser } from "state/user/selectors";
 import { Todo } from "models/todo";
 
 import { logout } from "state/user/actions";
@@ -20,6 +20,7 @@ const AppPage: FC = () => {
 
   const todos = useAppSelector(getTodos);
   const account = useAppSelector(getUser);
+  const isLoading = useAppSelector(getIsLoading);
 
   const [filter, setFilter] = useState<Filter>("all");
   const [shownTodos, setShownTodos] = useState<Todo[]>([]);
@@ -66,7 +67,7 @@ const AppPage: FC = () => {
     setShownTodos(newTodos);
   };
 
-  const activeTodoLength = shownTodos.filter((todo) => todo.active).length;
+  const activeTodoLength = todos.filter((todo) => todo.active).length;
 
   return (
     <ComponentAppPage

@@ -39,8 +39,6 @@ const SignIn: FC<Props> = ({ isOpen, onClose, errors }) => {
     dispatch(loginRequest(data));
   };
 
-  console.log(isLoading);
-
   return isLoading ? (
     <p>Loading...</p>
   ) : (
