@@ -3,7 +3,7 @@ import "./style.css";
 import Props from "./types";
 import { useAppDispatch, useAppSelector } from "state";
 import { getTodos } from "state/todos/selectors";
-import { removeTodo } from "state/todos/actions";
+//import { removeTodo } from "state/todos/actions";
 
 import TodoItem from "pages/AppPage/components/TodoItem";
 import ComponentListOfTodos from "./component";
@@ -16,7 +16,7 @@ const ListOfTodos: FC<Props> = ({ setShownTodos }) => {
   const todos = useAppSelector(getTodos);
 
   const handleRemoveTodo = (id: number) => (): void => {
-    dispatch(removeTodo(id));
+    //dispatch(removeTodo(id));
   };
 
   const todoItems = todos.map((todo: Todo) => {

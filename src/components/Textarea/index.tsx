@@ -1,7 +1,6 @@
 import AddBtn from "components/AddBtn";
 import React, { FC, useState } from "react";
 import { useAppDispatch } from "state";
-import { addTodo } from "state/todos/actions";
 
 import ComponentTextarea from "./component";
 import "./style.css";
@@ -16,13 +15,11 @@ const Textarea: FC = () => {
   };
 
   const handleAddTodo = (): void => {
-    dispatch(
-      addTodo({
-        id: Math.random(),
-        name: value[0].toUpperCase() + value.slice(1),
-        active: true,
-      })
-    );
+    // dispatch(
+    //   addTodoRequest({
+    //     description: value[0].toUpperCase() + value.slice(1),
+    //   })
+    // );
     setValue("");
   };
 

@@ -54,6 +54,13 @@ class AuthAPI {
       data,
     });
   };
+  static logout = async (): Promise<AxiosResponse<LoginResponse>> => {
+    return axios({
+      url: "https://api-nodejs-todolist.herokuapp.com/user/logout",
+      method: "post",
+      data: null,
+    });
+  };
 }
 
 export default AuthAPI;

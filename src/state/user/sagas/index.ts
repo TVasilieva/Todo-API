@@ -15,7 +15,7 @@ import {
   loginResponse,
   loginResponseError,
 } from "../actions";
-import { LocalStorage } from "constants/localStorage";
+import { createToken, setToken } from "utils/token";
 
 function* registrationWorker(action: ActionPayload<RegistrationRequest>) {
   try {
@@ -23,7 +23,7 @@ function* registrationWorker(action: ActionPayload<RegistrationRequest>) {
       yield AuthAPI.registration(action.payload as RegistrationRequest);
 
     const token = `Bearer ${response.data.token}`;
-    localStorage.setItem(LocalStorage.Token, token);
+    setToken(token);
 
     const account: Account = {
       id: response.data.user._id,
@@ -43,8 +43,8 @@ function* loginWorker(action: ActionPayload<LoginRequest>) {
       action.payload as LoginRequest
     );
 
-    const token = `Bearer ${response.data.token}`;
-    localStorage.setItem(LocalStorage.Token, token);
+    const token = createToken(response.data.token);
+    setToken(token);
 
     const account: Account = {
       id: response.data.user._id,
