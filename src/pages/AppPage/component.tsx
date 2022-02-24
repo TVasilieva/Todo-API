@@ -7,7 +7,7 @@ import ComponentProps from "./types";
 import "./style.css";
 
 const ComponentAppPage: FC<ComponentProps> = ({
-  account,
+  username,
   filter,
   activeTodoLength,
   handleComplete,
@@ -17,7 +17,7 @@ const ComponentAppPage: FC<ComponentProps> = ({
   return (
     <div className="user-page">
       <h1>todo</h1>
-      {account && <h2>Welcome, {account.name}!</h2>}
+      {username && <h2>Welcome, {username}!</h2>}
       <Textarea />
       <ListOfTodos setShownTodos={handleComplete} />
       <Footer

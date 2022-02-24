@@ -4,3 +4,4 @@ import { RootState } from "state";
 export const getUser = (state: RootState): Account | null => state.user.account;
 export const getIsLoading = (state: RootState): boolean =>
   state.user.accountIsLoading;
+export const getUsername = (state: RootState): string => state.user.username;

@@ -6,6 +6,7 @@ const initialState: UserReducer = {
   account: null,
   accountIsLoading: false,
   accountError: null,
+  username: "",
 };
 
 export const userReducer = (
@@ -55,6 +56,25 @@ export const userReducer = (
       return {
         ...state,
         account: null,
+      };
+    case UserActions.GET_USER_REQUEST:
+      return {
+        ...state,
+        accountIsLoading: true,
+        username: "",
+        accountError: null,
+      };
+    case UserActions.GET_USER_RESPONSE:
+      return {
+        ...state,
+        accountIsLoading: false,
+        username: action.payload,
+      };
+    case UserActions.GET_USER_RESPONSE_ERROR:
+      return {
+        ...state,
+        accountIsLoading: false,
+        accountError: action.payload,
       };
     default:
       return state;

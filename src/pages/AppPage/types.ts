@@ -1,7 +1,5 @@
-import { Account } from "models/user";
-
 export default interface ComponentProps {
-  account: Account | null;
+  username: string;
   filter: Filter;
   activeTodoLength: number;
   handleComplete: (id: number) => void;

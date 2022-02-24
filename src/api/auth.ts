@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { getToken } from "utils/token";
 
 export interface RegistrationRequest {
   name: string;
@@ -35,6 +36,14 @@ export interface LoginResponse {
   token: string;
 }
 
+export interface GetUserResponse {
+  _id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 class AuthAPI {
   static registration = async (
     data: RegistrationRequest
@@ -59,6 +68,16 @@ class AuthAPI {
       url: "https://api-nodejs-todolist.herokuapp.com/user/logout",
       method: "post",
       data: null,
+    });
+  };
+  static getByToken = async (): Promise<AxiosResponse<GetUserResponse>> => {
+    const token = getToken() as string;
+    return axios({
+      url: "https://api-nodejs-todolist.herokuapp.com/user/me",
+      method: "get",
+      headers: {
+        Authorization: token,
+      },
     });
   };
 }
