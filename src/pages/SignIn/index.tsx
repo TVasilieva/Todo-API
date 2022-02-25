@@ -39,9 +39,7 @@ const SignIn: FC<Props> = ({ isOpen, onClose, errors }) => {
     dispatch(loginRequest(data));
   };
 
-  return isLoading ? (
-    <p>Loading...</p>
-  ) : (
+  return (
     <ComponentSignIn
       errors={errors}
       isOpen={isOpen}

@@ -4,6 +4,8 @@ import { ActionPayload } from "state";
 import {
   addTodoResponse,
   addTodoResponseError,
+  getNumberCompletedTodosResponse,
+  getNumberCompletedTodosResponseError,
   getTodosResponse,
   getTodosResponseError,
   removeTodoResponse,
@@ -13,8 +15,8 @@ import {
 import TodoAPI, {
   AddTodoRequest,
   AddTodoResponse,
+  GetNumberCompletedTodosResponse,
   GetTodosResponse,
-  RemoveTodoResponse,
 } from "api/todos";
 import { Todo } from "models/todo";
 
@@ -61,8 +63,27 @@ function* removeTodoItem(action: ActionPayload<string>) {
   }
 }
 
+function* getNumberCompletedTodoList() {
+  try {
+    const response: AxiosResponse<GetNumberCompletedTodosResponse> =
+      yield TodoAPI.getNumberCompletedTodos();
+
+    const completedTodos = response.data.count;
+
+    yield put(getNumberCompletedTodosResponse(completedTodos));
+  } catch (error) {
+    yield put(
+      getNumberCompletedTodosResponseError((error as TypeError).message)
+    );
+  }
+}
+
 export const todosSagas = [
   takeLatest(TodosActions.GET_TODOS_REQUEST, getTodoList),
   takeLatest(TodosActions.ADD_TODO_REQUEST, addTodoItem),
   takeLatest(TodosActions.REMOVE_TODO_REQUEST, removeTodoItem),
+  takeLatest(
+    TodosActions.GET_COMPLETED_TODOS_REQUEST,
+    getNumberCompletedTodoList
+  ),
 ];
