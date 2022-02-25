@@ -9,7 +9,6 @@ import "./style.css";
 const ComponentAppPage: FC<ComponentProps> = ({
   username,
   filter,
-  handleComplete,
   handleChangeFilter,
   handleLogout,
 }) => {
@@ -18,7 +17,7 @@ const ComponentAppPage: FC<ComponentProps> = ({
       <h1>todo</h1>
       {username && <h2>Welcome, {username}!</h2>}
       <Textarea />
-      <ListOfTodos setShownTodos={handleComplete} />
+      <ListOfTodos />
       <Footer
         filter={filter}
         onChangeFilter={handleChangeFilter}

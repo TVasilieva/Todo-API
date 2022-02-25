@@ -9,7 +9,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 const ComponentTodoItem: FC<ComponentProps> = ({
   todo,
   handleRemoveTodo,
-  setShownTodos,
+  handleCompleted,
 }) => {
   const style = classNames("round", !todo.active && "complited");
   return (
@@ -21,7 +21,7 @@ const ComponentTodoItem: FC<ComponentProps> = ({
           name={todo.name}
           value={todo.name}
           checked={!todo.active}
-          onChange={setShownTodos(todo.id)}
+          onChange={handleCompleted(todo.id, !todo.active)}
         />
         <label htmlFor={todo.name}>{todo.name}</label>
         <IconButton

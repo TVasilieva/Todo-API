@@ -5,7 +5,7 @@ import ComponentProps from "./types";
 
 const ComponentFooter: FC<ComponentProps> = ({
   isActive,
-  completedTodosLength,
+  activeTodosLength,
   onChangeFilter,
   handleLogout,
 }) => {
@@ -13,7 +13,7 @@ const ComponentFooter: FC<ComponentProps> = ({
     <>
       <div className="actions-container">
         <div className="left-side">
-          <div>{completedTodosLength} items completed</div>
+          <div>{activeTodosLength} items left</div>
           <div className="clear-completed" onClick={onChangeFilter("clear")}>
             Clear Completed
           </div>

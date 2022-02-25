@@ -1,8 +1,6 @@
 import { Todo } from "models/todo";
 
-export default interface Props {
-  setShownTodos: any;
-}
+export default interface Props {}
 
 export default interface ComponentProps {
   todos?: Todo[];
