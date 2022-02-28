@@ -11,7 +11,7 @@ const ComponentTodoItem: FC<ComponentProps> = ({
   handleRemoveTodo,
   handleCompleted,
 }) => {
-  const style = classNames("round", !todo.active && "complited");
+  const style = classNames("round", !todo.completed && "complited");
   return (
     <>
       <div className={style}>
@@ -20,8 +20,8 @@ const ComponentTodoItem: FC<ComponentProps> = ({
           id={todo.name}
           name={todo.name}
           value={todo.name}
-          checked={!todo.active}
-          onChange={handleCompleted(todo.id, !todo.active)}
+          checked={todo.completed}
+          onChange={handleCompleted(todo.id, todo.completed)}
         />
         <label htmlFor={todo.name}>{todo.name}</label>
         <IconButton

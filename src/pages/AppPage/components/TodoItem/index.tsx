@@ -12,12 +12,13 @@ import {
 const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
   const dispatch = useAppDispatch();
 
-  const handleCompleted = (id: string, completed: boolean) => (): void => {
+  const handleCompleted = (id: string, completed: boolean) => () => {
+    console.log(completed);
     dispatch(
       updateTodoRequest({
         id,
         completed: {
-          completed,
+          completed: !completed,
         },
       })
     );

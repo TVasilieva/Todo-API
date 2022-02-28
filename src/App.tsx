@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { store } from "state";
 import { Routes as RouteName } from "./constants/routes";
-import ProtectedRoute from "components/ProtectedRoute";
+//import ProtectedRoute from "components/ProtectedRoute";
 
 const App: FC = () => {
   return (

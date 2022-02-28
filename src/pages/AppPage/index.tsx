@@ -27,10 +27,7 @@ const AppPage: FC = () => {
     dispatch(getTodosRequest());
     dispatch(getUserRequest());
     dispatch(getNumberCompletedTodosRequest());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {}, [filter]);
 
   const handleLogout = (): void => {
     dispatch(logout());

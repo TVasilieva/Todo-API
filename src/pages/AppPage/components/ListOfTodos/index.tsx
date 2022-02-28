@@ -14,6 +14,7 @@ const ListOfTodos: FC<Props> = () => {
   const dispatch = useAppDispatch();
 
   const todos = useAppSelector(getTodos);
+  console.log(todos);
 
   const handleRemoveTodo = (id: string) => (): void => {
     dispatch(removeTodoRequest(id));

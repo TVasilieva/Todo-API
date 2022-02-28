@@ -32,7 +32,7 @@ function* getTodoList() {
     const todos = response.data.data.map((todo) => ({
       id: todo._id,
       name: todo.description,
-      active: !todo.completed,
+      completed: !todo.completed,
     }));
 
     yield put(getTodosResponse(todos));
@@ -50,7 +50,7 @@ function* addTodoItem(action: ActionPayload<AddTodoRequest>) {
     const todo: Todo = {
       id: response.data.data._id,
       name: response.data.data.description,
-      active: !response.data.data.completed,
+      completed: response.data.data.completed,
     };
 
     yield put(addTodoResponse(todo));
@@ -75,13 +75,15 @@ function* updateTodoItem(action: ActionPayload<UpdateTodoRequest>) {
         action.payload.id as string,
         action.payload.completed as Data
       );
-    console.log(response);
 
+    console.log(response);
     const todo: Todo = {
       id: response.data.data._id,
       name: response.data.data.description,
-      active: response.data.data.completed,
+      completed: response.data.data.completed,
     };
+
+    console.log(todo);
 
     yield put(updateTodoResponse(todo));
   } catch (error) {

@@ -16,7 +16,6 @@ const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
   const isActive = (word: Filter) => {
     return filter === word ? "active-choice" : "categories";
   };
-  console.log(todos);
 
   return (
     <ComponentFooter
