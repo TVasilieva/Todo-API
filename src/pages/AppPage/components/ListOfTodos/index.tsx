@@ -1,19 +1,27 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import "./style.css";
 import Props from "./types";
 import { useAppDispatch, useAppSelector } from "state";
-import { getFilteredTodos } from "state/todos/selectors";
+import { getFilteredTodos, getTodosIsLoading } from "state/todos/selectors";
 
 import TodoItem from "pages/AppPage/components/TodoItem";
 import ComponentListOfTodos from "./component";
 
 import { Todo } from "models/todo";
-import { removeTodoRequest } from "state/todos/actions";
+import {
+  getNumberCompletedTodosRequest,
+  removeTodoRequest,
+} from "state/todos/actions";
 
 const ListOfTodos: FC<Props> = () => {
   const dispatch = useAppDispatch();
 
   const filteredTodos = useAppSelector(getFilteredTodos);
+  const isLoading = useAppSelector(getTodosIsLoading);
+
+  useEffect(() => {
+    dispatch(getNumberCompletedTodosRequest());
+  }, [filteredTodos.length]);
 
   const handleRemoveTodo = (id: string) => (): void => {
     dispatch(removeTodoRequest(id));
@@ -25,7 +33,13 @@ const ListOfTodos: FC<Props> = () => {
     );
   });
 
-  return <ComponentListOfTodos todos={filteredTodos} todoItems={todoItems} />;
+  return (
+    <ComponentListOfTodos
+      todos={filteredTodos}
+      isLoading={isLoading}
+      todoItems={todoItems}
+    />
+  );
 };
 
 export default ListOfTodos;

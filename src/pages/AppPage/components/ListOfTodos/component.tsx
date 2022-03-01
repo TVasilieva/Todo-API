@@ -2,11 +2,20 @@ import React, { FC } from "react";
 import "./style.css";
 import ComponentProps from "./types";
 
-const ComponentListOfTodos: FC<ComponentProps> = ({ todos, todoItems }) => {
+import Loader from "components/Loader";
+
+const ComponentListOfTodos: FC<ComponentProps> = ({
+  todos,
+  todoItems,
+  isLoading,
+}) => {
   return (
     <>
       {!!todos && todos.length ? (
-        <div className="listOfTodos">{todoItems}</div>
+        <div className="listOfTodos">
+          {!!isLoading && <Loader />}
+          {todoItems}
+        </div>
       ) : (
         <div className="listOfEmptyTodos">Your list of todos is empty</div>
       )}
