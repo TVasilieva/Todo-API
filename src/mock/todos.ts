@@ -1,6 +1,6 @@
 import { Todo } from "models/todo";
 
-export const todos: Todo[] = [
+export const todos: any = [
   { id: "0", name: "Jog around the park", active: false },
   { id: "1", name: "10 minutes meditation", active: true },
   { id: "2", name: "Read for 1 hour", active: true },

@@ -34,6 +34,20 @@ export interface GetNumberCompletedTodosResponse {
   data: TodoData[];
 }
 
+export interface UpdateTodoRequest {
+  id: string;
+  completed: Data;
+}
+
+export interface UpdateTodoResponse {
+  success: boolean;
+  data: TodoData;
+}
+
+export interface Data {
+  completed: boolean;
+}
+
 class TodoAPI {
   static getTodos = async (): Promise<AxiosResponse<GetTodosResponse>> => {
     const token = getToken() as string;
@@ -89,6 +103,22 @@ class TodoAPI {
       },
       params: {
         Completed: true,
+      },
+    });
+  };
+
+  static updateTodos = async (
+    id: string,
+    data: Data
+  ): Promise<AxiosResponse<UpdateTodoResponse>> => {
+    const token = getToken() as string;
+
+    return axios({
+      url: `https://api-nodejs-todolist.herokuapp.com/task/${id}`,
+      method: "put",
+      data,
+      headers: {
+        Authorization: token,
       },
     });
   };

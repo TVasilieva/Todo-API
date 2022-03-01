@@ -72,6 +72,30 @@ export const todosReducer = (
         todosError: action.payload,
       };
 
+    case TodosActions.UPDATE_TODO_REQUEST:
+      return {
+        ...state,
+        todosIsLoading: true,
+        todosError: null,
+      };
+    case TodosActions.UPDATE_TODO_RESPONSE:
+      return {
+        ...state,
+        todosIsLoading: false,
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id ? action.payload : todo
+        ),
+        completedTodos: action.payload.completed
+          ? state.completedTodos + 1
+          : state.completedTodos - 1,
+      };
+    case TodosActions.UPDATE_TODO_RESPONSE_ERROR:
+      return {
+        ...state,
+        todosIsLoading: false,
+        todosError: action.payload,
+      };
+
     case TodosActions.GET_COMPLETED_TODOS_REQUEST:
       return {
         ...state,
@@ -91,11 +115,6 @@ export const todosReducer = (
         todosError: action.payload,
       };
 
-    // case TodosActions.REMOVE_TODO:
-    //   return {
-    //     ...state,
-    //     todos: state.todos.filter((todo) => todo.id !== action.payload),
-    //   };
     // case TodosActions.FILTER_TODOS:
     //   return {
     //     ...state,

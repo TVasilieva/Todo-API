@@ -6,7 +6,7 @@ export default interface Props {
 }
 export default interface ComponentProps {
   isActive?: any;
-  completedTodosLength?: number;
+  activeTodosLength?: number;
   onChangeFilter: (filter: Filter) => () => void;
   handleLogout?: () => void;
 }
