@@ -47,7 +47,7 @@ export const todosReducer = (
         ...state,
         todosIsLoading: false,
         todos: [...state.todos, action.payload],
-        filteredTodos: [...state.todos, action.payload],
+        filteredTodos: [...state.filteredTodos, action.payload],
       };
     case TodosActions.ADD_TODO_RESPONSE_ERROR:
       return {
@@ -62,7 +62,9 @@ export const todosReducer = (
         todosIsLoading: true,
         todosError: null,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
-        filteredTodos: state.todos.filter((todo) => todo.id !== action.payload),
+        filteredTodos: state.filteredTodos.filter(
+          (todo) => todo.id !== action.payload
+        ),
       };
     case TodosActions.REMOVE_TODO_RESPONSE:
       return {
@@ -89,7 +91,7 @@ export const todosReducer = (
         todos: state.todos.map((todo) =>
           todo.id === action.payload.id ? action.payload : todo
         ),
-        filteredTodos: state.todos.map((todo) =>
+        filteredTodos: state.filteredTodos.map((todo) =>
           todo.id === action.payload.id ? action.payload : todo
         ),
         completedTodos: action.payload.completed
