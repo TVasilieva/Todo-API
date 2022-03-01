@@ -1,8 +1,9 @@
-import AddBtn from "components/AddBtn";
+import Button from "components/Button";
 import React, { FC, useState } from "react";
 import { useAppDispatch } from "state";
 import { addTodoRequest } from "state/todos/actions";
 
+import AddIcon from "@mui/icons-material/Add";
 import ComponentTextarea from "./component";
 import "./style.css";
 
@@ -29,7 +30,17 @@ const Textarea: FC = () => {
 
   return (
     <ComponentTextarea
-      Icon={<AddBtn disabled={disabled} handleAddTodo={handleAddTodo} />}
+      Button={
+        <Button
+          Icon={<AddIcon />}
+          classes="addBtn"
+          size="medium"
+          color="secondary"
+          aria-label="add"
+          disabled={disabled}
+          handleAddTodo={handleAddTodo}
+        />
+      }
       value={value}
       placeholder={placeholder}
       handleChange={handleChange}

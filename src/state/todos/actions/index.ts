@@ -49,8 +49,8 @@ export const addTodoResponseError = (error: any) =>
 
 export const removeTodoRequest = (id: string) =>
   actionCreator<TodosActions, string>(TodosActions.REMOVE_TODO_REQUEST, id);
-export const removeTodoResponse = () =>
-  actionCreator<TodosActions>(TodosActions.REMOVE_TODO_RESPONSE);
+export const removeTodoResponse = (id: string) =>
+  actionCreator<TodosActions, string>(TodosActions.REMOVE_TODO_RESPONSE, id);
 export const removeTodoResponseError = (error: any) =>
   actionCreator<TodosActions, any>(
     TodosActions.REMOVE_TODO_RESPONSE_ERROR,

@@ -10,16 +10,14 @@ const ComponentListOfTodos: FC<ComponentProps> = ({
   isLoading,
 }) => {
   return (
-    <>
+    <div className="listOfTodos_container">
+      {isLoading && <Loader />}
       {!!todos && todos.length ? (
-        <div className="listOfTodos">
-          {!!isLoading && <Loader />}
-          {todoItems}
-        </div>
+        <div className="listOfTodos">{todoItems}</div>
       ) : (
         <div className="listOfEmptyTodos">Your list of todos is empty</div>
       )}
-    </>
+    </div>
   );
 };
 

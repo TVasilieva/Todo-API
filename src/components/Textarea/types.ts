@@ -1,7 +1,8 @@
-export default interface ComponentProps {
-  Icon: JSX.Element;
-  value: string;
-  placeholder: string;
+import React from "react";
+
+export default interface ComponentProps
+  extends React.HTMLProps<HTMLInputElement> {
+  Button: JSX.Element;
   classes?: {
     input?: string;
   };

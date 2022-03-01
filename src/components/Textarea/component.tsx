@@ -5,21 +5,20 @@ import "./style.css";
 import ComponentProps from "./types";
 
 const ComponentTextarea: FC<ComponentProps> = ({
-  value,
-  Icon,
-  placeholder,
+  Button,
   classes,
   handleChange,
+  ...rest
 }) => {
   return (
     <div>
       <input
         className={classNames("textarea", classes?.input)}
-        placeholder={placeholder}
-        value={value}
+        placeholder={rest.placeholder}
+        value={rest.value}
         onChange={handleChange}
       />
-      {Icon}
+      {Button}
     </div>
   );
 };

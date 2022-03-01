@@ -8,30 +8,33 @@ import {
   getTodosRequest,
 } from "state/todos/actions";
 
-import { getUserRequest, logout } from "state/user/actions";
+import { getUserRequest, logoutRequest } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { Filter } from "./types";
 import { Routes } from "constants/routes";
-import { removeToken } from "utils/token";
-import { getUsername } from "state/user/selectors";
+import { getIsLoading, getUser, getUsername } from "state/user/selectors";
+import { getTodos } from "state/todos/selectors";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
+  const account = useAppSelector(getUser);
   const username = useAppSelector(getUsername);
+  const todos = useAppSelector(getTodos);
+  const isLoading = useAppSelector(getIsLoading);
+
+  const navigate = useNavigate();
 
   const [filter, setFilter] = useState<Filter>("all");
 
   useEffect(() => {
-    dispatch(getTodosRequest());
-    dispatch(getUserRequest());
-    dispatch(getNumberCompletedTodosRequest());
+    if (todos && !isLoading) dispatch(getTodosRequest());
+    if (!account && !isLoading) dispatch(getUserRequest());
+    if (todos && !isLoading) dispatch(getNumberCompletedTodosRequest());
   }, []);
 
   const handleLogout = (): void => {
-    dispatch(logout());
-    removeToken();
+    dispatch(logoutRequest());
     navigate(Routes.Home);
   };
 

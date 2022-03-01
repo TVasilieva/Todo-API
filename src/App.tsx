@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 import "./App.scss";
 
-import Layout from "layouts/snow-layout";
+import Layout from "layouts/SnowLayout";
 import MainPage from "pages/MainPage";
 import AppPage from "pages/AppPage";
 import NotFoundPage from "pages/NotFoundPage";

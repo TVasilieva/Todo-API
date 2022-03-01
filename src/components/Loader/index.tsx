@@ -1,14 +1,18 @@
 import { FC } from "react";
-import { ComponentProps } from "./types";
 import "./style.css";
 
 import { CircularProgress } from "@mui/material";
+import Portal from "components/Portal";
 
-const Loader: FC<ComponentProps> = () => {
+const Loader: FC = () => {
   return (
-    <div className="progress">
-      <CircularProgress />
-    </div>
+    <Portal>
+      <div className="overlay">
+        <div className="progress">
+          <CircularProgress />
+        </div>
+      </div>
+    </Portal>
   );
 };
 

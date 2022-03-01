@@ -1,4 +1,4 @@
-import { TodoActionsType } from "utils/ActionTypes";
+import { ActionsType } from "utils/actionCreator";
 import { TodosActions } from "state/todos/actions";
 import { TodosReducer } from "./types";
 
@@ -12,7 +12,7 @@ const initialState: TodosReducer = {
 
 export const todosReducer = (
   state = initialState,
-  action: TodoActionsType
+  action: ActionsType
 ): TodosReducer => {
   switch (action.type) {
     case TodosActions.GET_TODOS_REQUEST:
@@ -61,15 +61,15 @@ export const todosReducer = (
         ...state,
         todosIsLoading: true,
         todosError: null,
-        todos: state.todos.filter((todo) => todo.id !== action.payload),
-        filteredTodos: state.filteredTodos.filter(
-          (todo) => todo.id !== action.payload
-        ),
       };
     case TodosActions.REMOVE_TODO_RESPONSE:
       return {
         ...state,
         todosIsLoading: false,
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
+        filteredTodos: state.filteredTodos.filter(
+          (todo) => todo.id !== action.payload
+        ),
       };
     case TodosActions.REMOVE_TODO_RESPONSE_ERROR:
       return {

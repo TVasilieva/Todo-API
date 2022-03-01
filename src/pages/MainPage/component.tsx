@@ -7,6 +7,7 @@ import SignUp from "pages/SignUp";
 
 const ComponentMainPage: FC<ComponentProps> = ({
   account,
+  isLoading,
   isInOpen,
   isUpOpen,
   toggleInModal,
@@ -27,11 +28,19 @@ const ComponentMainPage: FC<ComponentProps> = ({
         </div>
       )}
       {!!isInOpen && !isUpOpen ? (
-        <AppModal isOpen={isInOpen} onClose={toggleInModal}>
+        <AppModal
+          isOpen={isInOpen}
+          onClose={toggleInModal}
+          isLoading={isLoading}
+        >
           <SignIn isOpen={isInOpen} onClose={toggleInModal} errors={errors} />
         </AppModal>
       ) : (
-        <AppModal isOpen={isUpOpen} onClose={toggleUpModal}>
+        <AppModal
+          isOpen={isUpOpen}
+          onClose={toggleUpModal}
+          isLoading={isLoading}
+        >
           <SignUp isOpen={isUpOpen} onClose={toggleUpModal} errors={errors} />
         </AppModal>
       )}

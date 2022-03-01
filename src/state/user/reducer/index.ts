@@ -1,5 +1,5 @@
 import { UserActions } from "state/user/actions";
-import { UserActionsType } from "utils/ActionTypes";
+import { ActionsType } from "utils/actionCreator";
 import { UserReducer } from "./types";
 
 const initialState: UserReducer = {
@@ -11,7 +11,7 @@ const initialState: UserReducer = {
 
 export const userReducer = (
   state = initialState,
-  action: UserActionsType
+  action: ActionsType
 ): UserReducer => {
   switch (action.type) {
     case UserActions.REGISTRATION_REQUEST:
@@ -52,11 +52,17 @@ export const userReducer = (
         accountIsLoading: false,
         accountError: action.payload,
       };
-    case UserActions.LOGOUT:
+    case UserActions.LOGOUT_REQUEST:
+      return initialState;
+    case UserActions.LOGOUT_RESPONSE:
+      return initialState;
+    case UserActions.LOGOUT_RESPONSE_ERROR:
       return {
         ...state,
-        account: null,
+        accountIsLoading: false,
+        accountError: action.payload,
       };
+
     case UserActions.GET_USER_REQUEST:
       return {
         ...state,
