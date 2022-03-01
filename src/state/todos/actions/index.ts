@@ -25,8 +25,6 @@ export enum TodosActions {
   UPDATE_TODO_RESPONSE_ERROR = "UPDATE_TODO_RESPONSE_ERROR",
 
   FILTER_TODOS = "FILTER_TODOS",
-  // CHANGE_TODO_STATUS = "CHANGE_TODO_STATUS",
-  // CLEAR_COMPLETED_TODOS = "CLEAR_COMPLETED_TODOS",
 }
 
 export const getTodosRequest = () =>
@@ -87,6 +85,3 @@ export const updateTodoResponseError = (error: any) =>
 
 export const filterTodos = (filter: Filter) =>
   actionCreator<TodosActions, Filter>(TodosActions.FILTER_TODOS, filter);
-
-// export const clearCompletedTodos = () =>
-//   actionCreator<TodosActions>(TodosActions.CLEAR_COMPLETED_TODOS);

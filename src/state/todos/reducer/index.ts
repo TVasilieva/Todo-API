@@ -133,18 +133,6 @@ export const todosReducer = (
             : todo
         ),
       };
-    // case TodosActions.CLEAR_COMPLETED_TODOS:
-    //   return {
-    //     ...state,
-    //     todos: state.todos.map((todo) => todo.active = ),
-    //   };
-    // case TodosActions.CHANGE_TODO_STATUS:
-    //   return {
-    //     ...state,
-    //     todos: state.todos?.map((todo, id) =>
-    //       todo.id === id ? { ...todo, active: !todo.active } : todo
-    //     ),
-    //   };
     default:
       return state;
   }
