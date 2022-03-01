@@ -3,13 +3,16 @@ import ComponentAppPage from "./component";
 import "./style.css";
 
 import { useAppDispatch, useAppSelector } from "state";
-import { setTodos } from "state/todos/actions";
+import { getTodosRequest } from "state/todos/actions";
 import { getTodos } from "state/todos/selectors";
 import { getUser } from "state/user/selectors";
 import { Todo } from "models/todo";
-import { Filter } from "models/filter";
-import { Logout } from "state/user/actions";
+
+import { logout } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
+import { Filter } from "./types";
+import { Routes } from "constants/routes";
+import { removeToken } from "utils/token";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -20,47 +23,47 @@ const AppPage: FC = () => {
 
   const [filter, setFilter] = useState<Filter>("all");
   const [shownTodos, setShownTodos] = useState<Todo[]>([]);
+  //@mock
+  // const [staticTodos, setstaticTodos] = useState<Todo[]>(todos);
 
   useEffect(() => {
-    if (account) {
-      dispatch(setTodos(todos));
-    }
+    dispatch(getTodosRequest());
   }, []);
 
   useEffect(() => {
-    if (filter === "active") {
-      return setShownTodos(todos.filter((todo) => todo.active));
-    }
-
-    if (filter === "completed") {
-      return setShownTodos(todos.filter((todo) => !todo.active));
-    }
-
-    if (filter === "clear") {
-      setFilter("all");
-      for (let i in todos) {
-        todos[i].active = true;
-      }
-      return setShownTodos(todos);
-    }
-
-    return setShownTodos(todos);
-  }, [filter, todos]);
+    // if (filter === "active") {
+    //   return setShownTodos(todos.filter((todo) => todo.active));
+    // }
+    // if (filter === "completed") {
+    //   return setShownTodos(todos.filter((todo) => !todo.active));
+    // }
+    // if (filter === "clear") {
+    //   setFilter("all");
+    //   for (let i in todos) {
+    //     todos[i].active = true;
+    //   }
+    //   return setShownTodos(todos);
+    // }
+    // return setShownTodos(todos);
+    // dispatch(filterTodos(filter));
+  }, [filter]);
 
   const handleLogout = (): void => {
-    dispatch(Logout());
-    navigate("/");
+    dispatch(logout());
+    removeToken();
+    navigate(Routes.Home);
   };
 
   const handleChangeFilter = (filter: Filter) => (): void => {
     setFilter(filter);
+    //dispatch(filterTodos(filter));
   };
 
   const handleComplete = (id: number) => (): void => {
-    const newTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, active: !todo.active } : todo
+    const newTodos = todos?.map((todo) =>
+      Number(todo.id) === id ? { ...todo, active: !todo.active } : todo
     );
-    setTodos(newTodos);
+    setShownTodos(newTodos);
   };
 
   const activeTodoLength = shownTodos.filter((todo) => todo.active).length;

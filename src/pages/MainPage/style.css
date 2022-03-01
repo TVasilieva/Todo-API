@@ -1,10 +1,14 @@
+.main-page {
+  width: 100%;
+}
+
 .greeting {
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -60%);
   text-align: center;
-  font: 3em "Fira Sans", sans-serif;
+  font: 4vh "Fira Sans", sans-serif;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
@@ -13,25 +17,30 @@
 
 .login-btn {
   position: absolute;
-  padding: 20px;
-  top: 54%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2vw;
+  top: 60%;
   left: 50%;
-  transform: translate(-50%, -54%);
+  transform: translate(-50%, -60%);
+  text-align: center;
+}
+
+.login-btn__btn {
+  padding: 15px;
   text-align: center;
   background-color: rgba(75, 14, 133, 0.5);
   color: rgba(255, 255, 255, 0.6);
-  font: 1em "Fira Sans", sans-serif;
+  font: 2vh "Fira Sans", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.42em;
+  letter-spacing: 0.3em;
   border: 8px solid rgba(255, 255, 255, 0.4);
-  height: 132px;
-  width: 132px;
-  border-radius: 50%;
+  border-radius: 20px;
   cursor: pointer;
 }
 
-.login-btn:hover {
-  border: 10px solid rgba(255, 255, 255, 0.6);
+.login-btn__btn:hover {
+  border: 8px solid rgba(255, 255, 255, 0.6);
   color: rgba(255, 255, 255, 0.8);
 }

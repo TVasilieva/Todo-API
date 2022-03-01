@@ -1,5 +1,7 @@
-import { User } from "models/user";
+import { Account } from "models/user";
 
 export interface UserReducer {
-  account: User | null;
+  account: Account | null;
+  accountIsLoading: boolean;
+  accountError: string | null;
 }

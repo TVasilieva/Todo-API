@@ -2,8 +2,7 @@ import React, { FC } from "react";
 
 import "./App.scss";
 
-import Layout from "components/Layout";
-import Login from "components/Login";
+import Layout from "layouts/snow-layout";
 import MainPage from "pages/MainPage";
 import AppPage from "pages/AppPage";
 import NotFoundPage from "pages/NotFoundPage";
@@ -11,6 +10,8 @@ import NotFoundPage from "pages/NotFoundPage";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { store } from "state";
+import { Routes as RouteName } from "./constants/routes";
+import ProtectedRoute from "components/ProtectedRoute";
 
 const App: FC = () => {
   return (
@@ -18,10 +19,9 @@ const App: FC = () => {
       <Layout>
         <Router>
           <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/todo" element={<AppPage />} />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path={RouteName.Home} element={<MainPage />} />
+            <Route path={RouteName.Todo} element={<AppPage />} />
+            <Route path={RouteName.Error} element={<NotFoundPage />} />
           </Routes>
         </Router>
       </Layout>
