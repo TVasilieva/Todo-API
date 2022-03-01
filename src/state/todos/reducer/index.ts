@@ -33,6 +33,25 @@ export const todosReducer = (
         todosIsLoading: false,
         todosError: action.payload,
       };
+    case TodosActions.ADD_TODO_REQUEST:
+      return {
+        ...state,
+        todosIsLoading: true,
+        todos: [],
+        todosError: null,
+      };
+    case TodosActions.ADD_TODO_RESPONSE:
+      return {
+        ...state,
+        todosIsLoading: false,
+        todos: [...state.todos, action.payload],
+      };
+    case TodosActions.ADD_TODO_RESPONSE_ERROR:
+      return {
+        ...state,
+        todosIsLoading: false,
+        todosError: action.payload,
+      };
 
     // case TodosActions.REMOVE_TODO:
     //   return {
