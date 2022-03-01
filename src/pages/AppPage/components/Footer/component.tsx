@@ -14,9 +14,6 @@ const ComponentFooter: FC<ComponentProps> = ({
       <div className="actions-container">
         <div className="left-side">
           <div>{activeTodosLength} items left</div>
-          <div className="clear-completed" onClick={onChangeFilter("clear")}>
-            Clear Completed
-          </div>
         </div>
         <div className="categories">
           <div>

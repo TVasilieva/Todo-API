@@ -20,6 +20,7 @@ export const todosReducer = (
         ...state,
         todosIsLoading: true,
         todos: [],
+        filteredTodos: [],
         todosError: null,
       };
     case TodosActions.GET_TODOS_RESPONSE:
@@ -27,6 +28,7 @@ export const todosReducer = (
         ...state,
         todosIsLoading: false,
         todos: action.payload,
+        filteredTodos: action.payload,
       };
     case TodosActions.GET_TODOS_RESPONSE_ERROR:
       return {
@@ -45,6 +47,7 @@ export const todosReducer = (
         ...state,
         todosIsLoading: false,
         todos: [...state.todos, action.payload],
+        filteredTodos: [...state.todos, action.payload],
       };
     case TodosActions.ADD_TODO_RESPONSE_ERROR:
       return {
@@ -59,6 +62,7 @@ export const todosReducer = (
         todosIsLoading: true,
         todosError: null,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
+        filteredTodos: state.todos.filter((todo) => todo.id !== action.payload),
       };
     case TodosActions.REMOVE_TODO_RESPONSE:
       return {
@@ -83,6 +87,9 @@ export const todosReducer = (
         ...state,
         todosIsLoading: false,
         todos: state.todos.map((todo) =>
+          todo.id === action.payload.id ? action.payload : todo
+        ),
+        filteredTodos: state.todos.map((todo) =>
           todo.id === action.payload.id ? action.payload : todo
         ),
         completedTodos: action.payload.completed
@@ -115,29 +122,17 @@ export const todosReducer = (
         todosError: action.payload,
       };
 
-    // case TodosActions.FILTER_TODOS:
-    //   return {
-    //     ...state,
-    //     todos: state.todos.filter((todo) =>
-    //       action.payload === "active"
-    //         ? todo.active
-    //         : action.payload === "completed"
-    //         ? !todo.active
-    //         : todo
-    //     ),
-    //   };
-    // case TodosActions.CLEAR_COMPLETED_TODOS:
-    //   return {
-    //     ...state,
-    //     todos: state.todos.map((todo) => todo.active = ),
-    //   };
-    // case TodosActions.CHANGE_TODO_STATUS:
-    //   return {
-    //     ...state,
-    //     todos: state.todos?.map((todo, id) =>
-    //       todo.id === id ? { ...todo, active: !todo.active } : todo
-    //     ),
-    //   };
+    case TodosActions.FILTER_TODOS:
+      return {
+        ...state,
+        filteredTodos: state.todos.filter((todo) =>
+          action.payload === "completed"
+            ? todo.completed
+            : action.payload === "active"
+            ? !todo.completed
+            : todo
+        ),
+      };
     default:
       return state;
   }

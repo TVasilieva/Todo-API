@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import { FC } from "react";
 import "./style.css";
 import Props from "./types";
 
@@ -13,7 +13,6 @@ const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
   const dispatch = useAppDispatch();
 
   const handleCompleted = (id: string, completed: boolean) => () => {
-    console.log(completed);
     dispatch(
       updateTodoRequest({
         id,
