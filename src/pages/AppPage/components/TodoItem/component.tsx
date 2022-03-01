@@ -11,7 +11,7 @@ const ComponentTodoItem: FC<ComponentProps> = ({
   handleRemoveTodo,
   handleCompleted,
 }) => {
-  const style = classNames("round", !todo.completed && "complited");
+  const style = classNames("round", todo.completed && "complited");
   return (
     <>
       <div className={style}>

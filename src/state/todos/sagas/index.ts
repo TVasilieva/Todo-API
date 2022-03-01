@@ -32,7 +32,7 @@ function* getTodoList() {
     const todos = response.data.data.map((todo) => ({
       id: todo._id,
       name: todo.description,
-      completed: !todo.completed,
+      completed: todo.completed,
     }));
 
     yield put(getTodosResponse(todos));

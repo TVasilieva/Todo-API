@@ -85,7 +85,9 @@ export const todosReducer = (
         todos: state.todos.map((todo) =>
           todo.id === action.payload.id ? action.payload : todo
         ),
-        //completedTodos: action.payload.active ? state.completedTodos + 1 : state.completedTodos-1
+        completedTodos: action.payload.completed
+          ? state.completedTodos + 1
+          : state.completedTodos - 1,
       };
     case TodosActions.UPDATE_TODO_RESPONSE_ERROR:
       return {
