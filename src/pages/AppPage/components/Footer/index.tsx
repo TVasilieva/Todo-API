@@ -5,17 +5,22 @@ import Props from "./types";
 import ComponentFooter from "./component";
 import { Filter } from "pages/AppPage/types";
 import { useAppDispatch, useAppSelector } from "state";
-import { getNumberCompletedTodos, getTodos } from "state/todos/selectors";
+import {
+  getNumberCompletedTodos,
+  getTodos,
+  getTodosIsLoading,
+} from "state/todos/selectors";
 import { filterTodos } from "state/todos/actions";
 
 const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
   const dispatch = useAppDispatch();
   const todos = useAppSelector(getTodos);
+  const isLoading = useAppSelector(getTodosIsLoading);
   const completedTodosLength = useAppSelector(getNumberCompletedTodos);
 
   useEffect(() => {
     dispatch(filterTodos(filter));
-  }, [filter]);
+  }, [filter, completedTodosLength]);
 
   const activeTodosLength = todos.length - completedTodosLength;
 
@@ -26,7 +31,9 @@ const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
   return (
     <ComponentFooter
       filter={filter}
+      isLoading={isLoading}
       activeTodosLength={activeTodosLength}
+      completedTodosLength={completedTodosLength}
       onChangeFilter={onChangeFilter}
       handleLogout={handleLogout}
       isActive={isActive}

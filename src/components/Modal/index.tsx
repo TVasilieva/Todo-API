@@ -8,13 +8,13 @@ import ComponentProps from "./types";
 import "./style.css";
 import { useAppSelector } from "state";
 import { getIsLoading } from "state/user/selectors";
-import ProgressBar from "components/ProgressBar";
+import Loader from "components/Loader";
 
 const AppModal: FC<ComponentProps> = ({ children, isOpen, onClose }) => {
   const isLoading = useAppSelector(getIsLoading);
 
   return isLoading ? (
-    <ProgressBar />
+    <Loader />
   ) : (
     <Modal open={isOpen} onClose={onClose} className="overlay">
       <Grow in={isOpen}>

@@ -8,12 +8,17 @@ const ComponentFooter: FC<ComponentProps> = ({
   activeTodosLength,
   onChangeFilter,
   handleLogout,
+  completedTodosLength,
+  isLoading,
 }) => {
   return (
     <>
       <div className="actions-container">
         <div className="left-side">
-          <div>{activeTodosLength} items left</div>
+          <div>
+            {isLoading && !completedTodosLength ? "   " : activeTodosLength}{" "}
+            items left
+          </div>
         </div>
         <div className="categories">
           <div>

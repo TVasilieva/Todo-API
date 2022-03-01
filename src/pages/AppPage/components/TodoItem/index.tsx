@@ -4,15 +4,12 @@ import Props from "./types";
 
 import ComponentTodoItem from "./component";
 import { useAppDispatch } from "state";
-import {
-  getNumberCompletedTodosRequest,
-  updateTodoRequest,
-} from "state/todos/actions";
+import { updateTodoRequest } from "state/todos/actions";
 
 const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
   const dispatch = useAppDispatch();
 
-  const handleCompleted = (id: string, completed: boolean) => () => {
+  const handleCompleted = (id: string, completed: boolean) => (): void => {
     dispatch(
       updateTodoRequest({
         id,
@@ -21,7 +18,6 @@ const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
         },
       })
     );
-    dispatch(getNumberCompletedTodosRequest());
   };
 
   return (
