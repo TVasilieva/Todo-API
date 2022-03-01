@@ -12,6 +12,10 @@ export enum UserActions {
   LOGIN_REQUEST = "LOGIN_REQUEST",
   LOGIN_RESPONSE = "LOGIN_RESPONSE",
   LOGIN_RESPONSE_ERROR = "LOGIN_RESPONSE_ERROR",
+
+  GET_USER_REQUEST = "GET_USER_REQUEST",
+  GET_USER_RESPONSE = "GET_USER_RESPONSE",
+  GET_USER_RESPONSE_ERROR = "GET_USER_RESPONSE_ERROR",
 }
 
 export const registrationRequest = (data: RegistrationRequest) =>
@@ -35,3 +39,10 @@ export const loginResponseError = (error: any) =>
   actionCreator<UserActions, any>(UserActions.LOGIN_RESPONSE_ERROR, error);
 
 export const logout = () => actionCreator<UserActions>(UserActions.LOGOUT);
+
+export const getUserRequest = () =>
+  actionCreator<UserActions>(UserActions.GET_USER_REQUEST);
+export const getUserResponse = (data: string) =>
+  actionCreator<UserActions, string>(UserActions.GET_USER_RESPONSE, data);
+export const getUserResponseError = (error: any) =>
+  actionCreator<UserActions, any>(UserActions.GET_USER_RESPONSE_ERROR, error);

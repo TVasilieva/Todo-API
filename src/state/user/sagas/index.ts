@@ -1,5 +1,6 @@
 import { takeLatest, put } from "@redux-saga/core/effects";
 import AuthAPI, {
+  GetUserResponse,
   LoginRequest,
   LoginResponse,
   RegistrationRequest,
@@ -14,6 +15,8 @@ import {
   registrationResponseError,
   loginResponse,
   loginResponseError,
+  getUserResponse,
+  getUserResponseError,
 } from "../actions";
 import { createToken, setToken } from "utils/token";
 
@@ -58,7 +61,20 @@ function* loginWorker(action: ActionPayload<LoginRequest>) {
   }
 }
 
+function* getWorkerByToken() {
+  try {
+    const response: AxiosResponse<GetUserResponse> = yield AuthAPI.getByToken();
+
+    const username: string = response.data.name;
+
+    yield put(getUserResponse(username));
+  } catch (error) {
+    yield put(getUserResponseError((error as TypeError).message));
+  }
+}
+
 export const userSagas = [
   takeLatest(UserActions.REGISTRATION_REQUEST, registrationWorker),
   takeLatest(UserActions.LOGIN_REQUEST, loginWorker),
+  takeLatest(UserActions.GET_USER_REQUEST, getWorkerByToken),
 ];

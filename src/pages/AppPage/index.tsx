@@ -5,22 +5,21 @@ import "./style.css";
 import { useAppDispatch, useAppSelector } from "state";
 import { getTodosRequest } from "state/todos/actions";
 import { getTodos } from "state/todos/selectors";
-import { getIsLoading, getUser } from "state/user/selectors";
 import { Todo } from "models/todo";
 
-import { logout } from "state/user/actions";
+import { getUserRequest, logout } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { Filter } from "./types";
 import { Routes } from "constants/routes";
 import { removeToken } from "utils/token";
+import { getUsername } from "state/user/selectors";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const todos = useAppSelector(getTodos);
-  const account = useAppSelector(getUser);
-  const isLoading = useAppSelector(getIsLoading);
+  const username = useAppSelector(getUsername);
 
   const [filter, setFilter] = useState<Filter>("all");
   const [shownTodos, setShownTodos] = useState<Todo[]>([]);
@@ -29,6 +28,7 @@ const AppPage: FC = () => {
 
   useEffect(() => {
     dispatch(getTodosRequest());
+    dispatch(getUserRequest());
   }, []);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const AppPage: FC = () => {
 
   return (
     <ComponentAppPage
-      account={account}
+      username={username}
       filter={filter}
       activeTodoLength={activeTodoLength}
       handleComplete={handleComplete}
