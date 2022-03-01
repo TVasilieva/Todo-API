@@ -76,14 +76,11 @@ function* updateTodoItem(action: ActionPayload<UpdateTodoRequest>) {
         action.payload.completed as Data
       );
 
-    console.log(response);
     const todo: Todo = {
       id: response.data.data._id,
       name: response.data.data.description,
       completed: response.data.data.completed,
     };
-
-    console.log(todo);
 
     yield put(updateTodoResponse(todo));
   } catch (error) {
