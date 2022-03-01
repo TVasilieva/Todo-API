@@ -4,13 +4,11 @@ import Props from "./types";
 
 import ComponentFooter from "./component";
 import { Filter } from "pages/AppPage/types";
+import { useAppSelector } from "state";
+import { getNumberCompletedTodos } from "state/todos/selectors";
 
-const Footer: FC<Props> = ({
-  filter,
-  activeTodoLength,
-  onChangeFilter,
-  handleLogout,
-}) => {
+const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
+  const completedTodosLength = useAppSelector(getNumberCompletedTodos);
   const isActive = (word: Filter) => {
     return filter === word ? "active-choice" : "categories";
   };
@@ -18,7 +16,7 @@ const Footer: FC<Props> = ({
   return (
     <ComponentFooter
       filter={filter}
-      activeTodoLength={activeTodoLength}
+      completedTodosLength={completedTodosLength}
       onChangeFilter={onChangeFilter}
       handleLogout={handleLogout}
       isActive={isActive}

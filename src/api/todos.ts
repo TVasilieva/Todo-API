@@ -21,26 +21,17 @@ export interface AddTodoRequest {
 
 export interface AddTodoResponse {
   success: boolean;
-  data: {
-    completed: boolean;
-    _id: string;
-    description: string;
-    owner: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  data: TodoData;
 }
 
 export interface RemoveTodoResponse {
   success: boolean;
-  data: {
-    completed: boolean;
-    _id: string;
-    description: string;
-    owner: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  data: TodoData;
+}
+
+export interface GetNumberCompletedTodosResponse {
+  count: number;
+  data: TodoData[];
 }
 
 class TodoAPI {
@@ -81,6 +72,23 @@ class TodoAPI {
       method: "delete",
       headers: {
         Authorization: token,
+      },
+    });
+  };
+
+  static getNumberCompletedTodos = async (): Promise<
+    AxiosResponse<GetNumberCompletedTodosResponse>
+  > => {
+    const token = getToken() as string;
+
+    return axios({
+      url: "https://api-nodejs-todolist.herokuapp.com/task?completed=true",
+      method: "get",
+      headers: {
+        Authorization: token,
+      },
+      params: {
+        Completed: true,
       },
     });
   };

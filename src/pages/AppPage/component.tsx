@@ -9,7 +9,6 @@ import "./style.css";
 const ComponentAppPage: FC<ComponentProps> = ({
   username,
   filter,
-  activeTodoLength,
   handleComplete,
   handleChangeFilter,
   handleLogout,
@@ -22,7 +21,6 @@ const ComponentAppPage: FC<ComponentProps> = ({
       <ListOfTodos setShownTodos={handleComplete} />
       <Footer
         filter={filter}
-        activeTodoLength={activeTodoLength}
         onChangeFilter={handleChangeFilter}
         handleLogout={handleLogout}
       />

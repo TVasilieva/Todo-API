@@ -15,6 +15,10 @@ export enum TodosActions {
   REMOVE_TODO_RESPONSE = "REMOVE_TODO_RESPONSE",
   REMOVE_TODO_RESPONSE_ERROR = "REMOVE_TODO_RESPONSE_ERROR",
 
+  GET_COMPLETED_TODOS_REQUEST = "GET_COMPLETED_TODOS_REQUEST",
+  GET_COMPLETED_TODOS_RESPONSE = "GET_COMPLETED_TODOS_RESPONSE",
+  GET_COMPLETED_TODOS_RESPONSE_ERROR = "GET_COMPLETED_TODOS_RESPONSE_ERROR",
+
   // FILTER_TODOS = "FILTER_TODOS",
   // CHANGE_TODO_STATUS = "CHANGE_TODO_STATUS",
   // CLEAR_COMPLETED_TODOS = "CLEAR_COMPLETED_TODOS",
@@ -47,6 +51,19 @@ export const removeTodoResponse = () =>
 export const removeTodoResponseError = (error: any) =>
   actionCreator<TodosActions, any>(
     TodosActions.REMOVE_TODO_RESPONSE_ERROR,
+    error
+  );
+
+export const getNumberCompletedTodosRequest = () =>
+  actionCreator<TodosActions>(TodosActions.GET_COMPLETED_TODOS_REQUEST);
+export const getNumberCompletedTodosResponse = (data: number) =>
+  actionCreator<TodosActions, number>(
+    TodosActions.GET_COMPLETED_TODOS_RESPONSE,
+    data
+  );
+export const getNumberCompletedTodosResponseError = (error: any) =>
+  actionCreator<TodosActions, any>(
+    TodosActions.GET_COMPLETED_TODOS_RESPONSE_ERROR,
     error
   );
 

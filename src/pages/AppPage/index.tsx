@@ -67,13 +67,10 @@ const AppPage: FC = () => {
     setShownTodos(newTodos);
   };
 
-  const activeTodoLength = todos.filter((todo) => todo.active).length;
-
   return (
     <ComponentAppPage
       username={username}
       filter={filter}
-      activeTodoLength={activeTodoLength}
       handleComplete={handleComplete}
       handleChangeFilter={handleChangeFilter}
       handleLogout={handleLogout}

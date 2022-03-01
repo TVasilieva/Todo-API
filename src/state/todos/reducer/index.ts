@@ -4,6 +4,7 @@ import { TodosReducer } from "./types";
 
 const initialState: TodosReducer = {
   todos: [],
+  completedTodos: 0,
   todosIsLoading: true,
   todosError: null,
   filteredTodos: [],
@@ -65,6 +66,25 @@ export const todosReducer = (
         todosIsLoading: false,
       };
     case TodosActions.REMOVE_TODO_RESPONSE_ERROR:
+      return {
+        ...state,
+        todosIsLoading: false,
+        todosError: action.payload,
+      };
+
+    case TodosActions.GET_COMPLETED_TODOS_REQUEST:
+      return {
+        ...state,
+        todosIsLoading: true,
+        todosError: null,
+      };
+    case TodosActions.GET_COMPLETED_TODOS_RESPONSE:
+      return {
+        ...state,
+        todosIsLoading: false,
+        completedTodos: action.payload,
+      };
+    case TodosActions.GET_COMPLETED_TODOS_RESPONSE_ERROR:
       return {
         ...state,
         todosIsLoading: false,
