@@ -9,14 +9,15 @@ import TodoItem from "pages/AppPage/components/TodoItem";
 import ComponentListOfTodos from "./component";
 
 import { Todo } from "models/todo";
+import { removeTodoRequest } from "state/todos/actions";
 
 const ListOfTodos: FC<Props> = ({ setShownTodos }) => {
   const dispatch = useAppDispatch();
 
   const todos = useAppSelector(getTodos);
 
-  const handleRemoveTodo = (id: number) => (): void => {
-    //dispatch(removeTodo(id));
+  const handleRemoveTodo = (id: string) => (): void => {
+    dispatch(removeTodoRequest(id));
   };
 
   const todoItems = todos.map((todo: Todo) => {

@@ -11,6 +11,10 @@ export enum TodosActions {
   ADD_TODO_RESPONSE = "ADD_TODO_RESPONSE",
   ADD_TODO_RESPONSE_ERROR = "ADD_TODO_RESPONSE_ERROR",
 
+  REMOVE_TODO_REQUEST = "REMOVE_TODO_REQUEST",
+  REMOVE_TODO_RESPONSE = "REMOVE_TODO_RESPONSE",
+  REMOVE_TODO_RESPONSE_ERROR = "REMOVE_TODO_RESPONSE_ERROR",
+
   // FILTER_TODOS = "FILTER_TODOS",
   // CHANGE_TODO_STATUS = "CHANGE_TODO_STATUS",
   // CLEAR_COMPLETED_TODOS = "CLEAR_COMPLETED_TODOS",
@@ -35,6 +39,16 @@ export const addTodoResponse = (data: Todo) =>
   actionCreator<TodosActions, Todo>(TodosActions.ADD_TODO_RESPONSE, data);
 export const addTodoResponseError = (error: any) =>
   actionCreator<TodosActions, any>(TodosActions.ADD_TODO_RESPONSE_ERROR, error);
+
+export const removeTodoRequest = (id: string) =>
+  actionCreator<TodosActions, string>(TodosActions.REMOVE_TODO_REQUEST, id);
+export const removeTodoResponse = () =>
+  actionCreator<TodosActions>(TodosActions.REMOVE_TODO_RESPONSE);
+export const removeTodoResponseError = (error: any) =>
+  actionCreator<TodosActions, any>(
+    TodosActions.REMOVE_TODO_RESPONSE_ERROR,
+    error
+  );
 
 // export const removeTodo = (id: number) =>
 //   actionCreator<TodosActions, number>(TodosActions.REMOVE_TODO_REQUEST, id);

@@ -2,17 +2,19 @@ import { takeLatest, put } from "@redux-saga/core/effects";
 import { AxiosResponse } from "axios";
 import { ActionPayload } from "state";
 import {
-  addTodoRequest,
   addTodoResponse,
   addTodoResponseError,
   getTodosResponse,
   getTodosResponseError,
+  removeTodoResponse,
+  removeTodoResponseError,
   TodosActions,
 } from "../actions";
 import TodoAPI, {
   AddTodoRequest,
   AddTodoResponse,
   GetTodosResponse,
+  RemoveTodoResponse,
 } from "api/todos";
 import { Todo } from "models/todo";
 
@@ -50,7 +52,17 @@ function* addTodoItem(action: ActionPayload<AddTodoRequest>) {
   }
 }
 
+function* removeTodoItem(action: ActionPayload<string>) {
+  try {
+    yield TodoAPI.removeTodo(action.payload as string);
+    yield put(removeTodoResponse());
+  } catch (error) {
+    yield put(removeTodoResponseError((error as TypeError).message));
+  }
+}
+
 export const todosSagas = [
   takeLatest(TodosActions.GET_TODOS_REQUEST, getTodoList),
   takeLatest(TodosActions.ADD_TODO_REQUEST, addTodoItem),
+  takeLatest(TodosActions.REMOVE_TODO_REQUEST, removeTodoItem),
 ];

@@ -6,9 +6,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import ComponentProps from "./types";
 
 import "./style.css";
+import { useAppSelector } from "state";
+import { getIsLoading } from "state/user/selectors";
+import ProgressBar from "components/ProgressBar";
 
 const AppModal: FC<ComponentProps> = ({ children, isOpen, onClose }) => {
-  return (
+  const isLoading = useAppSelector(getIsLoading);
+
+  return isLoading ? (
+    <ProgressBar />
+  ) : (
     <Modal open={isOpen} onClose={onClose} className="overlay">
       <Grow in={isOpen}>
         <Box className="modal">

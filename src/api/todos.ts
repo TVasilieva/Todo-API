@@ -31,6 +31,18 @@ export interface AddTodoResponse {
   };
 }
 
+export interface RemoveTodoResponse {
+  success: boolean;
+  data: {
+    completed: boolean;
+    _id: string;
+    description: string;
+    owner: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
 class TodoAPI {
   static getTodos = async (): Promise<AxiosResponse<GetTodosResponse>> => {
     const token = getToken() as string;
@@ -53,6 +65,20 @@ class TodoAPI {
       url: "https://api-nodejs-todolist.herokuapp.com/task",
       method: "post",
       data,
+      headers: {
+        Authorization: token,
+      },
+    });
+  };
+
+  static removeTodo = async (
+    id: string
+  ): Promise<AxiosResponse<RemoveTodoResponse>> => {
+    const token = getToken() as string;
+
+    return axios({
+      url: `https://api-nodejs-todolist.herokuapp.com/task/${id}`,
+      method: "delete",
       headers: {
         Authorization: token,
       },
