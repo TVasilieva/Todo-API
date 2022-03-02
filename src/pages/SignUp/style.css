@@ -65,3 +65,8 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
+
+.formik_error {
+  margin-bottom: 10px;
+  color: rgba(224, 95, 95, 0.9);
+}

@@ -7,11 +7,7 @@ const ComponentSignUp: FC<ComponentProps> = ({ formik, signUpInputs }) => {
   return (
     <form className="sign-in-form" onSubmit={formik.handleSubmit}>
       {signUpInputs}
-      <button
-        type="submit"
-        className="sign-in-button"
-        disabled={!(formik.isValid && formik.dirty)}
-      >
+      <button type="submit" className="sign-in-button" disabled={!formik.dirty}>
         Sign up
       </button>
     </form>

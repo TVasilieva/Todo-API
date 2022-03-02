@@ -11,4 +11,6 @@ export type SignUpInputs = {
   name: string;
   value: string;
   type?: string;
+  error: any;
+  touched: any;
 };
