@@ -1,12 +1,9 @@
 export default interface ComponentProps {
-  disabled?: boolean;
-  isOpen?: boolean;
-  onClose?: () => void;
   formik?: any;
   signUpInputs?: any;
 }
 
-export type SignUpInputs = {
+export type Inputs = {
   placeholder: string;
   name: string;
   value: string;

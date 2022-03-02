@@ -4,13 +4,13 @@ import { registrationRequest } from "state/user/actions";
 import { useAppDispatch } from "state";
 
 import ComponentSignUp from "./component";
-import ComponentProps, { SignUpInputs } from "./types";
+import ComponentProps, { Inputs } from "./types";
 import { RegistrationRequest } from "api/auth";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const SignUp: FC<ComponentProps> = ({ isOpen, onClose }) => {
+const SignUp: FC<ComponentProps> = () => {
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
@@ -47,7 +47,7 @@ const SignUp: FC<ComponentProps> = ({ isOpen, onClose }) => {
 
   const { name, password, email, repeatPassword } = formik.values;
 
-  const inputs: SignUpInputs[] = [
+  const inputs: Inputs[] = [
     {
       placeholder: "Username",
       name: "name",
@@ -99,14 +99,7 @@ const SignUp: FC<ComponentProps> = ({ isOpen, onClose }) => {
     );
   });
 
-  return (
-    <ComponentSignUp
-      isOpen={isOpen}
-      onClose={onClose}
-      formik={formik}
-      signUpInputs={signUpInputs}
-    />
-  );
+  return <ComponentSignUp formik={formik} signUpInputs={signUpInputs} />;
 };
 
 export default SignUp;

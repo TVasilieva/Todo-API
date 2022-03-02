@@ -32,7 +32,7 @@ const ComponentMainPage: FC<ComponentProps> = ({
           onClose={toggleInModal}
           isLoading={isLoading}
         >
-          <SignIn isOpen={isInOpen} onClose={toggleInModal} />
+          <SignIn />
         </AppModal>
       ) : (
         <AppModal
@@ -40,7 +40,7 @@ const ComponentMainPage: FC<ComponentProps> = ({
           onClose={toggleUpModal}
           isLoading={isLoading}
         >
-          <SignUp isOpen={isUpOpen} onClose={toggleUpModal} />
+          <SignUp />
         </AppModal>
       )}
     </div>
