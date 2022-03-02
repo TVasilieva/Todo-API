@@ -1,51 +1,75 @@
-import React, { FC, useState } from "react";
+import { FC } from "react";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
 import { registrationRequest } from "state/user/actions";
 import { useAppDispatch } from "state";
 
 import ComponentSignUp from "./component";
-import ComponentProps, { SignUpValue } from "./types";
+import ComponentProps, { SignUpInputs } from "./types";
 import { RegistrationRequest } from "api/auth";
 
-//let id = 1000;
+import { useFormik } from "formik";
 
-const SignUp: FC<ComponentProps> = ({ isOpen, onClose, errors }) => {
+const SignUp: FC<ComponentProps> = ({ isOpen, onClose }) => {
   const dispatch = useAppDispatch();
 
-  const [signUpValue, setSignUp] = useState<SignUpValue>({
-    username: "",
-    password: "",
-    repeatPassword: "",
-    email: "",
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      password: "",
+      repeatPassword: "",
+      email: "",
+    },
+    onSubmit: () => {
+      const data: RegistrationRequest = {
+        name,
+        email,
+        password,
+      };
+
+      dispatch(registrationRequest(data));
+    },
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setSignUp({ ...signUpValue, [name]: value });
-  };
+  const { name, password, email, repeatPassword } = formik.values;
 
-  const handleSignUp = (): void => {
-    const data: RegistrationRequest = {
-      name: signUpValue.username,
-      email: signUpValue.email,
-      password: signUpValue.password,
-    };
+  const disabled = !email && !password && !repeatPassword;
 
-    dispatch(registrationRequest(data));
-  };
-  const disabled =
-    !signUpValue.email && !signUpValue.password && !signUpValue.repeatPassword;
+  const inputs: SignUpInputs[] = [
+    { placeholder: "Username", name: "name", value: formik.values.name },
+    {
+      placeholder: "Password",
+      name: "password",
+      value: formik.values.password,
+      type: "password",
+    },
+    {
+      placeholder: "Repeat password",
+      name: "repeatPassword",
+      value: formik.values.repeatPassword,
+      type: "password",
+    },
+    { placeholder: "Email", name: "email", value: formik.values.email },
+  ];
+
+  const signUpInputs = inputs.map((input) => {
+    return (
+      <input
+        className="sign-in-input"
+        placeholder={input.placeholder}
+        type={input.type}
+        name={input.name}
+        value={input.value}
+        onChange={formik.handleChange}
+      />
+    );
+  });
 
   return (
     <ComponentSignUp
-      errors={errors}
       isOpen={isOpen}
       onClose={onClose}
-      disabled={disabled}
-      signUpValue={signUpValue}
-      handleChange={handleChange}
-      handleSignUp={handleSignUp}
+      formik={formik}
+      signUpInputs={signUpInputs}
     />
   );
 };

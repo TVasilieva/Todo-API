@@ -12,7 +12,6 @@ const ComponentMainPage: FC<ComponentProps> = ({
   isUpOpen,
   toggleInModal,
   toggleUpModal,
-  errors,
 }) => {
   return (
     <div className="main-page">
@@ -33,7 +32,7 @@ const ComponentMainPage: FC<ComponentProps> = ({
           onClose={toggleInModal}
           isLoading={isLoading}
         >
-          <SignIn isOpen={isInOpen} onClose={toggleInModal} errors={errors} />
+          <SignIn isOpen={isInOpen} onClose={toggleInModal} />
         </AppModal>
       ) : (
         <AppModal
@@ -41,7 +40,7 @@ const ComponentMainPage: FC<ComponentProps> = ({
           onClose={toggleUpModal}
           isLoading={isLoading}
         >
-          <SignUp isOpen={isUpOpen} onClose={toggleUpModal} errors={errors} />
+          <SignUp isOpen={isUpOpen} onClose={toggleUpModal} />
         </AppModal>
       )}
     </div>

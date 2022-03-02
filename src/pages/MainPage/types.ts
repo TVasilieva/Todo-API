@@ -6,7 +6,6 @@ export default interface ComponentProps {
   toggleUpModal: () => void;
   isInOpen: boolean;
   isUpOpen: boolean;
-  errors: Errors;
   isLoading: boolean;
 }
 
