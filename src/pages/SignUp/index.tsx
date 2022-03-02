@@ -12,7 +12,6 @@ import { RegistrationRequest } from "api/auth";
 
 const SignUp: FC<ComponentProps> = ({ isOpen, onClose, errors }) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const [signUpValue, setSignUp] = useState<SignUpValue>({
     username: "",
@@ -27,8 +26,6 @@ const SignUp: FC<ComponentProps> = ({ isOpen, onClose, errors }) => {
   };
 
   const handleSignUp = (): void => {
-    // if (account) navigate("/todo");
-
     const data: RegistrationRequest = {
       name: signUpValue.username,
       email: signUpValue.email,

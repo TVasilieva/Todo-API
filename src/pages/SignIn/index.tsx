@@ -9,10 +9,12 @@ import Props, { SignInValue } from "./types";
 import { LoginRequest } from "api/auth";
 import { getIsLoading, getUser } from "state/user/selectors";
 import { Routes } from "constants/routes";
+import { getToken } from "utils/token";
 
 const SignIn: FC<Props> = ({ isOpen, onClose, errors }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const token = getToken();
   const account = useAppSelector(getUser);
   const isLoading = useAppSelector(getIsLoading);
 
@@ -23,7 +25,7 @@ const SignIn: FC<Props> = ({ isOpen, onClose, errors }) => {
 
   useEffect(() => {
     if (!isLoading && account) navigate(Routes.Todo);
-  }, [isLoading]);
+  }, [isLoading, account, token]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

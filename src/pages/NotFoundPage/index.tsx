@@ -6,7 +6,7 @@ import "./style.css";
 const NotFoundPage: FC = () => {
   const navigate = useNavigate();
   const turnPage = (): void => {
-    navigate("/");
+    // navigate("/");
   };
 
   return <ComponentNotFoundPage turnPage={turnPage} />;

@@ -1,17 +1,16 @@
-import { Routes } from "constants/routes";
+import { FC } from "react";
 import ComponentProps from "./types";
 import { Navigate } from "react-router-dom";
-import { getToken } from "utils/token";
 
-export const ProtectedRoute: React.FC<ComponentProps> = ({
-  component: Component,
-}) => {
+import { getToken } from "utils/token";
+import NotFoundPage from "pages/NotFoundPage";
+import { Routes } from "constants/routes";
+
+export const ProtectedRoute: FC<ComponentProps> = ({ children }) => {
   const token = getToken();
-  // if (token && window.location.pathname === Routes.Home) {
-  //   return <Navigate to={Routes.Todo} />;
-  // }
-  if (token && window.location.pathname === Routes.Home) {
-    return <Component />;
+
+  if (token) {
+    return children ? children : <NotFoundPage />;
   }
 
   return <Navigate to={Routes.Home} />;

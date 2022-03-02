@@ -12,13 +12,12 @@ import { getUserRequest, logoutRequest } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { Filter } from "./types";
 import { Routes } from "constants/routes";
-import { getIsLoading, getUser, getUsername } from "state/user/selectors";
+import { getIsLoading, getUsername } from "state/user/selectors";
 import { getTodos } from "state/todos/selectors";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
 
-  const account = useAppSelector(getUser);
   const username = useAppSelector(getUsername);
   const todos = useAppSelector(getTodos);
   const isLoading = useAppSelector(getIsLoading);
@@ -28,9 +27,11 @@ const AppPage: FC = () => {
   const [filter, setFilter] = useState<Filter>("all");
 
   useEffect(() => {
-    if (todos && !isLoading) dispatch(getTodosRequest());
-    if (!account && !isLoading) dispatch(getUserRequest());
-    if (todos && !isLoading) dispatch(getNumberCompletedTodosRequest());
+    if (todos && !isLoading) {
+      dispatch(getTodosRequest());
+      dispatch(getUserRequest());
+      dispatch(getNumberCompletedTodosRequest());
+    }
   }, []);
 
   const handleLogout = (): void => {
