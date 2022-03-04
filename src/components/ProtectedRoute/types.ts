@@ -1,4 +1,4 @@
 export default interface ComponentProps {
-  component: any;
+  children?: any;
   [key: string]: any;
 }
