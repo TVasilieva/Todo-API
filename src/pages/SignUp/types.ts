@@ -1,18 +1,13 @@
-import { Errors } from "pages/MainPage/types";
-
 export default interface ComponentProps {
-  errors: Errors;
-  disabled?: boolean;
-  isOpen?: boolean;
-  signUpValue?: any;
-  onClose?: () => void;
-  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSignUp?: () => void;
+  formik?: any;
+  signUpInputs?: any;
 }
 
-export type SignUpValue = {
-  email: string;
-  password: string;
-  repeatPassword: string;
-  username: string;
+export type Inputs = {
+  placeholder: string;
+  name: string;
+  value: string;
+  type?: string;
+  error: any;
+  touched: any;
 };

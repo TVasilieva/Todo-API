@@ -42,7 +42,6 @@ const MainPage: FC = () => {
     <ComponentMainPage
       account={account}
       isLoading={isLoading}
-      errors={errors}
       toggleInModal={toggleInModal}
       toggleUpModal={toggleUpModal}
       isInOpen={isInOpen}
