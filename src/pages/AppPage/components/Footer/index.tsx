@@ -14,6 +14,7 @@ import { filterTodos } from "state/todos/actions";
 
 const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
   const dispatch = useAppDispatch();
+
   const todos = useAppSelector(getTodos);
   const isLoading = useAppSelector(getTodosIsLoading);
   const completedTodosLength = useAppSelector(getNumberCompletedTodos);

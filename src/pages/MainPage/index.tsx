@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { getUser } from "state/user/selectors";
+import { getIsLoading, getUser } from "state/user/selectors";
 import { useAppSelector } from "state";
 import "./style.css";
 
@@ -8,6 +8,7 @@ import { Errors } from "./types";
 
 const MainPage: FC = () => {
   const account = useAppSelector(getUser);
+  const isLoading = useAppSelector(getIsLoading);
 
   const [isInOpen, setIsInOpen] = useState<boolean>(false);
   const [isUpOpen, setIsUpOpen] = useState<boolean>(false);
@@ -30,6 +31,7 @@ const MainPage: FC = () => {
   return (
     <ComponentMainPage
       account={account}
+      isLoading={isLoading}
       errors={errors}
       toggleInModal={toggleInModal}
       toggleUpModal={toggleUpModal}

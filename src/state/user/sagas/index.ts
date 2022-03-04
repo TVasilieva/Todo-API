@@ -17,8 +17,10 @@ import {
   loginResponseError,
   getUserResponse,
   getUserResponseError,
+  logoutResponse,
+  logoutResponseError,
 } from "../actions";
-import { createToken, setToken } from "utils/token";
+import { createToken, removeToken, setToken } from "utils/token";
 
 function* registrationWorker(action: ActionPayload<RegistrationRequest>) {
   try {
@@ -61,6 +63,15 @@ function* loginWorker(action: ActionPayload<LoginRequest>) {
   }
 }
 
+function* logoutWorker() {
+  try {
+    removeToken();
+    yield put(logoutResponse());
+  } catch (error) {
+    yield put(logoutResponseError((error as TypeError).message));
+  }
+}
+
 function* getWorkerByToken() {
   try {
     const response: AxiosResponse<GetUserResponse> = yield AuthAPI.getByToken();
@@ -77,4 +88,5 @@ export const userSagas = [
   takeLatest(UserActions.REGISTRATION_REQUEST, registrationWorker),
   takeLatest(UserActions.LOGIN_REQUEST, loginWorker),
   takeLatest(UserActions.GET_USER_REQUEST, getWorkerByToken),
+  takeLatest(UserActions.LOGOUT_REQUEST, logoutWorker),
 ];

@@ -4,15 +4,16 @@ import Grow from "@mui/material/Grow";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import ComponentProps from "./types";
-
 import "./style.css";
-import { useAppSelector } from "state";
-import { getIsLoading } from "state/user/selectors";
+
 import Loader from "components/Loader";
 
-const AppModal: FC<ComponentProps> = ({ children, isOpen, onClose }) => {
-  const isLoading = useAppSelector(getIsLoading);
-
+const AppModal: FC<ComponentProps> = ({
+  children,
+  isLoading,
+  isOpen,
+  onClose,
+}) => {
   return isLoading ? (
     <Loader />
   ) : (

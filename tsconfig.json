@@ -8,7 +8,7 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@Components/*": ["./components/*"]
+      "components/*": ["./components/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

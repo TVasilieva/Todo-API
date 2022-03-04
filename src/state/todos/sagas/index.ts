@@ -62,7 +62,7 @@ function* addTodoItem(action: ActionPayload<AddTodoRequest>) {
 function* removeTodoItem(action: ActionPayload<string>) {
   try {
     yield TodoAPI.removeTodo(action.payload as string);
-    yield put(removeTodoResponse());
+    yield put(removeTodoResponse(action.payload as string));
   } catch (error) {
     yield put(removeTodoResponseError((error as TypeError).message));
   }

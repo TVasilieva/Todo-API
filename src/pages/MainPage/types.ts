@@ -7,6 +7,7 @@ export default interface ComponentProps {
   isInOpen: boolean;
   isUpOpen: boolean;
   errors: Errors;
+  isLoading: boolean;
 }
 
 export type Errors = {

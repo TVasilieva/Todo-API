@@ -64,10 +64,13 @@ class AuthAPI {
     });
   };
   static logout = async (): Promise<AxiosResponse<LoginResponse>> => {
+    const token = getToken() as string;
     return axios({
       url: "https://api-nodejs-todolist.herokuapp.com/user/logout",
       method: "post",
-      data: null,
+      headers: {
+        Authorization: token,
+      },
     });
   };
   static getByToken = async (): Promise<AxiosResponse<GetUserResponse>> => {
