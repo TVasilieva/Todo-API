@@ -1,19 +1,25 @@
-import { FC, useEffect, useState } from "react";
-import ComponentAppPage from "./component";
+import { ChangeEvent, FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Textarea from "components/Textarea";
+import ListOfTodos from "./components/ListOfTodos";
+import Footer from "./components/Footer";
+import Button from "components/Button";
+import AddIcon from "@mui/icons-material/Add";
+
 import "./style.css";
+import { Filter } from "./types";
 
 import { useAppDispatch, useAppSelector } from "state";
 import {
+  addTodoRequest,
   getNumberCompletedTodosRequest,
   getTodosRequest,
 } from "state/todos/actions";
-
 import { getUserRequest, logoutRequest } from "state/user/actions";
-import { useNavigate } from "react-router-dom";
-import { Filter } from "./types";
-import { Routes } from "constants/routes";
 import { getIsLoading, getUsername } from "state/user/selectors";
 import { getTodos } from "state/todos/selectors";
+import { Routes } from "constants/routes";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +31,7 @@ const AppPage: FC = () => {
   const navigate = useNavigate();
 
   const [filter, setFilter] = useState<Filter>("all");
+  const [value, setValue] = useState<string>("");
 
   useEffect(() => {
     if (todos && !isLoading) {
@@ -43,13 +50,50 @@ const AppPage: FC = () => {
     setFilter(filter);
   };
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  const handleAddTodo = (): void => {
+    dispatch(
+      addTodoRequest({
+        description: value[0].toUpperCase() + value.slice(1),
+      })
+    );
+    setValue("");
+  };
+
+  const disabled = !value;
+  const placeholder = "Currently typing...";
+
   return (
-    <ComponentAppPage
-      username={username}
-      filter={filter}
-      handleChangeFilter={handleChangeFilter}
-      handleLogout={handleLogout}
-    />
+    <div className="user-page">
+      <h1>todo</h1>
+      {username && <h2>Welcome, {username}!</h2>}
+      <Textarea
+        Button={
+          <Button
+            Icon={<AddIcon />}
+            classes="addBtn"
+            size="medium"
+            color="secondary"
+            aria-label="add"
+            disabled={disabled}
+            onClick={handleAddTodo}
+          />
+        }
+        value={value}
+        placeholder={placeholder}
+        disabled={disabled}
+        handleChange={handleChange}
+      />
+      <ListOfTodos />
+      <Footer
+        filter={filter}
+        onChangeFilter={handleChangeFilter}
+        handleLogout={handleLogout}
+      />
+    </div>
   );
 };
 

@@ -14,5 +14,5 @@ export default interface ComponentProps {
     | "warning"
     | undefined;
   "aria-label"?: string;
-  handleAddTodo: () => void;
+  onClick: () => void;
 }

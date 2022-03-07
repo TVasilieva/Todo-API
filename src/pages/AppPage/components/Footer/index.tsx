@@ -2,7 +2,6 @@ import { FC, useEffect } from "react";
 import "./style.css";
 import Props from "./types";
 
-import ComponentFooter from "./component";
 import { Filter } from "pages/AppPage/types";
 import { useAppDispatch, useAppSelector } from "state";
 import {
@@ -30,15 +29,42 @@ const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
   };
 
   return (
-    <ComponentFooter
-      filter={filter}
-      isLoading={isLoading}
-      activeTodosLength={activeTodosLength}
-      completedTodosLength={completedTodosLength}
-      onChangeFilter={onChangeFilter}
-      handleLogout={handleLogout}
-      isActive={isActive}
-    />
+    <>
+      <div className="actions-container">
+        <div className="left-side">
+          <div>
+            {isLoading && !completedTodosLength ? "   " : activeTodosLength}{" "}
+            items left
+          </div>
+        </div>
+        <div className="categories">
+          <div>
+            <span className={isActive("all")} onClick={onChangeFilter("all")}>
+              All
+            </span>
+          </div>
+          <div>
+            <span
+              className={isActive("active")}
+              onClick={onChangeFilter("active")}
+            >
+              Active
+            </span>
+          </div>
+          <div>
+            <span
+              className={isActive("completed")}
+              onClick={onChangeFilter("completed")}
+            >
+              Completed
+            </span>
+          </div>
+        </div>
+      </div>
+      <button className="logoutBtn" onClick={handleLogout}>
+        Logout
+      </button>
+    </>
   );
 };
 

@@ -1,13 +1,6 @@
-export default interface ComponentProps {
-  formik?: any;
-  signUpInputs?: any;
-}
-
-export type Inputs = {
-  placeholder: string;
+export interface InitialValuesSignUp {
   name: string;
-  value: string;
-  type?: string;
-  error: any;
-  touched: any;
-};
+  password: string;
+  repeatPassword?: string;
+  email: string;
+}

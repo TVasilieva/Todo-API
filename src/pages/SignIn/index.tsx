@@ -1,39 +1,30 @@
-import React, { FC, useEffect } from "react";
-import "./style.css";
+import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+
+import "./style.css";
+
 import { loginRequest } from "state/user/actions";
 import { useAppDispatch, useAppSelector } from "state";
-
-import { useFormik } from "formik";
-import * as Yup from "yup";
-
-import ComponentSignIn from "./component";
-import { Inputs } from "../SignUp/types";
-import { LoginRequest } from "api/auth";
+import { LoginRequest } from "api/types";
 import { getIsLoading, getUser } from "state/user/selectors";
 import { Routes } from "constants/routes";
-import { getToken } from "utils/token";
+import { InitialValuesSignIn } from "./types";
+import { validateSignIn } from "validation";
+
+const initialValues: InitialValuesSignIn = { email: "", password: "" };
 
 const SignIn: FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const token = getToken();
+
   const account = useAppSelector(getUser);
   const isLoading = useAppSelector(getIsLoading);
 
-  useEffect(() => {
-    if (!isLoading && account) navigate(Routes.Todo);
-  }, [isLoading, account, token]);
+  const navigate = useNavigate();
 
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().required("Required"),
-      password: Yup.string().required("Required"),
-    }),
+    initialValues,
+    validationSchema: validateSignIn,
     onSubmit: () => {
       const data: LoginRequest = {
         email,
@@ -43,46 +34,43 @@ const SignIn: FC = () => {
       dispatch(loginRequest(data));
     },
   });
+
+  useEffect(() => {
+    if (!isLoading && account) navigate(Routes.Todo);
+  }, [isLoading]);
+
   const { email, password } = formik.values;
 
-  const inputs: Inputs[] = [
-    {
-      placeholder: "Email",
-      name: "email",
-      value: email,
-      error: formik.errors.email,
-      touched: formik.touched.email,
-    },
-    {
-      placeholder: "Password",
-      name: "password",
-      value: password,
-      type: "password",
-      error: formik.errors.password,
-      touched: formik.touched.password,
-    },
-  ];
-
-  const signInInputs = inputs.map((input) => {
-    return (
-      <React.Fragment key={input.placeholder}>
-        <input
-          className="sign-in-input"
-          placeholder="Email"
-          type={input.type}
-          onBlur={formik.handleBlur}
-          name={input.name}
-          value={input.value}
-          onChange={formik.handleChange}
-        />
-        {input.touched && input.error && (
-          <p className="formik_error">{input.error}</p>
-        )}
-      </React.Fragment>
-    );
-  });
-
-  return <ComponentSignIn formik={formik} signInInputs={signInInputs} />;
+  return (
+    <form className="sign-in-form" onSubmit={formik.handleSubmit}>
+      <input
+        className="sign-in-input"
+        placeholder="Email"
+        onBlur={formik.handleBlur}
+        name="email"
+        value={email}
+        onChange={formik.handleChange}
+      />
+      {formik.touched.email && formik.errors.email && (
+        <p className="formik_error">{formik.errors.email}</p>
+      )}
+      <input
+        className="sign-in-input"
+        placeholder="Password"
+        type="password"
+        onBlur={formik.handleBlur}
+        name="password"
+        value={password}
+        onChange={formik.handleChange}
+      />
+      {formik.touched.password && formik.errors.password && (
+        <p className="formik_error">{formik.errors.password}</p>
+      )}
+      <button className="sign-in-button" type="submit">
+        Sign in
+      </button>
+    </form>
+  );
 };
 
 export default SignIn;

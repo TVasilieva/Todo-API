@@ -3,11 +3,12 @@ import { getIsLoading, getUser } from "state/user/selectors";
 import { useAppSelector } from "state";
 import "./style.css";
 
-import ComponentMainPage from "./component";
-import { Errors } from "./types";
 import { getToken } from "utils/token";
 import { Routes } from "constants/routes";
 import { useNavigate } from "react-router-dom";
+import AppModal from "components/Modal";
+import SignIn from "pages/SignIn";
+import SignUp from "pages/SignUp";
 
 const MainPage: FC = () => {
   const token = getToken();
@@ -18,13 +19,6 @@ const MainPage: FC = () => {
 
   const [isInOpen, setIsInOpen] = useState<boolean>(false);
   const [isUpOpen, setIsUpOpen] = useState<boolean>(false);
-  const [errors, setErrors] = useState<Errors>({
-    accountExcists: "",
-    notEqualPasswords: "",
-    wrongEmailOrPassword: "",
-    notValidEmail: "",
-    notValidPassword: "",
-  });
 
   useEffect(() => {
     token && navigate(Routes.Todo);
@@ -39,14 +33,36 @@ const MainPage: FC = () => {
   };
 
   return (
-    <ComponentMainPage
-      account={account}
-      isLoading={isLoading}
-      toggleInModal={toggleInModal}
-      toggleUpModal={toggleUpModal}
-      isInOpen={isInOpen}
-      isUpOpen={isUpOpen}
-    />
+    <div className="main-page">
+      <div className="greeting">todo app</div>
+      {!account && (
+        <div className="login-btn">
+          <button className="login-btn__btn" onClick={toggleInModal}>
+            Sign In
+          </button>
+          <button className="login-btn__btn" onClick={toggleUpModal}>
+            Sign Up
+          </button>
+        </div>
+      )}
+      {!!isInOpen && !isUpOpen ? (
+        <AppModal
+          isOpen={isInOpen}
+          onClose={toggleInModal}
+          isLoading={isLoading}
+        >
+          <SignIn />
+        </AppModal>
+      ) : (
+        <AppModal
+          isOpen={isUpOpen}
+          onClose={toggleUpModal}
+          isLoading={isLoading}
+        >
+          <SignUp />
+        </AppModal>
+      )}
+    </div>
   );
 };
 

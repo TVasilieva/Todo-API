@@ -1,4 +1,4 @@
-export default interface ComponentProps {
-  formik?: any;
-  signInInputs?: any;
+export interface InitialValuesSignIn {
+  email: string;
+  password: string;
 }

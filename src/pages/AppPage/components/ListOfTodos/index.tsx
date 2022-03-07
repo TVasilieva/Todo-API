@@ -1,11 +1,15 @@
-import React, { FC, useEffect } from "react";
+import { FC, useEffect } from "react";
 import "./style.css";
 import Props from "./types";
 import { useAppDispatch, useAppSelector } from "state";
-import { getFilteredTodos, getTodosIsLoading } from "state/todos/selectors";
+import {
+  getFilteredTodos,
+  getTodos,
+  getTodosIsLoading,
+} from "state/todos/selectors";
 
 import TodoItem from "pages/AppPage/components/TodoItem";
-import ComponentListOfTodos from "./component";
+import Loader from "components/Loader";
 
 import { Todo } from "models/todo";
 import {
@@ -16,6 +20,7 @@ import {
 const ListOfTodos: FC<Props> = () => {
   const dispatch = useAppDispatch();
 
+  const todos = useAppSelector(getTodos);
   const filteredTodos = useAppSelector(getFilteredTodos);
   const isLoading = useAppSelector(getTodosIsLoading);
 
@@ -34,11 +39,14 @@ const ListOfTodos: FC<Props> = () => {
   });
 
   return (
-    <ComponentListOfTodos
-      todos={filteredTodos}
-      isLoading={isLoading}
-      todoItems={todoItems}
-    />
+    <div className="listOfTodos_container">
+      {isLoading && <Loader />}
+      {!!todos && todos.length ? (
+        <div className="listOfTodos">{todoItems}</div>
+      ) : (
+        <div className="listOfEmptyTodos">Your list of todos is empty</div>
+      )}
+    </div>
   );
 };
 

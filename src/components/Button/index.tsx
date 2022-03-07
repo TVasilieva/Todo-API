@@ -8,7 +8,7 @@ const Button: FC<ComponentProps> = ({
   Icon,
   classes,
   disabled,
-  handleAddTodo,
+  onClick,
   ...rest
 }) => {
   return (
@@ -17,7 +17,7 @@ const Button: FC<ComponentProps> = ({
       size={rest.size}
       color={rest.color}
       aria-label={rest["aria-label"]}
-      onClick={handleAddTodo}
+      onClick={onClick}
       disabled={disabled}
     >
       {Icon}
