@@ -2,11 +2,7 @@ import { FC, useEffect } from "react";
 import "./style.css";
 import Props from "./types";
 import { useAppDispatch, useAppSelector } from "state";
-import {
-  getFilteredTodos,
-  getTodos,
-  getTodosIsLoading,
-} from "state/todos/selectors";
+import { getFilteredTodos, getTodosIsLoading } from "state/todos/selectors";
 
 import TodoItem from "pages/AppPage/components/TodoItem";
 import Loader from "components/Loader";
