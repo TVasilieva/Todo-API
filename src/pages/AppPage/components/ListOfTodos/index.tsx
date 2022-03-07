@@ -20,7 +20,6 @@ import {
 const ListOfTodos: FC<Props> = () => {
   const dispatch = useAppDispatch();
 
-  const todos = useAppSelector(getTodos);
   const filteredTodos = useAppSelector(getFilteredTodos);
   const isLoading = useAppSelector(getTodosIsLoading);
 
@@ -41,7 +40,7 @@ const ListOfTodos: FC<Props> = () => {
   return (
     <div className="listOfTodos_container">
       {isLoading && <Loader />}
-      {!!todos && todos.length ? (
+      {!!filteredTodos && filteredTodos.length ? (
         <div className="listOfTodos">{todoItems}</div>
       ) : (
         <div className="listOfEmptyTodos">Your list of todos is empty</div>
