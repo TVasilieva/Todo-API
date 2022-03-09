@@ -57,7 +57,6 @@ const ProfilePage: FC = () => {
             src="./assets/favicon.png"
             alt="logo"
             className="profile__image"
-            onClick={() => console.log("pic")}
           />
         </AppDropzone>
         {!isEditMenuOpened ? (

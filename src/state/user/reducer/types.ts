@@ -5,4 +5,5 @@ export interface UserReducer {
   accountIsLoading: boolean;
   accountError: string | null;
   username: string;
+  avatar: string;
 }

@@ -24,7 +24,7 @@ import {
   logoutResponseError,
   editProfileResponse,
   editProfileResponseError,
-} from "../actions";
+} from "../../user/actions";
 import { createToken, removeToken, setToken } from "utils/token";
 
 function* registrationWorker(action: ActionPayload<RegistrationRequest>) {

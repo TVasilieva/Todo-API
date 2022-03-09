@@ -3,6 +3,7 @@ import createSagaMiddleware from "redux-saga";
 
 import { todosReducer } from "./todos/reducer";
 import { userReducer } from "./user/reducer";
+import { imageReducer } from "./image/reducer";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { rootSaga } from "./root-saga";
@@ -12,6 +13,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 export const rootReducer = combineReducers({
   todos: todosReducer,
   user: userReducer,
+  image: imageReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
