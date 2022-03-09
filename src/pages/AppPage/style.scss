@@ -1,0 +1,12 @@
+@import "mixins/main-txt";
+@import "mixins/absolute-center";
+
+.user-page {
+  width: 70%;
+  @include absolute-center(1);
+
+  &__greeting {
+    @include main-txt(1.5em, 0.8);
+    margin-bottom: 1.2%;
+  }
+}

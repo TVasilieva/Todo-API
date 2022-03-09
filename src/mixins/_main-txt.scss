@@ -1,0 +1,12 @@
+@mixin main-txt($font-size, $a) {
+  font: {
+    size: $font-size;
+    weight: 600;
+    family: "Fira Sans", sans-serif;
+  }
+  text: {
+    transform: uppercase;
+  }
+  letter-spacing: 0.42em;
+  color: rgba(255, 255, 255, $a);
+}

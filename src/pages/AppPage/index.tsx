@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Header from "components/Header";
 import Textarea from "components/Textarea";
 import ListOfTodos from "./components/ListOfTodos";
 import Footer from "./components/Footer";
@@ -67,35 +68,37 @@ const AppPage: FC = () => {
   const placeholder = "Currently typing...";
 
   return (
-    <div className="user-page">
-      <h1 className="user-page__title">todo</h1>
-      {username && (
-        <h2 className="user-page__greeting">Welcome, {username}!</h2>
-      )}
-      <Textarea
-        Button={
-          <Button
-            Icon={<AddIcon />}
-            classes="add-btn"
-            size="medium"
-            color="secondary"
-            aria-label="add"
-            disabled={disabled}
-            onClick={handleAddTodo}
-          />
-        }
-        value={value}
-        placeholder={placeholder}
-        disabled={disabled}
-        handleChange={handleChange}
-      />
-      <ListOfTodos />
-      <Footer
-        filter={filter}
-        onChangeFilter={handleChangeFilter}
-        handleLogout={handleLogout}
-      />
-    </div>
+    <>
+      <Header />
+      <div className="user-page">
+        {username && (
+          <h2 className="user-page__greeting">Welcome, {username}!</h2>
+        )}
+        <Textarea
+          Button={
+            <Button
+              Icon={<AddIcon />}
+              classes="add-btn"
+              size="medium"
+              color="secondary"
+              aria-label="add"
+              disabled={disabled}
+              onClick={handleAddTodo}
+            />
+          }
+          value={value}
+          placeholder={placeholder}
+          disabled={disabled}
+          handleChange={handleChange}
+        />
+        <ListOfTodos />
+        <Footer
+          filter={filter}
+          onChangeFilter={handleChangeFilter}
+          handleLogout={handleLogout}
+        />
+      </div>
+    </>
   );
 };
 

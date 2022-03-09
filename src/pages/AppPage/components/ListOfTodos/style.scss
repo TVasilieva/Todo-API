@@ -1,0 +1,30 @@
+.todo-list {
+  max-height: 400px;
+  overflow: auto;
+
+  &_active {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    font-family: "Bradley Hand", cursive;
+  }
+
+  &_empty {
+    display: flex;
+    padding: 20px;
+    min-height: 20vh;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 5px 5px 0 0;
+    font: {
+      size: 1.5em;
+      family: "Bradley Hand", cursive;
+      weight: 600;
+    }
+    color: rgba(0, 0, 0, 0.3);
+  }
+}

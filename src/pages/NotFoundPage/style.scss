@@ -1,0 +1,22 @@
+@import "mixins/abs-choose-pos";
+@import "mixins/main-txt";
+
+.error {
+  @include abs-choose-pos(40%, 50%);
+  @include main-txt(3em, 0.8);
+}
+
+.home {
+  @include abs-choose-pos(63%, 50%);
+  @include main-txt(2vh, 0.6);
+  padding: 20px;
+  background-color: rgba(75, 14, 133, 0.5);
+  border: 8px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.home:hover {
+  border: 10px solid rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
+}
