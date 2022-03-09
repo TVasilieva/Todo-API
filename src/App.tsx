@@ -7,6 +7,7 @@ import "./App.scss";
 import Layout from "layouts/SnowLayout";
 import MainPage from "pages/MainPage";
 import AppPage from "pages/AppPage";
+import ProfilePage from "pages/ProfilePage";
 import NotFoundPage from "pages/NotFoundPage";
 import ProtectedRoute from "components/ProtectedRoute";
 
@@ -25,6 +26,14 @@ const App: FC = () => {
               element={
                 <ProtectedRoute>
                   <AppPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={RouteName.Profile}
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
                 </ProtectedRoute>
               }
             />
