@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import "./style.css";
+import "./style.scss";
 import Props from "./types";
 
 import { Filter } from "pages/AppPage/types";
@@ -25,19 +25,21 @@ const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
   const activeTodosLength = todos.length - completedTodosLength;
 
   const isActive = (word: Filter) => {
-    return filter === word ? "active-choice" : "categories";
+    return filter === word
+      ? "actions-container__right-side_active"
+      : "actions-container__right-side";
   };
 
   return (
     <>
       <div className="actions-container">
-        <div className="left-side">
+        <div className="actions-container__left-side">
           <div>
             {isLoading && !completedTodosLength ? "   " : activeTodosLength}{" "}
             items left
           </div>
         </div>
-        <div className="categories">
+        <div className="actions-container__right-side">
           <div>
             <span className={isActive("all")} onClick={onChangeFilter("all")}>
               All
@@ -61,7 +63,7 @@ const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
           </div>
         </div>
       </div>
-      <button className="logoutBtn" onClick={handleLogout}>
+      <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
     </>

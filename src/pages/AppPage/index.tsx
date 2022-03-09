@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import Button from "components/Button";
 import AddIcon from "@mui/icons-material/Add";
 
-import "./style.css";
+import "./style.scss";
 import { Filter } from "./types";
 
 import { useAppDispatch, useAppSelector } from "state";
@@ -68,13 +68,15 @@ const AppPage: FC = () => {
 
   return (
     <div className="user-page">
-      <h1>todo</h1>
-      {username && <h2>Welcome, {username}!</h2>}
+      <h1 className="user-page__title">todo</h1>
+      {username && (
+        <h2 className="user-page__greeting">Welcome, {username}!</h2>
+      )}
       <Textarea
         Button={
           <Button
             Icon={<AddIcon />}
-            classes="addBtn"
+            classes="add-btn"
             size="medium"
             color="secondary"
             aria-label="add"

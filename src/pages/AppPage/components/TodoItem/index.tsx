@@ -1,7 +1,7 @@
 import { FC } from "react";
 import classNames from "classnames";
 
-import "./style.css";
+import "./style.scss";
 import Props from "./types";
 
 import IconButton from "@mui/material/IconButton";

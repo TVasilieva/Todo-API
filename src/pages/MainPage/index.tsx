@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { getIsLoading, getUser } from "state/user/selectors";
 import { useAppSelector } from "state";
-import "./style.css";
+import "./style.scss";
 
 import { getToken } from "utils/token";
 import { Routes } from "constants/routes";
@@ -34,13 +34,13 @@ const MainPage: FC = () => {
 
   return (
     <div className="main-page">
-      <div className="greeting">todo app</div>
+      <div className="main-page__greeting">todo app</div>
       {!account && (
-        <div className="login-btn">
-          <button className="login-btn__btn" onClick={toggleInModal}>
+        <div className="main-page__btns">
+          <button className="main-page__btns_btn" onClick={toggleInModal}>
             Sign In
           </button>
-          <button className="login-btn__btn" onClick={toggleUpModal}>
+          <button className="main-page__btns_btn" onClick={toggleUpModal}>
             Sign Up
           </button>
         </div>

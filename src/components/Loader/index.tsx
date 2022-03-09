@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./style.css";
+import "./style.scss";
 
 import { CircularProgress } from "@mui/material";
 import Portal from "components/Portal";

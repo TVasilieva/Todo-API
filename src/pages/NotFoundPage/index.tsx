@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./style.css";
+import "./style.scss";
 import { Routes } from "constants/routes";
 
 const NotFoundPage: FC = () => {

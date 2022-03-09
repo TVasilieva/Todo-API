@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
-import "./style.css";
+import "./style.scss";
 
 import { loginRequest } from "state/user/actions";
 import { useAppDispatch, useAppSelector } from "state";
@@ -42,9 +42,9 @@ const SignIn: FC = () => {
   const { email, password } = formik.values;
 
   return (
-    <form className="sign-in-form" onSubmit={formik.handleSubmit}>
+    <form className="sign__form" onSubmit={formik.handleSubmit}>
       <input
-        className="sign-in-input"
+        className="sign__input"
         placeholder="Email"
         onBlur={formik.handleBlur}
         name="email"
@@ -55,7 +55,7 @@ const SignIn: FC = () => {
         <p className="formik_error">{formik.errors.email}</p>
       )}
       <input
-        className="sign-in-input"
+        className="sign__input"
         placeholder="Password"
         type="password"
         onBlur={formik.handleBlur}
@@ -66,7 +66,7 @@ const SignIn: FC = () => {
       {formik.touched.password && formik.errors.password && (
         <p className="formik_error">{formik.errors.password}</p>
       )}
-      <button className="sign-in-button" type="submit">
+      <button className="sign__button" type="submit">
         Sign in
       </button>
     </form>

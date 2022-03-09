@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
-import "./style.css";
+import "./style.scss";
 
 import { useAppDispatch, useAppSelector } from "state";
 import { registrationRequest } from "state/user/actions";
@@ -48,9 +48,9 @@ const SignUp: FC = () => {
   const { name, password, email, repeatPassword } = formik.values;
 
   return (
-    <form className="sign-in-form" onSubmit={formik.handleSubmit}>
+    <form className="sign__form" onSubmit={formik.handleSubmit}>
       <input
-        className="sign-in-input"
+        className="sign__input"
         placeholder="Username"
         onBlur={formik.handleBlur}
         name="name"
@@ -61,7 +61,7 @@ const SignUp: FC = () => {
         <p className="formik_error">{formik.errors.name}</p>
       )}
       <input
-        className="sign-in-input"
+        className="sign__input"
         placeholder="Password"
         type="password"
         onBlur={formik.handleBlur}
@@ -73,7 +73,7 @@ const SignUp: FC = () => {
         <p className="formik_error">{formik.errors.password}</p>
       )}
       <input
-        className="sign-in-input"
+        className="sign__input"
         placeholder="Repeat password"
         type="password"
         onBlur={formik.handleBlur}
@@ -85,7 +85,7 @@ const SignUp: FC = () => {
         <p className="formik_error">{formik.errors.repeatPassword}</p>
       )}
       <input
-        className="sign-in-input"
+        className="sign__input"
         placeholder="Email"
         onBlur={formik.handleBlur}
         name="email"
@@ -95,7 +95,7 @@ const SignUp: FC = () => {
       {formik.touched.email && formik.errors.email && (
         <p className="formik_error">{formik.errors.email}</p>
       )}
-      <button type="submit" className="sign-in-button" disabled={!formik.dirty}>
+      <button type="submit" className="sign__button" disabled={!formik.dirty}>
         Sign up
       </button>
     </form>

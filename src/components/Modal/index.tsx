@@ -4,7 +4,7 @@ import Grow from "@mui/material/Grow";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import ComponentProps from "./types";
-import "./style.css";
+import "./style.scss";
 
 import Loader from "components/Loader";
 

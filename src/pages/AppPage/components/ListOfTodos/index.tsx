@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import "./style.css";
+import "./style.scss";
 import Props from "./types";
 import { useAppDispatch, useAppSelector } from "state";
 import { getFilteredTodos, getTodosIsLoading } from "state/todos/selectors";
@@ -34,12 +34,12 @@ const ListOfTodos: FC<Props> = () => {
   });
 
   return (
-    <div className="listOfTodos_container">
+    <div className="todo-list">
       {isLoading && <Loader />}
       {!!filteredTodos && filteredTodos.length ? (
-        <div className="listOfTodos">{todoItems}</div>
+        <div className="todo-list_active">{todoItems}</div>
       ) : (
-        <div className="listOfEmptyTodos">Your list of todos is empty</div>
+        <div className="todo-list_empty">Your list of todos is empty</div>
       )}
     </div>
   );
