@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import "./style.scss";
 import Header from "components/Header";
 import Loader from "components/Loader";
+import AppDropzone from "components/Dropzone";
 import AddAPhotoSharpIcon from "@mui/icons-material/AddAPhotoSharp";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -51,13 +52,14 @@ const ProfilePage: FC = () => {
       <Header />
       {isLoading && <Loader />}
       <div className="profile">
-        <img
-          src="./assets/favicon.png"
-          alt="logo"
-          className="profile__image"
-          onClick={() => console.log("pic")}
-        />
-
+        <AppDropzone>
+          <img
+            src="./assets/favicon.png"
+            alt="logo"
+            className="profile__image"
+            onClick={() => console.log("pic")}
+          />
+        </AppDropzone>
         {!isEditMenuOpened ? (
           <div className="profile__name">{username}</div>
         ) : (
@@ -72,7 +74,9 @@ const ProfilePage: FC = () => {
           />
         )}
         <div className="profile__tools">
-          <AddAPhotoSharpIcon className="profile__tools_add" />
+          <AppDropzone>
+            <AddAPhotoSharpIcon className="profile__tools_add" />
+          </AppDropzone>
           {!isEditMenuOpened ? (
             <EditSharpIcon
               className="profile__tools_edit"
