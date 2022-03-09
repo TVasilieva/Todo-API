@@ -1,6 +1,8 @@
 import { takeLatest, put } from "@redux-saga/core/effects";
 import AuthAPI from "api/auth";
 import {
+  EditProfileRequest,
+  EditProfileResponse,
   GetUserResponse,
   LoginRequest,
   LoginResponse,
@@ -20,6 +22,8 @@ import {
   getUserResponseError,
   logoutResponse,
   logoutResponseError,
+  editProfileResponse,
+  editProfileResponseError,
 } from "../actions";
 import { createToken, removeToken, setToken } from "utils/token";
 
@@ -85,9 +89,27 @@ function* getWorkerByToken() {
   }
 }
 
+function* editWorker(action: ActionPayload<EditProfileRequest>) {
+  try {
+    const response: AxiosResponse<EditProfileResponse> =
+      yield AuthAPI.editProfile(action.payload as EditProfileRequest);
+
+    const account: Account = {
+      id: response.data._id,
+      email: response.data.email,
+      name: response.data.name,
+    };
+
+    yield put(editProfileResponse(account));
+  } catch (error) {
+    yield put(editProfileResponseError((error as TypeError).message));
+  }
+}
+
 export const userSagas = [
   takeLatest(UserActions.REGISTRATION_REQUEST, registrationWorker),
   takeLatest(UserActions.LOGIN_REQUEST, loginWorker),
   takeLatest(UserActions.GET_USER_REQUEST, getWorkerByToken),
   takeLatest(UserActions.LOGOUT_REQUEST, logoutWorker),
+  takeLatest(UserActions.EDIT_USER_REQUEST, editWorker),
 ];

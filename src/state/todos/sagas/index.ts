@@ -14,7 +14,8 @@ import {
   updateTodoResponse,
   updateTodoResponseError,
 } from "../actions";
-import TodoAPI, {
+import TodoAPI from "api/todos";
+import {
   AddTodoRequest,
   AddTodoResponse,
   Data,
@@ -22,7 +23,7 @@ import TodoAPI, {
   GetTodosResponse,
   UpdateTodoRequest,
   UpdateTodoResponse,
-} from "api/todos";
+} from "api/types";
 import { Todo } from "models/todo";
 
 function* getTodoList() {
