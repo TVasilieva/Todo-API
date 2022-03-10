@@ -11,27 +11,30 @@ const AppDropzone: FC<ComponentProps> = ({ children }) => {
   const dispatch = useAppDispatch();
 
   const handleOnDrop = (files: File[]) => {
+    console.log(files);
     dispatch(uploadImageRequest(files[0]));
   };
 
   return (
-    <Dropzone
-      onDrop={handleOnDrop}
-      accept="image/*"
-      multiple={false}
-      maxSize={imageMaxSize}
-    >
-      {({ getRootProps, getInputProps }) => (
-        <div
-          {...getRootProps({
-            onDrop: (event) => event.stopPropagation(),
-          })}
-        >
-          <input {...getInputProps()} />
-          {children}
-        </div>
-      )}
-    </Dropzone>
+    <>
+      <Dropzone
+        onDrop={handleOnDrop}
+        accept="image/*"
+        multiple={false}
+        maxSize={imageMaxSize}
+      >
+        {({ getRootProps, getInputProps }) => (
+          <div
+            {...getRootProps({
+              onDrop: (event) => event.stopPropagation(),
+            })}
+          >
+            <input {...getInputProps()} />
+            {children}
+          </div>
+        )}
+      </Dropzone>
+    </>
   );
 };
 
