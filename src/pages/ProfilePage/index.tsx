@@ -11,12 +11,14 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useAppDispatch, useAppSelector } from "state";
 import { getIsLoading, getUser, getUsername } from "state/user/selectors";
 import { editProfileRequest, getUserRequest } from "state/user/actions";
+import { getImage } from "state/image/selectors";
 
 const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
 
   const account = useAppSelector(getUser);
   const username = useAppSelector(getUsername);
+  const image = useAppSelector(getImage);
   const isLoading = useAppSelector(getIsLoading);
 
   const [name, setName] = useState<string>(username);
@@ -32,7 +34,6 @@ const ProfilePage: FC = () => {
     if (!isLoading) {
       dispatch(getUserRequest());
     }
-    console.log(username);
     setIsEditMenuOpened(!isEditMenuOpened);
   };
 
@@ -54,7 +55,7 @@ const ProfilePage: FC = () => {
       <div className="profile">
         <AppDropzone>
           <img
-            src="./assets/favicon.png"
+            src={`./assets/${image}`}
             alt="logo"
             className="profile__image"
           />

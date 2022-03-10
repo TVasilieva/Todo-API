@@ -1,6 +1,5 @@
 import { takeLatest, put } from "@redux-saga/core/effects";
 import ImageAPI from "api/image";
-import { AxiosResponse } from "axios";
 import { ActionPayload } from "state";
 import {
   uploadImageResponse,
@@ -8,13 +7,10 @@ import {
 } from "state/image/actions";
 import { ImageActions } from "../actions";
 
-function* uploadMainImage(action: ActionPayload<string>) {
+function* uploadMainImage(action: ActionPayload<File>) {
   try {
-    const response: AxiosResponse<any> = yield ImageAPI.uploadImage(
-      action.payload as any
-    );
-
-    yield put(uploadImageResponse());
+    yield ImageAPI.uploadImage(action.payload as File);
+    yield put(uploadImageResponse(action.payload.name as string));
   } catch (error) {
     yield put(uploadImageResponseError((error as TypeError).message));
   }

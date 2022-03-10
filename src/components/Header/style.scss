@@ -1,20 +1,19 @@
 @import "mixins/main-txt";
+@import "mixins/flex-between";
+@import "mixins/absolute-position";
 
 .header {
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  top: 0;
+  @include flex-between;
+  @include absolute-position(0, 0);
   left: 0;
-  right: 0;
+  align-items: center;
   padding: 15px 50px;
   background-color: rgba(99, 12, 170, 0.6);
 
   &__logo {
-    display: flex;
-    justify-content: space-between;
+    @include flex-between;
     align-items: center;
+    cursor: pointer;
   }
 
   &__title {

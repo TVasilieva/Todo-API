@@ -4,15 +4,19 @@ import { UpdateImageResponse } from "./types";
 
 class ImageAPI {
   static uploadImage = async (
-    data: string
+    file: File
   ): Promise<AxiosResponse<UpdateImageResponse>> => {
     const token = getToken() as string;
+    const imageData = new FormData();
+    imageData.append("avatar", file);
+
     return axios({
       url: "https://api-nodejs-todolist.herokuapp.com/user/me/avatar",
       method: "post",
-      data,
+      data: imageData,
       headers: {
         Authorization: token,
+        "Content-Type": "multipart/form-data",
       },
     });
   };

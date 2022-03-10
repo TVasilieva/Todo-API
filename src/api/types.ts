@@ -107,4 +107,6 @@ export interface Data {
 
 //IMAGE
 
-export interface UpdateImageResponse {}
+export interface UpdateImageResponse {
+  success: boolean;
+}
