@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "state";
 import { getIsLoading, getUser, getUsername } from "state/user/selectors";
 import { editProfileRequest, getUserRequest } from "state/user/actions";
 import { getImage } from "state/image/selectors";
+import { getImageRequest } from "state/image/actions";
 
 const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,12 @@ const ProfilePage: FC = () => {
 
   const [name, setName] = useState<string>(username);
   const [isEditMenuOpened, setIsEditMenuOpened] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isLoading) {
+      dispatch(getImageRequest("6213ab46484936001756df92"));
+    }
+  }, []);
 
   useEffect(() => {
     if (!isLoading) {
@@ -48,17 +55,31 @@ const ProfilePage: FC = () => {
     }
   };
 
+  const getBlob = () => {
+    if (image && !isLoading) {
+      let url: string = "";
+      try {
+        url = URL.createObjectURL(image as any);
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 0);
+
+        return url;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
   return (
     <>
       <Header />
       {isLoading && <Loader />}
       <div className="profile">
         <AppDropzone>
-          <img
-            src={`./assets/${image}`}
-            alt="logo"
-            className="profile__image"
-          />
+          {!!getBlob() && (
+            <img src={getBlob()} alt="logo" className="profile__image" />
+          )}
         </AppDropzone>
         {!isEditMenuOpened ? (
           <div className="profile__name">{username}</div>

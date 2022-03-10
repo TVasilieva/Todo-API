@@ -20,6 +20,14 @@ class ImageAPI {
       },
     });
   };
+
+  static getImage = async (id: string): Promise<AxiosResponse<any>> => {
+    return axios({
+      url: `https://api-nodejs-todolist.herokuapp.com/user/${id}/avatar`,
+      method: "get",
+      responseType: "blob",
+    });
+  };
 }
 
 export default ImageAPI;
