@@ -48,12 +48,15 @@ export interface EditProfileRequest {
 }
 
 export interface EditProfileResponse {
-  age: number | null;
-  _id: string;
-  name: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
+  success: boolean;
+  data: {
+    age: number | null;
+    _id: string;
+    name: string;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 //TODOS

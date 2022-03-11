@@ -11,7 +11,6 @@ const AppDropzone: FC<ComponentProps> = ({ children }) => {
   const dispatch = useAppDispatch();
 
   const handleOnDrop = (files: File[]) => {
-    console.log(files);
     dispatch(uploadImageRequest(files[0]));
   };
 

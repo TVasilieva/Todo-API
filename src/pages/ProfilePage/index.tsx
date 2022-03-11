@@ -7,7 +7,6 @@ import AppDropzone from "components/Dropzone";
 import AddAPhotoSharpIcon from "@mui/icons-material/AddAPhotoSharp";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import NoPhotographyRoundedIcon from "@mui/icons-material/NoPhotographyRounded";
 
 import { useAppDispatch, useAppSelector } from "state";
@@ -29,14 +28,12 @@ const ProfilePage: FC = () => {
   const [isEditMenuOpened, setIsEditMenuOpened] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(image);
-
     dispatch(getImageRequest(account?.id || ""));
-  }, [isLoading]);
+  }, [account?.id]);
 
   useEffect(() => {
     dispatch(getUserRequest());
-  }, [account?.name]);
+  }, []);
 
   const toggleEditMenu = (): void => {
     if (!isEditMenuOpened && !isLoading) setName(username);
@@ -50,6 +47,7 @@ const ProfilePage: FC = () => {
           name,
         })
       );
+      dispatch(getUserRequest());
       toggleEditMenu();
     }
   };
@@ -59,10 +57,11 @@ const ProfilePage: FC = () => {
   };
 
   const getBlob = (): string | undefined => {
+    console.log(image);
     if (image) {
       let url: string = "";
       try {
-        url = URL.createObjectURL(image as Blob | MediaSource);
+        url = URL.createObjectURL(image as Blob | MediaSource | File);
         // setTimeout(() => {
         //   URL.revokeObjectURL(url);
         // }, 0);
@@ -80,15 +79,19 @@ const ProfilePage: FC = () => {
         <AppDropzone>
           {!image && !imageIsLoading ? (
             <img
-              src="./assets/favicon.png"
+              src="./assets/icon.png"
               alt="logo"
               className="profile__image"
             />
-          ) : !imageIsLoading ? (
+          ) : image && !imageIsLoading ? (
             <img src={getBlob()} alt="logo" className="profile__image" />
           ) : (
             <>
-              <CircleOutlinedIcon className="profile__image_empty" />
+              <img
+                src="./assets/icon.png"
+                alt="logo"
+                className="profile__image"
+              />
               <Loader />
             </>
           )}
