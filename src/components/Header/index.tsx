@@ -32,10 +32,10 @@ const Header: FC = () => {
     if (image) {
       let url: string = "";
       try {
-        url = URL.createObjectURL(image as Blob | MediaSource);
-        // setTimeout(() => {
-        //   URL.revokeObjectURL(url);
-        // }, 0);
+        url = URL.createObjectURL(image as Blob | MediaSource | File);
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 0);
         return url;
       } catch (e) {
         console.log(e);

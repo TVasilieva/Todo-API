@@ -53,6 +53,20 @@ const ProfilePage: FC = () => {
     }
   };
 
+  const handleKeyDown = (event: any): void => {
+    if (event.key === "Enter") {
+      if (name) {
+        dispatch(
+          editProfileRequest({
+            name,
+          })
+        );
+        dispatch(getUserRequest());
+        toggleEditMenu();
+      }
+    }
+  };
+
   const handleRemoveImage = (): void => {
     dispatch(removeImageRequest());
   };
@@ -62,9 +76,9 @@ const ProfilePage: FC = () => {
       let url: string = "";
       try {
         url = URL.createObjectURL(image as Blob | MediaSource | File);
-        // setTimeout(() => {
-        //   URL.revokeObjectURL(url);
-        // }, 0);
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 0);
         return url;
       } catch (e) {
         console.log(e);
@@ -110,6 +124,7 @@ const ProfilePage: FC = () => {
               onChange={(e) => setName(e.target.value)}
               required
               maxLength={25}
+              onKeyDown={handleKeyDown}
             />
           ) : (
             <Loader />
@@ -121,6 +136,7 @@ const ProfilePage: FC = () => {
             {!isEditMenuOpened ? (
               <EditSharpIcon
                 className="profile__tools_edit"
+                onKeyDown={() => console.log("key pressed")}
                 onClick={toggleEditMenu}
               />
             ) : (
