@@ -58,7 +58,6 @@ const ProfilePage: FC = () => {
   };
 
   const getBlob = (): string | undefined => {
-    console.log(image);
     if (image) {
       let url: string = "";
       try {
