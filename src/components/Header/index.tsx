@@ -1,11 +1,30 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import "./style.scss";
 import Portal from "components/Portal";
+import DropdownMenu from "components/DropdownMenu";
 import CatchingPokemonSharpIcon from "@mui/icons-material/CatchingPokemonSharp";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 import { common } from "@mui/material/colors";
 
+import { Routes } from "constants/routes";
+import { useAppDispatch } from "state";
+import { logoutRequest } from "state/user/actions";
+import { useNavigate } from "react-router-dom";
+
 const Header: FC = () => {
+  const dispatch = useAppDispatch();
+  const navigator = useNavigate();
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+
+  const toggleDropdownMenu = () => {
+    setIsOpened(!isOpened);
+  };
+
+  const handleLogout = (): void => {
+    dispatch(logoutRequest());
+    navigator(Routes.Home);
+  };
+
   return (
     <Portal>
       <div className="header">
@@ -15,16 +34,22 @@ const Header: FC = () => {
           />
           <h1 className="header__title">todo</h1>
         </div>
-        <div className="header__account" onClick={() => {}}>
+        <div className="header__account" onClick={toggleDropdownMenu}>
           <img
             src="./assets/favicon.png"
             alt="logo"
             className="header__image"
           />
-          <KeyboardArrowDownSharpIcon
-            color="disabled"
-            className="header__arrow"
-          />
+          {isOpened && (
+            <DropdownMenu
+              logout={handleLogout}
+              profile={Routes.Profile}
+              todos={Routes.Todo}
+              isOpened={isOpened}
+            />
+          )}
+
+          <KeyboardArrowDownSharpIcon className="header__arrow" />
         </div>
       </div>
     </Portal>
