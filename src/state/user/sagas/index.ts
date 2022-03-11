@@ -84,6 +84,13 @@ function* getWorkerByToken() {
     const username: string = response.data.name;
 
     yield put(getUserResponse(username));
+    const account: Account = {
+      id: response.data._id,
+      email: response.data.email,
+      name: response.data.name,
+    };
+
+    yield put(loginResponse(account));
   } catch (error) {
     yield put(getUserResponseError((error as TypeError).message));
   }

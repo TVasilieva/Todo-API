@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { getToken } from "utils/token";
-import { UpdateImageResponse } from "./types";
+import { RemoveImageResponse, UpdateImageResponse } from "./types";
 
 class ImageAPI {
   static uploadImage = async (
@@ -26,6 +26,20 @@ class ImageAPI {
       url: `https://api-nodejs-todolist.herokuapp.com/user/${id}/avatar`,
       method: "get",
       responseType: "blob",
+    });
+  };
+
+  static removeImage = async (): Promise<
+    AxiosResponse<RemoveImageResponse>
+  > => {
+    const token = getToken() as string;
+
+    return axios({
+      url: "https://api-nodejs-todolist.herokuapp.com/user/me/avatar",
+      method: "delete",
+      headers: {
+        Authorization: token,
+      },
     });
   };
 }

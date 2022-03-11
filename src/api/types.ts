@@ -110,3 +110,7 @@ export interface Data {
 export interface UpdateImageResponse {
   success: boolean;
 }
+
+export interface RemoveImageResponse {
+  success: boolean;
+}
