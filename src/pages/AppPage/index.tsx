@@ -1,6 +1,8 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 
 import Header from "components/Header";
+import Portal from "components/Portal";
+
 import Textarea from "components/Textarea";
 import ListOfTodos from "./components/ListOfTodos";
 import Footer from "./components/Footer";
@@ -61,30 +63,32 @@ const AppPage: FC = () => {
   return (
     <>
       <Header />
-      <div className="user-page">
-        {username && (
-          <h2 className="user-page__greeting">Welcome, {username}!</h2>
-        )}
-        <Textarea
-          Button={
-            <Button
-              Icon={<AddIcon />}
-              classes="add-btn"
-              size="medium"
-              color="secondary"
-              aria-label="add"
-              disabled={disabled}
-              onClick={handleAddTodo}
-            />
-          }
-          value={value}
-          placeholder={placeholder}
-          disabled={disabled}
-          handleChange={handleChange}
-        />
-        <ListOfTodos />
-        <Footer filter={filter} onChangeFilter={handleChangeFilter} />
-      </div>
+      <Portal>
+        <div className="user-page">
+          {username && (
+            <h2 className="user-page__greeting">Welcome, {username}!</h2>
+          )}
+          <Textarea
+            Button={
+              <Button
+                Icon={<AddIcon />}
+                classes="add-btn"
+                size="medium"
+                color="secondary"
+                aria-label="add"
+                disabled={disabled}
+                onClick={handleAddTodo}
+              />
+            }
+            value={value}
+            placeholder={placeholder}
+            disabled={disabled}
+            handleChange={handleChange}
+          />
+          <ListOfTodos />
+          <Footer filter={filter} onChangeFilter={handleChangeFilter} />
+        </div>
+      </Portal>
     </>
   );
 };

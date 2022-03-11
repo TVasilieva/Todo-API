@@ -4,6 +4,7 @@ import "./style.scss";
 import Header from "components/Header";
 import Loader from "components/Loader";
 import AppDropzone from "components/Dropzone";
+import Portal from "components/Portal";
 import AddAPhotoSharpIcon from "@mui/icons-material/AddAPhotoSharp";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -75,64 +76,67 @@ const ProfilePage: FC = () => {
   return (
     <>
       <Header />
-      <div className="profile">
-        <AppDropzone>
-          {!image && !imageIsLoading ? (
-            <img
-              src="./assets/icon.png"
-              alt="logo"
-              className="profile__image"
-            />
-          ) : image && !imageIsLoading ? (
-            <img src={getBlob()} alt="logo" className="profile__image" />
-          ) : (
-            <>
+      <Portal>
+        <div className="profile">
+          <AppDropzone>
+            {!image && !imageIsLoading ? (
               <img
                 src="./assets/icon.png"
                 alt="logo"
                 className="profile__image"
               />
-              <Loader />
-            </>
-          )}
-        </AppDropzone>
-
-        {!isEditMenuOpened && !isLoading ? (
-          <div className="profile__name">{username}</div>
-        ) : username ? (
-          <input
-            className="profile__input"
-            placeholder="type your name..."
-            type="text"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        ) : (
-          <Loader />
-        )}
-        <div className="profile__tools">
-          <AppDropzone>
-            <AddAPhotoSharpIcon className="profile__tools_add" />
+            ) : image && !imageIsLoading ? (
+              <img src={getBlob()} alt="logo" className="profile__image" />
+            ) : (
+              <>
+                <img
+                  src="./assets/icon.png"
+                  alt="logo"
+                  className="profile__image"
+                />
+                <Loader />
+              </>
+            )}
           </AppDropzone>
-          {!isEditMenuOpened ? (
-            <EditSharpIcon
-              className="profile__tools_edit"
-              onClick={toggleEditMenu}
+
+          {!isEditMenuOpened && !isLoading ? (
+            <div className="profile__name">{username}</div>
+          ) : username ? (
+            <input
+              className="profile__input"
+              placeholder="type your name..."
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              maxLength={25}
             />
           ) : (
-            <AddCircleOutlineIcon
-              className="profile__tools_save"
-              onClick={handleEditProfile}
-            />
+            <Loader />
           )}
-          <NoPhotographyRoundedIcon
-            className="profile__tools_remove"
-            onClick={handleRemoveImage}
-          />
+          <div className="profile__tools">
+            <AppDropzone>
+              <AddAPhotoSharpIcon className="profile__tools_add" />
+            </AppDropzone>
+            {!isEditMenuOpened ? (
+              <EditSharpIcon
+                className="profile__tools_edit"
+                onClick={toggleEditMenu}
+              />
+            ) : (
+              <AddCircleOutlineIcon
+                className="profile__tools_save"
+                onClick={handleEditProfile}
+              />
+            )}
+            <NoPhotographyRoundedIcon
+              className="profile__tools_remove"
+              onClick={handleRemoveImage}
+            />
+          </div>
         </div>
-      </div>
+      </Portal>
     </>
   );
 };
