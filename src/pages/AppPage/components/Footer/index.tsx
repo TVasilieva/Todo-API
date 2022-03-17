@@ -11,7 +11,7 @@ import {
 } from "state/todos/selectors";
 import { filterTodos } from "state/todos/actions";
 
-const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
+const Footer: FC<Props> = ({ filter, onChangeFilter }) => {
   const dispatch = useAppDispatch();
 
   const todos = useAppSelector(getTodos);
@@ -63,9 +63,6 @@ const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
           </div>
         </div>
       </div>
-      <button className="logout-btn" onClick={handleLogout}>
-        Logout
-      </button>
     </>
   );
 };

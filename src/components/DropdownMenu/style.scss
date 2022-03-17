@@ -1,0 +1,28 @@
+@import "mixins/main-txt";
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  align-items: flex-start;
+  justify-content: space-around;
+  height: 10vh;
+  list-style: none;
+  background-color: rgba(99, 12, 170, 0.6);
+  padding: 12px;
+  &__item {
+    @include main-txt(13px, 0.6);
+    &_link {
+      text-decoration: none;
+      @include main-txt(13px, 0.6);
+      &:hover {
+        @include main-txt(13px, 0.9);
+      }
+    }
+    &:hover {
+      @include main-txt(13px, 0.9);
+    }
+  }
+}

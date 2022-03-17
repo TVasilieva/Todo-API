@@ -8,12 +8,13 @@ import AddAPhotoSharpIcon from "@mui/icons-material/AddAPhotoSharp";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import NoPhotographyRoundedIcon from "@mui/icons-material/NoPhotographyRounded";
 
 import { useAppDispatch, useAppSelector } from "state";
 import { getIsLoading, getUser, getUsername } from "state/user/selectors";
 import { editProfileRequest, getUserRequest } from "state/user/actions";
 import { getImage, getImageIsLoading } from "state/image/selectors";
-import { getImageRequest } from "state/image/actions";
+import { getImageRequest, removeImageRequest } from "state/image/actions";
 
 const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,16 +29,14 @@ const ProfilePage: FC = () => {
   const [isEditMenuOpened, setIsEditMenuOpened] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!isLoading) {
-      dispatch(getImageRequest("6213ab46484936001756df92"));
-    }
-  }, [image]);
+    console.log(image);
+
+    dispatch(getImageRequest(account?.id || ""));
+  }, [isLoading]);
 
   useEffect(() => {
-    if (!isLoading) {
-      dispatch(getUserRequest());
-    }
-  }, [account]);
+    dispatch(getUserRequest());
+  }, [account?.name]);
 
   const toggleEditMenu = (): void => {
     if (!isEditMenuOpened && !isLoading) setName(username);
@@ -45,7 +44,6 @@ const ProfilePage: FC = () => {
   };
 
   const handleEditProfile = (): void => {
-    console.log(name);
     if (name) {
       dispatch(
         editProfileRequest({
@@ -56,7 +54,11 @@ const ProfilePage: FC = () => {
     }
   };
 
-  const getBlob = () => {
+  const handleRemoveImage = (): void => {
+    dispatch(removeImageRequest());
+  };
+
+  const getBlob = (): string | undefined => {
     if (image) {
       let url: string = "";
       try {
@@ -76,7 +78,13 @@ const ProfilePage: FC = () => {
       <Header />
       <div className="profile">
         <AppDropzone>
-          {!!getBlob() && (!imageIsLoading || !isLoading) ? (
+          {!image && !imageIsLoading ? (
+            <img
+              src="./assets/favicon.png"
+              alt="logo"
+              className="profile__image"
+            />
+          ) : !imageIsLoading ? (
             <img src={getBlob()} alt="logo" className="profile__image" />
           ) : (
             <>
@@ -116,6 +124,10 @@ const ProfilePage: FC = () => {
               onClick={handleEditProfile}
             />
           )}
+          <NoPhotographyRoundedIcon
+            className="profile__tools_remove"
+            onClick={handleRemoveImage}
+          />
         </div>
       </div>
     </>

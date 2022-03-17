@@ -5,6 +5,8 @@ import { ActionPayload } from "state";
 import {
   getImageResponse,
   getImageResponseError,
+  removeImageResponse,
+  removeImageResponseError,
   uploadImageResponse,
   uploadImageResponseError,
 } from "state/image/actions";
@@ -30,7 +32,17 @@ function* getMainImage(action: ActionPayload<string>) {
   }
 }
 
+function* removeMainImage() {
+  try {
+    yield ImageAPI.removeImage();
+    yield put(removeImageResponse());
+  } catch (error) {
+    yield put(removeImageResponseError((error as TypeError).message));
+  }
+}
+
 export const imageSagas = [
   takeLatest(ImageActions.UPLOAD_IMAGE_REQUEST, uploadMainImage),
   takeLatest(ImageActions.GET_IMAGE_REQUEST, getMainImage),
+  takeLatest(ImageActions.REMOVE_IMAGE_REQUEST, removeMainImage),
 ];

@@ -48,6 +48,24 @@ export const imageReducer = (
         imageIsLoading: false,
         imageError: action.payload,
       };
+
+    case ImageActions.REMOVE_IMAGE_REQUEST:
+      return {
+        ...state,
+        imageIsLoading: true,
+      };
+    case ImageActions.REMOVE_IMAGE_RESPONSE:
+      return {
+        ...state,
+        image: "",
+        imageIsLoading: false,
+      };
+    case ImageActions.REMOVE_IMAGE_RESPONSE_ERROR:
+      return {
+        ...state,
+        imageIsLoading: false,
+        imageError: action.payload,
+      };
     default:
       return state;
   }

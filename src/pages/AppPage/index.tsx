@@ -1,5 +1,4 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Header from "components/Header";
 import Textarea from "components/Textarea";
@@ -17,10 +16,9 @@ import {
   getNumberCompletedTodosRequest,
   getTodosRequest,
 } from "state/todos/actions";
-import { getUserRequest, logoutRequest } from "state/user/actions";
+import { getUserRequest } from "state/user/actions";
 import { getIsLoading, getUsername } from "state/user/selectors";
 import { getTodos } from "state/todos/selectors";
-import { Routes } from "constants/routes";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,8 +26,6 @@ const AppPage: FC = () => {
   const username = useAppSelector(getUsername);
   const todos = useAppSelector(getTodos);
   const isLoading = useAppSelector(getIsLoading);
-
-  const navigate = useNavigate();
 
   const [filter, setFilter] = useState<Filter>("all");
   const [value, setValue] = useState<string>("");
@@ -41,11 +37,6 @@ const AppPage: FC = () => {
       dispatch(getNumberCompletedTodosRequest());
     }
   }, []);
-
-  const handleLogout = (): void => {
-    dispatch(logoutRequest());
-    navigate(Routes.Home);
-  };
 
   const handleChangeFilter = (filter: Filter) => (): void => {
     setFilter(filter);
@@ -92,11 +83,7 @@ const AppPage: FC = () => {
           handleChange={handleChange}
         />
         <ListOfTodos />
-        <Footer
-          filter={filter}
-          onChangeFilter={handleChangeFilter}
-          handleLogout={handleLogout}
-        />
+        <Footer filter={filter} onChangeFilter={handleChangeFilter} />
       </div>
     </>
   );

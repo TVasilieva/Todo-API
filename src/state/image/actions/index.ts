@@ -9,6 +9,10 @@ export enum ImageActions {
   GET_IMAGE_REQUEST = "GET_IMAGE_REQUEST",
   GET_IMAGE_RESPONSE = "GET_IMAGE_RESPONSE",
   GET_IMAGE_RESPONSE_ERROR = "GET_IMAGE_RESPONSE_ERROR",
+
+  REMOVE_IMAGE_REQUEST = "REMOVE_IMAGE_REQUEST",
+  REMOVE_IMAGE_RESPONSE = "REMOVE_IMAGE_RESPONSE",
+  REMOVE_IMAGE_RESPONSE_ERROR = "REMOVE_IMAGE_RESPONSE_ERROR",
 }
 
 export const uploadImageRequest = (file: File) =>
@@ -28,5 +32,15 @@ export const getImageResponse = (id: string) =>
 export const getImageResponseError = (error: any) =>
   actionCreator<ImageActions, any>(
     ImageActions.GET_IMAGE_RESPONSE_ERROR,
+    error
+  );
+
+export const removeImageRequest = () =>
+  actionCreator<ImageActions>(ImageActions.REMOVE_IMAGE_REQUEST);
+export const removeImageResponse = () =>
+  actionCreator<ImageActions>(ImageActions.REMOVE_IMAGE_RESPONSE);
+export const removeImageResponseError = (error: any) =>
+  actionCreator<ImageActions, any>(
+    ImageActions.REMOVE_IMAGE_RESPONSE_ERROR,
     error
   );
