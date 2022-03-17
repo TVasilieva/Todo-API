@@ -19,20 +19,12 @@
   align-items: center;
 
   &__image {
-    width: 50vw;
+    width: 100%;
     max-width: 320px;
     margin-bottom: 30px;
     border: 8px solid white;
     border-radius: 50%;
     cursor: pointer;
-
-    &_empty {
-      height: auto !important;
-      width: 57vw !important;
-      max-width: 320px !important;
-      color: white !important;
-      margin-bottom: 30px;
-    }
 
     &:hover {
       border: 12px solid rgba(255, 255, 255, 0.5);
@@ -42,6 +34,7 @@
 
   &__name {
     @include main-txt(1.5em, 0.8);
+    width: 100%;
     text-align: center;
   }
 
@@ -59,7 +52,7 @@
   &__tools {
     position: absolute;
     top: 0;
-    right: -40px;
+    right: -60px;
     display: flex;
     height: 16vh;
     flex-direction: column;

@@ -4,10 +4,10 @@ import "./style.scss";
 import Header from "components/Header";
 import Loader from "components/Loader";
 import AppDropzone from "components/Dropzone";
+import Portal from "components/Portal";
 import AddAPhotoSharpIcon from "@mui/icons-material/AddAPhotoSharp";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import NoPhotographyRoundedIcon from "@mui/icons-material/NoPhotographyRounded";
 
 import { useAppDispatch, useAppSelector } from "state";
@@ -29,14 +29,12 @@ const ProfilePage: FC = () => {
   const [isEditMenuOpened, setIsEditMenuOpened] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(image);
-
     dispatch(getImageRequest(account?.id || ""));
-  }, [isLoading]);
+  }, [account?.id]);
 
   useEffect(() => {
     dispatch(getUserRequest());
-  }, [account?.name]);
+  }, []);
 
   const toggleEditMenu = (): void => {
     if (!isEditMenuOpened && !isLoading) setName(username);
@@ -50,7 +48,22 @@ const ProfilePage: FC = () => {
           name,
         })
       );
+      dispatch(getUserRequest());
       toggleEditMenu();
+    }
+  };
+
+  const handleKeyDown = (event: any): void => {
+    if (event.key === "Enter") {
+      if (name) {
+        dispatch(
+          editProfileRequest({
+            name,
+          })
+        );
+        dispatch(getUserRequest());
+        toggleEditMenu();
+      }
     }
   };
 
@@ -62,10 +75,10 @@ const ProfilePage: FC = () => {
     if (image) {
       let url: string = "";
       try {
-        url = URL.createObjectURL(image as Blob | MediaSource);
-        // setTimeout(() => {
-        //   URL.revokeObjectURL(url);
-        // }, 0);
+        url = URL.createObjectURL(image as Blob | MediaSource | File);
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 0);
         return url;
       } catch (e) {
         console.log(e);
@@ -76,60 +89,69 @@ const ProfilePage: FC = () => {
   return (
     <>
       <Header />
-      <div className="profile">
-        <AppDropzone>
-          {!image && !imageIsLoading ? (
-            <img
-              src="./assets/favicon.png"
-              alt="logo"
-              className="profile__image"
-            />
-          ) : !imageIsLoading ? (
-            <img src={getBlob()} alt="logo" className="profile__image" />
-          ) : (
-            <>
-              <CircleOutlinedIcon className="profile__image_empty" />
-              <Loader />
-            </>
-          )}
-        </AppDropzone>
-
-        {!isEditMenuOpened && !isLoading ? (
-          <div className="profile__name">{username}</div>
-        ) : username ? (
-          <input
-            className="profile__input"
-            placeholder="type your name..."
-            type="text"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        ) : (
-          <Loader />
-        )}
-        <div className="profile__tools">
+      <Portal>
+        <div className="profile">
           <AppDropzone>
-            <AddAPhotoSharpIcon className="profile__tools_add" />
+            {!image && !imageIsLoading ? (
+              <img
+                src="./assets/icon.png"
+                alt="logo"
+                className="profile__image"
+              />
+            ) : image && !imageIsLoading ? (
+              <img src={getBlob()} alt="logo" className="profile__image" />
+            ) : (
+              <>
+                <img
+                  src="./assets/icon.png"
+                  alt="logo"
+                  className="profile__image"
+                />
+                <Loader />
+              </>
+            )}
           </AppDropzone>
-          {!isEditMenuOpened ? (
-            <EditSharpIcon
-              className="profile__tools_edit"
-              onClick={toggleEditMenu}
+
+          {!isEditMenuOpened && !isLoading ? (
+            <div className="profile__name">{username}</div>
+          ) : username ? (
+            <input
+              className="profile__input"
+              placeholder="type your name..."
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              maxLength={25}
+              onKeyDown={handleKeyDown}
             />
           ) : (
-            <AddCircleOutlineIcon
-              className="profile__tools_save"
-              onClick={handleEditProfile}
-            />
+            <Loader />
           )}
-          <NoPhotographyRoundedIcon
-            className="profile__tools_remove"
-            onClick={handleRemoveImage}
-          />
+          <div className="profile__tools">
+            <AppDropzone>
+              <AddAPhotoSharpIcon className="profile__tools_add" />
+            </AppDropzone>
+            {!isEditMenuOpened ? (
+              <EditSharpIcon
+                className="profile__tools_edit"
+                onKeyDown={() => console.log("key pressed")}
+                onClick={toggleEditMenu}
+              />
+            ) : (
+              <AddCircleOutlineIcon
+                className="profile__tools_save"
+                onClick={handleEditProfile}
+              />
+            )}
+            <NoPhotographyRoundedIcon
+              className="profile__tools_remove"
+              onClick={handleRemoveImage}
+            />
+          </div>
         </div>
-      </div>
+      </Portal>
     </>
   );
 };

@@ -102,9 +102,9 @@ function* editWorker(action: ActionPayload<EditProfileRequest>) {
       yield AuthAPI.editProfile(action.payload as EditProfileRequest);
 
     const account: Account = {
-      id: response.data._id,
-      email: response.data.email,
-      name: response.data.name,
+      id: response.data.data._id,
+      email: response.data.data.email,
+      name: response.data.data.name,
     };
 
     yield put(editProfileResponse(account));

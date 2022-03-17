@@ -1,40 +1,26 @@
-import { FC } from "react";
-import Dropzone from "react-dropzone";
+import { FC, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import { useAppDispatch } from "state";
 import { uploadImageRequest } from "state/image/actions";
 
 import ComponentProps from "./types";
 
-const imageMaxSize = 10000000;
-
 const AppDropzone: FC<ComponentProps> = ({ children }) => {
   const dispatch = useAppDispatch();
 
-  const handleOnDrop = (files: File[]) => {
-    console.log(files);
-    dispatch(uploadImageRequest(files[0]));
-  };
+  const onDrop = useCallback((acceptedFiles) => {
+    dispatch(uploadImageRequest(acceptedFiles[0]));
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+  });
 
   return (
-    <>
-      <Dropzone
-        onDrop={handleOnDrop}
-        accept="image/*"
-        multiple={false}
-        maxSize={imageMaxSize}
-      >
-        {({ getRootProps, getInputProps }) => (
-          <div
-            {...getRootProps({
-              onDrop: (event) => event.stopPropagation(),
-            })}
-          >
-            <input {...getInputProps()} />
-            {children}
-          </div>
-        )}
-      </Dropzone>
-    </>
+    <div {...getRootProps()}>
+      <input {...getInputProps()} />
+      {children}
+    </div>
   );
 };
 

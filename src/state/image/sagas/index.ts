@@ -15,7 +15,7 @@ import { ImageActions } from "../actions";
 function* uploadMainImage(action: ActionPayload<File>) {
   try {
     yield ImageAPI.uploadImage(action.payload as File);
-    yield put(uploadImageResponse(action.payload.name as string));
+    yield put(uploadImageResponse(action.payload as File));
   } catch (error) {
     yield put(uploadImageResponseError((error as TypeError).message));
   }
