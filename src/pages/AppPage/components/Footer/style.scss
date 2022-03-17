@@ -15,12 +15,12 @@
 
   @media (max-width: 700px) {
     flex-direction: column;
-    height: 10vh;
   }
 
   &__left-side {
     @include flex-between;
     width: 50%;
+    font-size: 15px;
 
     @media (max-width: 700px) {
       width: 100%;
@@ -48,29 +48,5 @@
         color: rgba(0, 0, 0, 0.7);
       }
     }
-  }
-}
-
-.logout-btn {
-  position: absolute;
-  padding: 10px;
-  bottom: -9%;
-  left: 50%;
-  transform: translate(-50%, 9%);
-  background: none;
-  font: {
-    size: 1.1em;
-    family: "Fira Sans", sans-serif;
-    weight: 600;
-  }
-  letter-spacing: 5px;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    color: rgba(255, 255, 255, 0.7);
   }
 }

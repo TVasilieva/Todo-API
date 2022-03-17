@@ -11,7 +11,7 @@
   background-color: rgba(99, 12, 170, 0.6);
 
   @media (max-width: 500px) {
-    padding: 15px 25px;
+    padding: 15px 20px;
   }
 
   &__logo {
@@ -23,6 +23,10 @@
   &__title {
     @include main-txt(2em, 0.8);
     margin-left: 20px;
+    @media (max-width: 400px) {
+      @include main-txt(1.9em, 0.8);
+      margin-left: 10px;
+    }
   }
 
   &__account {
@@ -34,12 +38,19 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    @media (max-width: 400px) {
+      width: 35px;
+      height: 35px;
+    }
   }
 
   &__arrow {
     margin-left: 10px;
     &:hover {
       color: white !important;
+    }
+    @media (max-width: 400px) {
+      display: none !important;
     }
   }
 }
