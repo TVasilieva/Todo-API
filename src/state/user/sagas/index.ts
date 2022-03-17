@@ -1,11 +1,12 @@
 import { takeLatest, put } from "@redux-saga/core/effects";
-import AuthAPI, {
+import AuthAPI from "api/auth";
+import {
   GetUserResponse,
   LoginRequest,
   LoginResponse,
   RegistrationRequest,
   RegistrationResponse,
-} from "api/auth";
+} from "api/types";
 import { AxiosResponse } from "axios";
 import { Account } from "models/user";
 import { ActionPayload } from "state";

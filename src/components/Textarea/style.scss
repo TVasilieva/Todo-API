@@ -5,6 +5,8 @@
   background-color: #fff;
   border: none;
   border-radius: 5px;
-  font-size: 1.1em;
-  font-family: "Bradley Hand", cursive;
+  font: {
+    size: 1.1em;
+    family: "Bradley Hand", cursive;
+  }
 }

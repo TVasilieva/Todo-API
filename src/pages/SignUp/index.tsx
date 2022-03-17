@@ -1,39 +1,35 @@
-import React, { FC } from "react";
-import "./style.css";
-import { registrationRequest } from "state/user/actions";
-import { useAppDispatch } from "state";
-
-import ComponentSignUp from "./component";
-import ComponentProps, { Inputs } from "./types";
-import { RegistrationRequest } from "api/auth";
-
+import { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 
-const SignUp: FC<ComponentProps> = () => {
+import "./style.scss";
+
+import { useAppDispatch, useAppSelector } from "state";
+import { registrationRequest } from "state/user/actions";
+import { getIsLoading, getUser } from "state/user/selectors";
+import { RegistrationRequest } from "api/types";
+import { Routes } from "constants/routes";
+import { validateSignUp } from "validation";
+import { InitialValuesSignUp } from "./types";
+
+const initialValues: InitialValuesSignUp = {
+  name: "",
+  password: "",
+  repeatPassword: "",
+  email: "",
+};
+
+const SignUp: FC = () => {
   const dispatch = useAppDispatch();
 
+  const account = useAppSelector(getUser);
+  const isLoading = useAppSelector(getIsLoading);
+
+  const navigate = useNavigate();
+
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      password: "",
-      repeatPassword: "",
-      email: "",
-    },
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .min(3, "Must be at least 3 characters")
-        .max(40, "Must be 40 characters or less")
-        .required("Required"),
-      password: Yup.string()
-        .required("Required")
-        .min(8, "Password must be at least 8 characters"),
-      repeatPassword: Yup.string().oneOf(
-        [Yup.ref("password"), null],
-        "Passwords must match"
-      ),
-      email: Yup.string().email("Invalid email address").required("Required"),
-    }),
+    initialValues,
+    validationSchema: validateSignUp,
     onSubmit: () => {
       const data: RegistrationRequest = {
         name,
@@ -45,61 +41,65 @@ const SignUp: FC<ComponentProps> = () => {
     },
   });
 
+  useEffect(() => {
+    if (!isLoading && account) navigate(Routes.Todo);
+  }, [isLoading]);
+
   const { name, password, email, repeatPassword } = formik.values;
 
-  const inputs: Inputs[] = [
-    {
-      placeholder: "Username",
-      name: "name",
-      value: name,
-      error: formik.errors.name,
-      touched: formik.touched.name,
-    },
-    {
-      placeholder: "Password",
-      name: "password",
-      value: password,
-      type: "password",
-      error: formik.errors.password,
-      touched: formik.touched.password,
-    },
-    {
-      placeholder: "Repeat password",
-      name: "repeatPassword",
-      value: repeatPassword,
-      type: "password",
-      error: formik.errors.repeatPassword,
-      touched: formik.touched.repeatPassword,
-    },
-    {
-      placeholder: "Email",
-      name: "email",
-      value: email,
-      error: formik.errors.email,
-      touched: formik.touched.email,
-    },
-  ];
-
-  const signUpInputs = inputs.map((input) => {
-    return (
-      <React.Fragment key={input.placeholder}>
-        <input
-          className="sign-in-input"
-          placeholder={input.placeholder}
-          type={input.type}
-          onBlur={formik.handleBlur}
-          name={input.name}
-          value={input.value}
-          onChange={formik.handleChange}
-        />
-        {input.touched && input.error && (
-          <p className="formik_error">{input.error}</p>
-        )}
-      </React.Fragment>
-    );
-  });
-
-  return <ComponentSignUp formik={formik} signUpInputs={signUpInputs} />;
+  return (
+    <form className="sign__form" onSubmit={formik.handleSubmit}>
+      <input
+        className="sign__input"
+        placeholder="Username"
+        onBlur={formik.handleBlur}
+        name="name"
+        value={name}
+        onChange={formik.handleChange}
+      />
+      {formik.touched.name && formik.errors.name && (
+        <p className="formik_error">{formik.errors.name}</p>
+      )}
+      <input
+        className="sign__input"
+        placeholder="Password"
+        type="password"
+        onBlur={formik.handleBlur}
+        name="password"
+        value={password}
+        onChange={formik.handleChange}
+      />
+      {formik.touched.password && formik.errors.password && (
+        <p className="formik_error">{formik.errors.password}</p>
+      )}
+      <input
+        className="sign__input"
+        placeholder="Repeat password"
+        type="password"
+        onBlur={formik.handleBlur}
+        name="repeatPassword"
+        value={repeatPassword}
+        onChange={formik.handleChange}
+      />
+      {formik.touched.repeatPassword && formik.errors.repeatPassword && (
+        <p className="formik_error">{formik.errors.repeatPassword}</p>
+      )}
+      <input
+        className="sign__input"
+        placeholder="Email"
+        onBlur={formik.handleBlur}
+        name="email"
+        value={email}
+        onChange={formik.handleChange}
+      />
+      {formik.touched.email && formik.errors.email && (
+        <p className="formik_error">{formik.errors.email}</p>
+      )}
+      <button type="submit" className="sign__button" disabled={!formik.dirty}>
+        Sign up
+      </button>
+    </form>
+  );
 };
 
 export default SignUp;

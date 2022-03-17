@@ -1,0 +1,31 @@
+@import "mixins/main-txt";
+@import "mixins/abs-choose-pos";
+
+.main-page {
+  width: 100%;
+  &__greeting {
+    @include abs-choose-pos(40%, 50%);
+    @include main-txt(4vh, 0.8);
+  }
+  &__btns {
+    @include abs-choose-pos(60%, 50%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2vw;
+    text-align: center;
+
+    &_btn {
+      @include main-txt(2vh, 0.6);
+      padding: 15px;
+      background-color: rgba(75, 14, 133, 0.5);
+      border: 8px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      cursor: pointer;
+
+      &:hover {
+        border: 8px solid rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+}

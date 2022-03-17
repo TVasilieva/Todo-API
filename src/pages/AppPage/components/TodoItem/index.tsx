@@ -1,8 +1,12 @@
 import { FC } from "react";
-import "./style.css";
+import classNames from "classnames";
+
+import "./style.scss";
 import Props from "./types";
 
-import ComponentTodoItem from "./component";
+import IconButton from "@mui/material/IconButton";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
 import { useAppDispatch } from "state";
 import { updateTodoRequest } from "state/todos/actions";
 
@@ -20,12 +24,27 @@ const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
     );
   };
 
+  const style = classNames("round", todo.completed && "complited");
+
   return (
-    <ComponentTodoItem
-      todo={todo}
-      handleRemoveTodo={handleRemoveTodo}
-      handleCompleted={handleCompleted}
-    />
+    <div className={style}>
+      <input
+        type="checkbox"
+        id={todo.name}
+        name={todo.name}
+        value={todo.name}
+        checked={todo.completed}
+        onChange={handleCompleted(todo.id, todo.completed)}
+      />
+      <label htmlFor={todo.name}>{todo.name}</label>
+      <IconButton
+        aria-label="delete"
+        size="large"
+        onClick={handleRemoveTodo(todo.id)}
+      >
+        <DeleteOutlineIcon />
+      </IconButton>
+    </div>
   );
 };
 

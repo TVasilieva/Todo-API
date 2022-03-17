@@ -1,0 +1,73 @@
+@import "mixins/flex-between";
+
+.actions-container {
+  @include flex-between;
+  padding: 3% 5%;
+  margin-top: 2px;
+  background-color: #fff;
+  font: {
+    weight: 600;
+    family: "Bradley Hand", cursive;
+  }
+  color: #aaa;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    height: 13vh;
+  }
+
+  &__left-side {
+    @include flex-between;
+    width: 50%;
+
+    @media (max-width: 700px) {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  &__right-side {
+    @include flex-between;
+    align-items: center;
+    font-size: 1.1em;
+
+    &_active {
+      color: rgba(43, 130, 230, 0.9);
+    }
+
+    div {
+      margin: 0 7px;
+      cursor: pointer;
+
+      span:hover {
+        color: rgba(0, 0, 0, 0.7);
+      }
+    }
+  }
+}
+
+.logout-btn {
+  position: absolute;
+  padding: 10px;
+  bottom: -9%;
+  left: 50%;
+  transform: translate(-50%, 9%);
+  background: none;
+  font: {
+    size: 1.1em;
+    family: "Fira Sans", sans-serif;
+    weight: 600;
+  }
+  letter-spacing: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}

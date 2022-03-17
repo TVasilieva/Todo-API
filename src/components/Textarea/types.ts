@@ -1,8 +1,9 @@
 import React from "react";
 
-export default interface ComponentProps
-  extends React.HTMLProps<HTMLInputElement> {
+export default interface Props extends React.HTMLProps<HTMLInputElement> {
   Button: JSX.Element;
+  value: string;
+  placeholder: string;
   classes?: {
     input?: string;
   };

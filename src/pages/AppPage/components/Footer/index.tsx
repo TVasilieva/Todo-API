@@ -1,8 +1,7 @@
 import { FC, useEffect } from "react";
-import "./style.css";
+import "./style.scss";
 import Props from "./types";
 
-import ComponentFooter from "./component";
 import { Filter } from "pages/AppPage/types";
 import { useAppDispatch, useAppSelector } from "state";
 import {
@@ -26,19 +25,48 @@ const Footer: FC<Props> = ({ filter, onChangeFilter, handleLogout }) => {
   const activeTodosLength = todos.length - completedTodosLength;
 
   const isActive = (word: Filter) => {
-    return filter === word ? "active-choice" : "categories";
+    return filter === word
+      ? "actions-container__right-side_active"
+      : "actions-container__right-side";
   };
 
   return (
-    <ComponentFooter
-      filter={filter}
-      isLoading={isLoading}
-      activeTodosLength={activeTodosLength}
-      completedTodosLength={completedTodosLength}
-      onChangeFilter={onChangeFilter}
-      handleLogout={handleLogout}
-      isActive={isActive}
-    />
+    <>
+      <div className="actions-container">
+        <div className="actions-container__left-side">
+          <div>
+            {isLoading && !completedTodosLength ? "   " : activeTodosLength}{" "}
+            items left
+          </div>
+        </div>
+        <div className="actions-container__right-side">
+          <div>
+            <span className={isActive("all")} onClick={onChangeFilter("all")}>
+              All
+            </span>
+          </div>
+          <div>
+            <span
+              className={isActive("active")}
+              onClick={onChangeFilter("active")}
+            >
+              Active
+            </span>
+          </div>
+          <div>
+            <span
+              className={isActive("completed")}
+              onClick={onChangeFilter("completed")}
+            >
+              Completed
+            </span>
+          </div>
+        </div>
+      </div>
+      <button className="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
+    </>
   );
 };
 

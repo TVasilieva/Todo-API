@@ -1,4 +1,4 @@
-import { LoginRequest, RegistrationRequest } from "api/auth";
+import { LoginRequest, RegistrationRequest } from "api/types";
 import { Account } from "models/user";
 import { actionCreator } from "utils/actionCreator";
 

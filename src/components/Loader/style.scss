@@ -1,0 +1,14 @@
+@import "mixins/absolute-center";
+
+.overlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.progress {
+  @include absolute-center(3);
+}
