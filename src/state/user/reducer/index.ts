@@ -7,6 +7,7 @@ const initialState: UserReducer = {
   accountIsLoading: false,
   accountError: null,
   username: "",
+  avatar: "",
 };
 
 export const userReducer = (

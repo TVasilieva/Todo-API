@@ -104,3 +104,9 @@ export interface UpdateTodoResponse {
 export interface Data {
   completed: boolean;
 }
+
+//IMAGE
+
+export interface UpdateImageResponse {
+  success: boolean;
+}

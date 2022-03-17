@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import "./style.scss";
 import Header from "components/Header";
 import Loader from "components/Loader";
+import AppDropzone from "components/Dropzone";
 import AddAPhotoSharpIcon from "@mui/icons-material/AddAPhotoSharp";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -10,12 +11,14 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useAppDispatch, useAppSelector } from "state";
 import { getIsLoading, getUser, getUsername } from "state/user/selectors";
 import { editProfileRequest, getUserRequest } from "state/user/actions";
+import { getImage } from "state/image/selectors";
 
 const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
 
   const account = useAppSelector(getUser);
   const username = useAppSelector(getUsername);
+  const image = useAppSelector(getImage);
   const isLoading = useAppSelector(getIsLoading);
 
   const [name, setName] = useState<string>(username);
@@ -31,7 +34,6 @@ const ProfilePage: FC = () => {
     if (!isLoading) {
       dispatch(getUserRequest());
     }
-    console.log(username);
     setIsEditMenuOpened(!isEditMenuOpened);
   };
 
@@ -51,13 +53,13 @@ const ProfilePage: FC = () => {
       <Header />
       {isLoading && <Loader />}
       <div className="profile">
-        <img
-          src="./assets/favicon.png"
-          alt="logo"
-          className="profile__image"
-          onClick={() => console.log("pic")}
-        />
-
+        <AppDropzone>
+          <img
+            src={`./assets/${image}`}
+            alt="logo"
+            className="profile__image"
+          />
+        </AppDropzone>
         {!isEditMenuOpened ? (
           <div className="profile__name">{username}</div>
         ) : (
@@ -72,7 +74,9 @@ const ProfilePage: FC = () => {
           />
         )}
         <div className="profile__tools">
-          <AddAPhotoSharpIcon className="profile__tools_add" />
+          <AppDropzone>
+            <AddAPhotoSharpIcon className="profile__tools_add" />
+          </AppDropzone>
           {!isEditMenuOpened ? (
             <EditSharpIcon
               className="profile__tools_edit"
