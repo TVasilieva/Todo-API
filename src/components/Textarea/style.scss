@@ -9,4 +9,8 @@
     size: 1.1em;
     family: "Bradley Hand", cursive;
   }
+  @media (max-width: 500px) {
+    padding: 4vw;
+    font-size: 0.8em;
+  }
 }

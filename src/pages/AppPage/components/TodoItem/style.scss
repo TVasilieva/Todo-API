@@ -10,6 +10,9 @@ input[type="checkbox"] {
   padding: 15px 15px 15px 55px;
   background-color: #fff;
   align-items: center;
+  @media (max-width: 500px) {
+    padding: 3vw 3vw 3vw 45px;
+  }
 
   &:first-child {
     border-radius: 8px 8px 0 0;
@@ -19,6 +22,9 @@ input[type="checkbox"] {
     font-size: 1.1em;
     color: rgb(11, 11, 68);
     cursor: pointer;
+    @media (max-width: 500px) {
+      font-size: 16px;
+    }
   }
 
   label::before {
@@ -31,6 +37,11 @@ input[type="checkbox"] {
     height: 20px;
     border-radius: 50%;
     cursor: pointer;
+    @media (max-width: 500px) {
+      top: 40%;
+      width: 15px;
+      height: 15px;
+    }
   }
 
   input[type="checkbox"]:checked + label::before {

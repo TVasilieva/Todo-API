@@ -73,7 +73,6 @@ const AppPage: FC = () => {
               <Button
                 Icon={<AddIcon />}
                 classes="add-btn"
-                size="medium"
                 color="secondary"
                 aria-label="add"
                 disabled={disabled}
