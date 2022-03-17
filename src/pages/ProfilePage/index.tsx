@@ -30,7 +30,7 @@ const ProfilePage: FC = () => {
   const [isEditMenuOpened, setIsEditMenuOpened] = useState<boolean>(false);
 
   useEffect(() => {
-    dispatch(getImageRequest(account?.id || ""));
+    if (account) dispatch(getImageRequest(account?.id || ""));
   }, [account?.id]);
 
   useEffect(() => {
@@ -124,7 +124,6 @@ const ProfilePage: FC = () => {
             {!isEditMenuOpened ? (
               <EditSharpIcon
                 className="profile__tools_edit"
-                onKeyDown={() => console.log("key pressed")}
                 onClick={toggleEditMenu}
               />
             ) : (
