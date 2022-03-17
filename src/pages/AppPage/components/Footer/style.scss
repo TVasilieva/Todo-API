@@ -15,7 +15,7 @@
 
   @media (max-width: 700px) {
     flex-direction: column;
-    height: 13vh;
+    height: 10vh;
   }
 
   &__left-side {
@@ -24,14 +24,17 @@
 
     @media (max-width: 700px) {
       width: 100%;
-      justify-content: space-between;
+      text-align: center;
+    }
+    @media (max-width: 500px) {
+      justify-content: center;
     }
   }
 
   &__right-side {
     @include flex-between;
     align-items: center;
-    font-size: 1.1em;
+    font-size: 15px;
 
     &_active {
       color: rgba(43, 130, 230, 0.9);

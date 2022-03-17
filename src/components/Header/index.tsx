@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "./style.scss";
 import Portal from "components/Portal";
 import DropdownMenu from "components/DropdownMenu";
@@ -11,13 +11,21 @@ import { useAppDispatch, useAppSelector } from "state";
 import { logoutRequest } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { getImage } from "state/image/selectors";
+import { getImageRequest, uploadImageRequest } from "state/image/actions";
+import { getUser } from "state/user/selectors";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const image = useAppSelector(getImage);
+  const account = useAppSelector(getUser);
 
   const navigator = useNavigate();
   const [isOpened, setIsOpened] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (account) dispatch(getImageRequest(account?.id || ""));
+    if (image) dispatch(uploadImageRequest(image as File));
+  }, [account?.id]);
 
   const toggleDropdownMenu = () => {
     setIsOpened(!isOpened);

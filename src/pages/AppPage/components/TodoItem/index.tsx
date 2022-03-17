@@ -37,11 +37,7 @@ const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
         onChange={handleCompleted(todo.id, todo.completed)}
       />
       <label htmlFor={todo.name}>{todo.name}</label>
-      <IconButton
-        aria-label="delete"
-        size="large"
-        onClick={handleRemoveTodo(todo.id)}
-      >
+      <IconButton aria-label="delete" onClick={handleRemoveTodo(todo.id)}>
         <DeleteOutlineIcon />
       </IconButton>
     </div>
