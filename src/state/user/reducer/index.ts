@@ -82,6 +82,25 @@ export const userReducer = (
         accountIsLoading: false,
         accountError: action.payload,
       };
+    case UserActions.EDIT_USER_REQUEST:
+      return {
+        ...state,
+        accountIsLoading: true,
+        accountError: null,
+      };
+    case UserActions.EDIT_USER_RESPONSE:
+      return {
+        ...state,
+        account: action.payload,
+        accountIsLoading: false,
+        accountError: null,
+      };
+    case UserActions.EDIT_USER_RESPONSE_ERROR:
+      return {
+        ...state,
+        accountIsLoading: false,
+        accountError: action.payload,
+      };
     default:
       return state;
   }

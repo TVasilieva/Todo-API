@@ -1,52 +1,14 @@
 import axios, { AxiosResponse } from "axios";
 import { getToken } from "utils/token";
-
-interface TodoData {
-  completed: boolean;
-  _id: string;
-  description: string;
-  owner: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface GetTodosResponse {
-  count: number;
-  data: TodoData[];
-}
-
-export interface AddTodoRequest {
-  description: string;
-}
-
-export interface AddTodoResponse {
-  success: boolean;
-  data: TodoData;
-}
-
-export interface RemoveTodoResponse {
-  success: boolean;
-  data: TodoData;
-}
-
-export interface GetNumberCompletedTodosResponse {
-  count: number;
-  data: TodoData[];
-}
-
-export interface UpdateTodoRequest {
-  id: string;
-  completed: Data;
-}
-
-export interface UpdateTodoResponse {
-  success: boolean;
-  data: TodoData;
-}
-
-export interface Data {
-  completed: boolean;
-}
+import {
+  AddTodoRequest,
+  AddTodoResponse,
+  Data,
+  GetNumberCompletedTodosResponse,
+  GetTodosResponse,
+  RemoveTodoResponse,
+  UpdateTodoResponse,
+} from "./types";
 
 class TodoAPI {
   static getTodos = async (): Promise<AxiosResponse<GetTodosResponse>> => {

@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { getToken } from "utils/token";
 import {
+  EditProfileRequest,
+  EditProfileResponse,
   GetUserResponse,
   LoginRequest,
   LoginResponse,
@@ -42,6 +44,19 @@ class AuthAPI {
     return axios({
       url: "https://api-nodejs-todolist.herokuapp.com/user/me",
       method: "get",
+      headers: {
+        Authorization: token,
+      },
+    });
+  };
+  static editProfile = async (
+    data: EditProfileRequest
+  ): Promise<AxiosResponse<EditProfileResponse>> => {
+    const token = getToken() as string;
+    return axios({
+      url: "https://api-nodejs-todolist.herokuapp.com/user/me",
+      method: "put",
+      data,
       headers: {
         Authorization: token,
       },

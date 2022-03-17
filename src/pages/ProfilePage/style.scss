@@ -37,6 +37,17 @@
     text-align: center;
   }
 
+  &__input {
+    @include main-txt(1.5em, 1);
+    width: 100%;
+    padding: 15px;
+    letter-spacing: 2px;
+    color: black;
+    border: 1.5px solid black;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
   &__tools {
     position: absolute;
     top: 0;
@@ -52,6 +63,10 @@
     }
 
     &_edit {
+      @extend .tool-btn;
+    }
+
+    &_save {
       @extend .tool-btn;
     }
   }

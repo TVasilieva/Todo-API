@@ -1,4 +1,4 @@
-import { AddTodoRequest, UpdateTodoRequest } from "api/todos";
+import { AddTodoRequest, UpdateTodoRequest } from "api/types";
 import { Todo } from "models/todo";
 import { Filter } from "pages/AppPage/types";
 import { actionCreator } from "utils/actionCreator";

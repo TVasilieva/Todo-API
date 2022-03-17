@@ -1,4 +1,8 @@
-import { LoginRequest, RegistrationRequest } from "api/types";
+import {
+  EditProfileRequest,
+  LoginRequest,
+  RegistrationRequest,
+} from "api/types";
 import { Account } from "models/user";
 import { actionCreator } from "utils/actionCreator";
 
@@ -18,6 +22,10 @@ export enum UserActions {
   GET_USER_REQUEST = "GET_USER_REQUEST",
   GET_USER_RESPONSE = "GET_USER_RESPONSE",
   GET_USER_RESPONSE_ERROR = "GET_USER_RESPONSE_ERROR",
+
+  EDIT_USER_REQUEST = "EDIT_USER_REQUEST",
+  EDIT_USER_RESPONSE = "EDIT_USER_RESPONSE",
+  EDIT_USER_RESPONSE_ERROR = "EDIT_USER_RESPONSE_ERROR",
 }
 
 export const registrationRequest = (data: RegistrationRequest) =>
@@ -53,3 +61,13 @@ export const getUserResponse = (data: string) =>
   actionCreator<UserActions, string>(UserActions.GET_USER_RESPONSE, data);
 export const getUserResponseError = (error: any) =>
   actionCreator<UserActions, any>(UserActions.GET_USER_RESPONSE_ERROR, error);
+
+export const editProfileRequest = (data: EditProfileRequest) =>
+  actionCreator<UserActions, EditProfileRequest>(
+    UserActions.EDIT_USER_REQUEST,
+    data
+  );
+export const editProfileResponse = (data: Account) =>
+  actionCreator<UserActions, Account>(UserActions.EDIT_USER_RESPONSE, data);
+export const editProfileResponseError = (error: any) =>
+  actionCreator<UserActions, any>(UserActions.EDIT_USER_RESPONSE_ERROR, error);
