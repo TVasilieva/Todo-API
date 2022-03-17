@@ -20,11 +20,19 @@
 
   &__image {
     width: 50vw;
-    max-width: 350px;
-    margin-bottom: 20px;
+    max-width: 320px;
+    margin-bottom: 30px;
     border: 8px solid white;
     border-radius: 50%;
     cursor: pointer;
+
+    &_empty {
+      height: auto !important;
+      width: 57vw !important;
+      max-width: 320px !important;
+      color: white !important;
+      margin-bottom: 30px;
+    }
 
     &:hover {
       border: 12px solid rgba(255, 255, 255, 0.5);

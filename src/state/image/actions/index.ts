@@ -5,6 +5,10 @@ export enum ImageActions {
   UPLOAD_IMAGE_REQUEST = "UPLOAD_IMAGE_REQUEST",
   UPLOAD_IMAGE_RESPONSE = "UPLOAD_IMAGE_RESPONSE",
   UPLOAD_IMAGE_RESPONSE_ERROR = "UPLOAD_IMAGE_RESPONSE_ERROR",
+
+  GET_IMAGE_REQUEST = "GET_IMAGE_REQUEST",
+  GET_IMAGE_RESPONSE = "GET_IMAGE_RESPONSE",
+  GET_IMAGE_RESPONSE_ERROR = "GET_IMAGE_RESPONSE_ERROR",
 }
 
 export const uploadImageRequest = (file: File) =>
@@ -14,5 +18,15 @@ export const uploadImageResponse = (file: string) =>
 export const uploadImageResponseError = (error: any) =>
   actionCreator<ImageActions, any>(
     ImageActions.UPLOAD_IMAGE_RESPONSE_ERROR,
+    error
+  );
+
+export const getImageRequest = (id: string) =>
+  actionCreator<ImageActions, string>(ImageActions.GET_IMAGE_REQUEST, id);
+export const getImageResponse = (id: string) =>
+  actionCreator<ImageActions, string>(ImageActions.GET_IMAGE_RESPONSE, id);
+export const getImageResponseError = (error: any) =>
+  actionCreator<ImageActions, any>(
+    ImageActions.GET_IMAGE_RESPONSE_ERROR,
     error
   );

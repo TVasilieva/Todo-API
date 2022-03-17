@@ -3,7 +3,7 @@ import { ActionsType } from "utils/actionCreator";
 import { ImageReducer } from "./types";
 
 const initialState: ImageReducer = {
-  image: "favicon.png",
+  image: "",
   imageIsLoading: true,
   imageError: null,
 };
@@ -25,6 +25,24 @@ export const imageReducer = (
         imageIsLoading: false,
       };
     case ImageActions.UPLOAD_IMAGE_RESPONSE_ERROR:
+      return {
+        ...state,
+        imageIsLoading: false,
+        imageError: action.payload,
+      };
+
+    case ImageActions.GET_IMAGE_REQUEST:
+      return {
+        ...state,
+        imageIsLoading: true,
+      };
+    case ImageActions.GET_IMAGE_RESPONSE:
+      return {
+        ...state,
+        image: action.payload,
+        imageIsLoading: false,
+      };
+    case ImageActions.GET_IMAGE_RESPONSE_ERROR:
       return {
         ...state,
         imageIsLoading: false,

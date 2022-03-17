@@ -1,5 +1,5 @@
 export interface ImageReducer {
-  image: string;
+  image: string | Blob;
   imageIsLoading: boolean;
   imageError: string | null;
 }
