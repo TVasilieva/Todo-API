@@ -1,5 +1,4 @@
-import React, { FC } from "react";
-import { Provider } from "react-redux";
+import { FC } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.scss";
@@ -11,37 +10,37 @@ import ProfilePage from "pages/ProfilePage";
 import NotFoundPage from "pages/NotFoundPage";
 import ProtectedRoute from "components/ProtectedRoute";
 
-import { store } from "state";
 import { Routes as RouteName } from "./constants/routes";
 
 const App: FC = () => {
   return (
-    <Provider store={store}>
-      <Layout>
-        <Router>
-          <Routes>
-            <Route path={RouteName.Home} element={<MainPage />} />
-            <Route
-              path={RouteName.Todo}
-              element={
-                <ProtectedRoute>
-                  <AppPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path={RouteName.Profile}
-              element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
-            />
-            <Route path={RouteName.Error} element={<NotFoundPage />} />
-          </Routes>
-        </Router>
-      </Layout>
-    </Provider>
+    <Layout>
+      <Router>
+        <Routes>
+          <Route path={RouteName.Home} element={<MainPage />} />
+          <Route
+            path={RouteName.Todo}
+            element={
+              <ProtectedRoute>
+                <AppPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={RouteName.Profile}
+            element={
+              <ProtectedRoute>
+                <ProfilePage data-testid="profile-link" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={RouteName.Error}
+            element={<NotFoundPage data-testid="error-link" />}
+          />
+        </Routes>
+      </Router>
+    </Layout>
   );
 };
 

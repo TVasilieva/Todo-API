@@ -1,7 +1,7 @@
 import React from "react";
 
 export default interface Props extends React.HTMLProps<HTMLInputElement> {
-  Button: JSX.Element;
+  Button: JSX.Element | undefined;
   value: string;
   placeholder: string;
   classes?: {

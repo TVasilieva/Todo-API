@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from "react";
 import { getIsLoading, getUser } from "state/user/selectors";
 import { useAppSelector } from "state";
@@ -33,7 +34,7 @@ const MainPage: FC = () => {
   };
 
   return (
-    <div className="main-page">
+    <div className="main-page" data-testid="main-link">
       <div className="main-page__greeting">todo app</div>
       {!account && (
         <div className="main-page__btns">

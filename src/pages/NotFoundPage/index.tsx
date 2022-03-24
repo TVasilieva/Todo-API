@@ -12,12 +12,12 @@ const NotFoundPage: FC = () => {
   };
 
   return (
-    <>
+    <div data-testid="error-link">
       <h2 className="error">404 not found</h2>
       <button className="home" onClick={onClick}>
         Turn back to the Home page
       </button>
-    </>
+    </div>
   );
 };
 

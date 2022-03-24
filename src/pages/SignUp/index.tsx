@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -30,7 +31,7 @@ const SignUp: FC = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: validateSignUp,
-    onSubmit: () => {
+    onSubmit: (): void => {
       const data: RegistrationRequest = {
         name,
         email,
@@ -48,7 +49,11 @@ const SignUp: FC = () => {
   const { name, password, email, repeatPassword } = formik.values;
 
   return (
-    <form className="sign__form" onSubmit={formik.handleSubmit}>
+    <form
+      className="sign__form"
+      onSubmit={formik.handleSubmit}
+      data-testid="sign-up"
+    >
       <input
         className="sign__input"
         placeholder="Username"
@@ -56,6 +61,7 @@ const SignUp: FC = () => {
         name="name"
         value={name}
         onChange={formik.handleChange}
+        data-testid="sign-up-username"
       />
       {formik.touched.name && formik.errors.name && (
         <p className="formik_error">{formik.errors.name}</p>
@@ -68,6 +74,7 @@ const SignUp: FC = () => {
         name="password"
         value={password}
         onChange={formik.handleChange}
+        data-testid="sign-up-password"
       />
       {formik.touched.password && formik.errors.password && (
         <p className="formik_error">{formik.errors.password}</p>
@@ -80,6 +87,7 @@ const SignUp: FC = () => {
         name="repeatPassword"
         value={repeatPassword}
         onChange={formik.handleChange}
+        data-testid="sign-up-repeat-password"
       />
       {formik.touched.repeatPassword && formik.errors.repeatPassword && (
         <p className="formik_error">{formik.errors.repeatPassword}</p>
@@ -91,6 +99,7 @@ const SignUp: FC = () => {
         name="email"
         value={email}
         onChange={formik.handleChange}
+        data-testid="sign-up-email"
       />
       {formik.touched.email && formik.errors.email && (
         <p className="formik_error">{formik.errors.email}</p>

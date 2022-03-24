@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -42,7 +43,11 @@ const SignIn: FC = () => {
   const { email, password } = formik.values;
 
   return (
-    <form className="sign__form" onSubmit={formik.handleSubmit}>
+    <form
+      className="sign__form"
+      onSubmit={formik.handleSubmit}
+      data-testid="sign-in"
+    >
       <input
         className="sign__input"
         placeholder="Email"
@@ -50,6 +55,7 @@ const SignIn: FC = () => {
         name="email"
         value={email}
         onChange={formik.handleChange}
+        data-testid="sign-in-email"
       />
       {formik.touched.email && formik.errors.email && (
         <p className="formik_error">{formik.errors.email}</p>
@@ -62,6 +68,7 @@ const SignIn: FC = () => {
         name="password"
         value={password}
         onChange={formik.handleChange}
+        data-testid="sign-in-password"
       />
       {formik.touched.password && formik.errors.password && (
         <p className="formik_error">{formik.errors.password}</p>

@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "state";
 import { logoutRequest } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { getImage } from "state/image/selectors";
+import getBlob from "utils/getBlob";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,20 +29,7 @@ const Header: FC = () => {
     navigator(Routes.Home);
   };
 
-  const getBlob = (): string | undefined => {
-    if (image) {
-      let url: string = "";
-      try {
-        url = URL.createObjectURL(image as Blob | MediaSource | File);
-        setTimeout(() => {
-          URL.revokeObjectURL(url);
-        }, 0);
-        return url;
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  };
+  const blob = getBlob(image);
 
   return (
     <Portal>
@@ -49,13 +37,18 @@ const Header: FC = () => {
         <div className="header__logo">
           <CatchingPokemonSharpIcon
             sx={{ color: common.white, fontSize: "40px" }}
+            data-testid="logo"
           />
           <h1 className="header__title">todo</h1>
         </div>
-        <div className="header__account" onClick={toggleDropdownMenu}>
+        <div
+          className="header__account"
+          data-testid="header-account"
+          onClick={toggleDropdownMenu}
+        >
           <img
-            src={image ? getBlob() : "./assets/icon.png"}
-            alt="logo"
+            src={image ? blob : "./assets/icon.png"}
+            alt="logo-img"
             className="header__image"
           />
           {isOpened && (

@@ -7,7 +7,7 @@ import Grow from "@mui/material/Grow";
 const DropdownMenu: FC<any> = ({ profile, todos, logout, isOpened }) => {
   return (
     <Grow in={isOpened}>
-      <ul className="menu">
+      <ul className="menu" data-testid="dropdown-menu">
         <li key="Profile" className="menu__item">
           <Link to={profile} className="menu__item_link">
             Profile
@@ -18,7 +18,12 @@ const DropdownMenu: FC<any> = ({ profile, todos, logout, isOpened }) => {
             Todos
           </Link>
         </li>
-        <li key="Logout" className="menu__item" onClick={logout}>
+        <li
+          key="Logout"
+          className="menu__item"
+          data-testid="logout"
+          onClick={logout}
+        >
           Logout
         </li>
       </ul>
