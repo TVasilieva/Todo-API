@@ -1,12 +1,16 @@
 @import "mixins/main-txt";
-@import "mixins/absolute-center";
+@import "mixins/abs-choose-pos";
 
 .user-page {
-  width: 70%;
-  @include absolute-center(1);
+  width: 70vw;
+  max-width: 1000px;
+  @include abs-choose-pos(65%, 50%);
 
   &__greeting {
     @include main-txt(1.5em, 0.8);
     margin-bottom: 1.2%;
+    @media (max-width: 470px) {
+      @include main-txt(5vw, 0.8);
+    }
   }
 }

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Fab from "@mui/material/Fab";
 
 import ComponentProps from "./types";
-import "./style.css";
+import "./style.scss";
 
 const Button: FC<ComponentProps> = ({
   Icon,

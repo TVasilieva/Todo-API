@@ -1,0 +1,11 @@
+.add-btn {
+  position: absolute !important;
+  right: 15px;
+  margin-top: 4px !important;
+  @media (max-width: 500px) {
+    height: 40px !important;
+    width: 40px !important;
+    margin-top: 0.9vw !important;
+    right: 10px;
+  }
+}
