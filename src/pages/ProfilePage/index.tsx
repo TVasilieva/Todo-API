@@ -15,6 +15,7 @@ import { getIsLoading, getUser, getUsername } from "state/user/selectors";
 import { editProfileRequest, getUserRequest } from "state/user/actions";
 import { getImage, getImageIsLoading } from "state/image/selectors";
 import { getImageRequest, removeImageRequest } from "state/image/actions";
+import getBlob from "utils/getBlob";
 
 const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -71,20 +72,7 @@ const ProfilePage: FC = () => {
     dispatch(removeImageRequest());
   };
 
-  const getBlob = (): string | undefined => {
-    if (image) {
-      let url: string = "";
-      try {
-        url = URL.createObjectURL(image as Blob | MediaSource | File);
-        setTimeout(() => {
-          URL.revokeObjectURL(url);
-        }, 0);
-        return url;
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  };
+  const blob = getBlob(image);
 
   return (
     <>
@@ -99,7 +87,7 @@ const ProfilePage: FC = () => {
                 className="profile__image"
               />
             ) : image && !imageIsLoading ? (
-              <img src={getBlob()} alt="logo" className="profile__image" />
+              <img src={blob} alt="logo" className="profile__image" />
             ) : (
               <>
                 <img
@@ -136,7 +124,6 @@ const ProfilePage: FC = () => {
             {!isEditMenuOpened ? (
               <EditSharpIcon
                 className="profile__tools_edit"
-                onKeyDown={() => console.log("key pressed")}
                 onClick={toggleEditMenu}
               />
             ) : (
