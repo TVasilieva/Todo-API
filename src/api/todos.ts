@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { Todo } from "models/todo";
 import { getToken } from "utils/token";
 import {
   AddTodoRequest,
@@ -39,12 +40,12 @@ class TodoAPI {
   };
 
   static removeTodo = async (
-    id: string
+    todo: Todo
   ): Promise<AxiosResponse<RemoveTodoResponse>> => {
     const token = getToken() as string;
 
     return axios({
-      url: `https://api-nodejs-todolist.herokuapp.com/task/${id}`,
+      url: `https://api-nodejs-todolist.herokuapp.com/task/${todo.id}`,
       method: "delete",
       headers: {
         Authorization: token,

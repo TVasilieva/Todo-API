@@ -2,34 +2,36 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { wrappedWithRouterAndReduxComponent } from "utils/wrapComponent";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
 
 import AppPage from "./index";
-import axios from "axios";
 
-jest.mock("axios");
+// export const handlers = [
+//   rest.get("/api/user", (req, res, ctx) => {
+//     return res(ctx.json("John Smith"), ctx.delay(150));
+//   }),
+// ];
 
-const username: string = "Vendi Testaburger";
+// const server = setupServer(...handlers);
+
+// beforeAll(() => server.listen());
+// afterEach(() => server.resetHandlers());
+// afterAll(() => server.close());
 
 describe("Username", () => {
-  test("renders greeting", async () => {
-    (axios as any).get.mockReturnValue(username);
-
+  test("fetches & receives a user after clicking the fetch user button", async () => {
     render(wrappedWithRouterAndReduxComponent(<AppPage />));
-    // const authorizedUser = await screen.findByText("Vendi");
 
-    // expect(axios.get).toBeCalledTimes(1);
-    // expect(authorizedUser).toEqual(1);
+    // expect(screen.getByText(/no user/i)).toBeInTheDocument()
+    // expect(screen.queryByText(/Fetching user\.\.\./i)).not.toBeInTheDocument()
+    //
+    //  fireEvent.click(screen.getByRole("button", { name: /Fetch user/i }));
+    // expect(screen.getByText(/no user/i)).toBeInTheDocument();
 
-    // axios.get.mockImplementationOnce(() => Promise.resolve({ data: user }));
-
-    // const greeting = await screen.findByRole("h2");
-    // expect(greeting).toBeInTheDocument();
-    // expect(greeting).toHaveBeenCalledTimes(1);
-    // expect(greeting).toHaveBeenCalledWith(
-    //   "https://api-nodejs-todolist.herokuapp.com/user/me"
-    // );
-
-    //screen.debug();
+    //  expect(await screen.findByText(/John Smith/i)).toBeInTheDocument();
+    //expect(screen.queryByText(/sign in/i)).not.toBeInTheDocument();
+    //expect(screen.queryByText(/Fetching user\.\.\./i)).not.toBeInTheDocument()
   });
 
   test("renders greeting correctly", async () => {
@@ -37,19 +39,5 @@ describe("Username", () => {
     await waitFor(() => {
       expect(screen.queryByText("go away")).not.toBeInTheDocument();
     });
-  });
-});
-
-describe("Filter", () => {
-  const todos: any = [
-    { description: "Tonya", completed: true },
-    { description: "Enot", completed: false },
-    { description: "Antoniy", completed: true },
-  ];
-  test("change filter to active", () => {
-    render(wrappedWithRouterAndReduxComponent(<AppPage />));
-    const span = screen.getByText(/active/i);
-    fireEvent.click(span);
-    expect(todos).toEqual([{ description: "Enot", completed: false }]);
   });
 });

@@ -16,11 +16,6 @@ describe("ReactDOM Render", () => {
         </MemoryRouter>
       )
     );
-    //   const image = screen.getByAltText("logo");
-    //   fireEvent.click(image);
-    //   const logout = screen.getByTestId("logout");
-    //   fireEvent.click(logout);
-    //   expect(screen.getByText(/todo app/i)).toBeInTheDocument();
   });
 });
 

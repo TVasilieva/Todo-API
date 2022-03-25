@@ -60,10 +60,10 @@ function* addTodoItem(action: ActionPayload<AddTodoRequest>) {
   }
 }
 
-function* removeTodoItem(action: ActionPayload<string>) {
+function* removeTodoItem(action: ActionPayload<Todo>) {
   try {
-    yield TodoAPI.removeTodo(action.payload as string);
-    yield put(removeTodoResponse(action.payload as string));
+    yield TodoAPI.removeTodo(action.payload as Todo);
+    yield put(removeTodoResponse(action.payload as Todo));
   } catch (error) {
     yield put(removeTodoResponseError((error as TypeError).message));
   }
