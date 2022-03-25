@@ -13,6 +13,10 @@ import { useNavigate } from "react-router-dom";
 import { getImage } from "state/image/selectors";
 import getBlob from "utils/getBlob";
 
+import getBlob from "utils/getBlob";
+import { getUser } from "state/user/selectors";
+import { getImageRequest, uploadImageRequest } from "state/image/actions";
+
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const image = useAppSelector(getImage);

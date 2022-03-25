@@ -102,7 +102,6 @@ const ProfilePage: FC = () => {
                 </>
               )}
             </AppDropzone>
-
             {!isEditMenuOpened && !isLoading ? (
               <div className="profile__name">{username}</div>
             ) : username ? (
