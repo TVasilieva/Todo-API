@@ -4,27 +4,24 @@ import "@testing-library/jest-dom/extend-expect";
 import { wrappedWithRouterAndReduxComponent } from "utils/wrapComponent";
 
 import SignUp from "./index";
-import { act } from "react-dom/test-utils";
 import userEvent from "@testing-library/user-event";
-
-const waitForComponentToPaint = async (wrapper: any) => {
-  await act(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    wrapper.update();
-  });
-};
+import { waitForComponentToPaint } from "utils/waitFor";
 
 describe("Sign up Button", () => {
   test("renders button", () => {
-    render(wrappedWithRouterAndReduxComponent(<SignUp />));
+    render(wrappedWithRouterAndReduxComponent(<SignUp onSubmit={() => {}} />));
     const button = screen.getByRole("button", { name: /sign up/i });
     expect(button).toBeInTheDocument();
   });
 });
 
 describe("Sign up Inputs", () => {
+  const handleSubmit = jest.fn();
+
   test("number of inputs", () => {
-    render(wrappedWithRouterAndReduxComponent(<SignUp />));
+    render(
+      wrappedWithRouterAndReduxComponent(<SignUp onSubmit={handleSubmit} />)
+    );
     const email = screen.queryAllByPlaceholderText("Email");
     expect(email).toHaveLength(1);
 
@@ -36,8 +33,10 @@ describe("Sign up Inputs", () => {
   });
 
   test("input event", async () => {
-    render(wrappedWithRouterAndReduxComponent(<SignUp />));
-    waitForComponentToPaint(<SignUp />);
+    render(
+      wrappedWithRouterAndReduxComponent(<SignUp onSubmit={handleSubmit} />)
+    );
+    waitForComponentToPaint(<SignUp onSubmit={handleSubmit} />);
 
     const email = screen.getByTestId("sign-up-email");
     expect(email).toContainHTML("");
@@ -69,7 +68,9 @@ describe("Sign up Inputs", () => {
 describe("Sign up Formik", () => {
   test("rendering and submitting a basic Formik form", async () => {
     const handleSubmit = jest.fn();
-    render(wrappedWithRouterAndReduxComponent(<SignUp />));
+    render(
+      wrappedWithRouterAndReduxComponent(<SignUp onSubmit={handleSubmit} />)
+    );
 
     userEvent.type(screen.getByTestId(/username/i), "John");
     userEvent.type(screen.getByTestId(/email/i), "a@mail.ru");
@@ -77,25 +78,12 @@ describe("Sign up Formik", () => {
 
     userEvent.click(screen.getByRole("button", { name: "Sign up" }));
 
-    // await waitFor(() =>
-    //   expect(handleSubmit).toHaveBeenCalledWith({
-    //     username: "John",
-    //     email: "a@mail.ru",
-    //     password: "11111111",
-    //   })
-    // );
+    await waitFor(() =>
+      expect(handleSubmit).toHaveBeenCalledWith({
+        name: "John",
+        email: "a@mail.ru",
+        password: "11111111",
+      })
+    );
   });
 });
-
-// it("should validate phone numbers", async () => {
-//   ...
-//   fireEvent.change(getByPlaceholder("Phone"), {
-//    target: { value: "123456789" }
-//   });
-//   fireEvent.click(getByText("Sign in"));
-//   await waitFor(() => {
-//     expect(getByText(
-//       "Please enter a valid phone number"
-//     )).toBeInTheDocument();
-//   });
-// });

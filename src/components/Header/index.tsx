@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from "react";
 import "./style.scss";
 import Portal from "components/Portal";
@@ -12,6 +13,8 @@ import { logoutRequest } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { getImage } from "state/image/selectors";
 import getBlob from "utils/getBlob";
+import { getUser } from "state/user/selectors";
+import { getImageRequest, uploadImageRequest } from "state/image/actions";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +29,7 @@ const Header: FC = () => {
     if (image) dispatch(uploadImageRequest(image as File));
   }, [account?.id]);
 
-  const toggleDropdownMenu = () => {
+  const toggleDropdownMenu = (): void => {
     setIsOpened(!isOpened);
   };
 

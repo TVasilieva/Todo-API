@@ -1,16 +1,10 @@
-/* eslint-disable testing-library/prefer-find-by */
-import {
-  render,
-  screen,
-  fireEvent,
-  within,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ProfilePage from ".";
 import { wrappedWithRouterAndReduxComponent } from "utils/wrapComponent";
 import userEvent from "@testing-library/user-event";
 import Input from "components/Input";
+import { shallow } from "enzyme";
 
 describe("Main Image", () => {
   test("one image in profile section", () => {
@@ -43,11 +37,9 @@ describe("Save button", () => {
 
     const saveButton = screen.getByTestId("save-profile");
     fireEvent.click(saveButton);
-    // await waitForElementToBeRemoved(() =>
-    //   screen.queryByPlaceholderText(/type your name.../i)
-    // );
-    // const input = screen.getByPlaceholderText("type your name...");
-    // expect(input).not.toBeInTheDocument();
+
+    const input = screen.queryByPlaceholderText("type your name...");
+    expect(input).not.toBeInTheDocument();
   });
 
   test("fn on clicking 'Enter'", async () => {
@@ -78,7 +70,7 @@ describe("Edit section", () => {
     const button = screen.getByTestId("edit-profile");
     fireEvent.click(button);
     const progress = screen.queryAllByRole("progressbar");
-    expect(progress).toHaveLength(2); //??????????????
+    expect(progress).toHaveLength(1);
   });
 
   test("opens input to edit", async () => {
@@ -86,9 +78,22 @@ describe("Edit section", () => {
 
     const button = screen.getByTestId("edit-profile");
     fireEvent.click(button);
-    //await waitFor(() => screen.getByPlaceholderText("type your name..."));
 
-    // const input = screen.getByPlaceholderText("type your name...");
-    // expect(input).toBeInTheDocument();
+    await screen.findByPlaceholderText("type your name...");
+
+    const input = screen.getByPlaceholderText("type your name...");
+    expect(input).toBeInTheDocument();
+  });
+});
+
+describe("Functions", () => {
+  test("handleRemoveImage", () => {
+    const wrapper = shallow(
+      wrappedWithRouterAndReduxComponent(<ProfilePage />)
+    );
+    wrapper.find("remove-image").simulate("click");
+
+    const image = screen.getByRole("image");
+    expect(image).toHaveAttribute("src", "/");
   });
 });

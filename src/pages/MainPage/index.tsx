@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from "react";
 import { getIsLoading, getUser } from "state/user/selectors";
-import { useAppSelector } from "state";
+import { useAppDispatch, useAppSelector } from "state";
 import "./style.scss";
 
 import { getToken } from "utils/token";
@@ -10,8 +10,11 @@ import { useNavigate } from "react-router-dom";
 import AppModal from "components/Modal";
 import SignIn from "pages/SignIn";
 import SignUp from "pages/SignUp";
+import { loginRequest, registrationRequest } from "state/user/actions";
+import { LoginRequest, RegistrationRequest } from "api/types";
 
 const MainPage: FC = () => {
+  const dispatch = useAppDispatch();
   const token = getToken();
   const navigate = useNavigate();
 
@@ -33,6 +36,29 @@ const MainPage: FC = () => {
     setIsUpOpen(!isUpOpen);
   };
 
+  const handleSubmitSignIn = ({ email, password }: LoginRequest) => {
+    dispatch(
+      loginRequest({
+        email,
+        password,
+      })
+    );
+  };
+
+  const handleSubmitSignUp = ({
+    email,
+    password,
+    name,
+  }: RegistrationRequest) => {
+    dispatch(
+      registrationRequest({
+        email,
+        password,
+        name,
+      })
+    );
+  };
+
   return (
     <div className="main-page" data-testid="main-link">
       <div className="main-page__greeting">todo app</div>
@@ -52,7 +78,7 @@ const MainPage: FC = () => {
           onClose={toggleInModal}
           isLoading={isLoading}
         >
-          <SignIn />
+          <SignIn onSubmit={handleSubmitSignIn} />
         </AppModal>
       ) : (
         <AppModal
@@ -60,7 +86,7 @@ const MainPage: FC = () => {
           onClose={toggleUpModal}
           isLoading={isLoading}
         >
-          <SignUp />
+          <SignUp onSubmit={handleSubmitSignUp} />
         </AppModal>
       )}
     </div>

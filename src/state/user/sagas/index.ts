@@ -27,7 +27,9 @@ import {
 } from "../../user/actions";
 import { createToken, removeToken, setToken } from "utils/token";
 
-function* registrationWorker(action: ActionPayload<RegistrationRequest>) {
+export function* registrationWorker(
+  action: ActionPayload<RegistrationRequest>
+) {
   try {
     const response: AxiosResponse<RegistrationResponse> =
       yield AuthAPI.registration(action.payload as RegistrationRequest);
@@ -52,6 +54,7 @@ function* loginWorker(action: ActionPayload<LoginRequest>) {
     const response: AxiosResponse<LoginResponse> = yield AuthAPI.login(
       action.payload as LoginRequest
     );
+    console.log(response);
 
     const token = createToken(response.data.token);
     setToken(token);
@@ -81,16 +84,13 @@ function* getWorkerByToken() {
   try {
     const response: AxiosResponse<GetUserResponse> = yield AuthAPI.getByToken();
 
-    const username: string = response.data.name;
-
-    yield put(getUserResponse(username));
     const account: Account = {
       id: response.data._id,
       email: response.data.email,
       name: response.data.name,
     };
 
-    yield put(loginResponse(account));
+    yield put(getUserResponse(account));
   } catch (error) {
     yield put(getUserResponseError((error as TypeError).message));
   }

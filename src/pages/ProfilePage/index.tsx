@@ -45,6 +45,7 @@ const ProfilePage: FC = () => {
   };
 
   const handleEditProfile = (): void => {
+    toggleEditMenu();
     if (name) {
       dispatch(
         editProfileRequest({
@@ -52,7 +53,6 @@ const ProfilePage: FC = () => {
         })
       );
       dispatch(getUserRequest());
-      toggleEditMenu();
     }
   };
 
@@ -103,17 +103,20 @@ const ProfilePage: FC = () => {
               )}
             </AppDropzone>
 
-            {!isEditMenuOpened && !isLoading ? (
+            {/* {!isEditMenuOpened && !isLoading ? ( */}
+            {!isEditMenuOpened ? (
               <div className="profile__name">{username}</div>
-            ) : username ? (
+            ) : (
+              // ) : username ? (
               <Input
                 name={name}
                 handleKeyDown={handleKeyDown}
                 onInputChange={(e) => setName(e.target.value)}
               />
-            ) : (
-              <Loader />
             )}
+            {/* ) : (
+             <Loader />
+             )} */}
             <div className="profile__tools">
               <AppDropzone>
                 <AddAPhotoSharpIcon className="profile__tools_add" />

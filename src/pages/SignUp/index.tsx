@@ -5,13 +5,11 @@ import { useFormik } from "formik";
 
 import "./style.scss";
 
-import { useAppDispatch, useAppSelector } from "state";
-import { registrationRequest } from "state/user/actions";
+import { useAppSelector } from "state";
 import { getIsLoading, getUser } from "state/user/selectors";
-import { RegistrationRequest } from "api/types";
 import { Routes } from "constants/routes";
 import { validateSignUp } from "validation";
-import { InitialValuesSignUp } from "./types";
+import { ComponentProps, InitialValuesSignUp } from "./types";
 
 const initialValues: InitialValuesSignUp = {
   name: "",
@@ -20,9 +18,7 @@ const initialValues: InitialValuesSignUp = {
   email: "",
 };
 
-const SignUp: FC = () => {
-  const dispatch = useAppDispatch();
-
+const SignUp: FC<ComponentProps> = ({ onSubmit }) => {
   const account = useAppSelector(getUser);
   const isLoading = useAppSelector(getIsLoading);
 
@@ -31,14 +27,8 @@ const SignUp: FC = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: validateSignUp,
-    onSubmit: (): void => {
-      const data: RegistrationRequest = {
-        name,
-        email,
-        password,
-      };
-
-      dispatch(registrationRequest(data));
+    onSubmit: ({ name, email, password }): void => {
+      onSubmit({ name, email, password });
     },
   });
 

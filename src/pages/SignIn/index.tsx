@@ -5,19 +5,15 @@ import { useFormik } from "formik";
 
 import "./style.scss";
 
-import { loginRequest } from "state/user/actions";
-import { useAppDispatch, useAppSelector } from "state";
-import { LoginRequest } from "api/types";
+import { useAppSelector } from "state";
 import { getIsLoading, getUser } from "state/user/selectors";
 import { Routes } from "constants/routes";
-import { InitialValuesSignIn } from "./types";
+import { ComponentProps, InitialValuesSignIn } from "./types";
 import { validateSignIn } from "validation";
 
 const initialValues: InitialValuesSignIn = { email: "", password: "" };
 
-const SignIn: FC = () => {
-  const dispatch = useAppDispatch();
-
+const SignIn: FC<ComponentProps> = ({ onSubmit }) => {
   const account = useAppSelector(getUser);
   const isLoading = useAppSelector(getIsLoading);
 
@@ -26,13 +22,8 @@ const SignIn: FC = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: validateSignIn,
-    onSubmit: () => {
-      const data: LoginRequest = {
-        email,
-        password,
-      };
-
-      dispatch(loginRequest(data));
+    onSubmit: ({ email, password }) => {
+      onSubmit({ email, password });
     },
   });
 

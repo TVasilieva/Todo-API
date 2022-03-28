@@ -4,27 +4,24 @@ import "@testing-library/jest-dom/extend-expect";
 import { wrappedWithRouterAndReduxComponent } from "utils/wrapComponent";
 
 import SignIn from "./index";
-import { act } from "react-dom/test-utils";
 import userEvent from "@testing-library/user-event";
-
-const waitForComponentToPaint = async (wrapper: any) => {
-  await act(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    wrapper.update();
-  });
-};
+import { waitForComponentToPaint } from "utils/waitFor";
 
 describe("Sign in Button", () => {
   test("renders button", () => {
-    render(wrappedWithRouterAndReduxComponent(<SignIn />));
+    render(wrappedWithRouterAndReduxComponent(<SignIn onSubmit={() => {}} />));
     const button = screen.getByRole("button", { name: /sign in/i });
     expect(button).toBeInTheDocument();
   });
 });
 
 describe("Sign in Inputs", () => {
+  const handleSubmit = jest.fn();
+
   test("number of inputs", () => {
-    render(wrappedWithRouterAndReduxComponent(<SignIn />));
+    render(
+      wrappedWithRouterAndReduxComponent(<SignIn onSubmit={handleSubmit} />)
+    );
     const email = screen.queryAllByPlaceholderText("Email");
     expect(email).toHaveLength(1);
 
@@ -33,8 +30,10 @@ describe("Sign in Inputs", () => {
   });
 
   test("input event", async () => {
-    render(wrappedWithRouterAndReduxComponent(<SignIn />));
-    waitForComponentToPaint(<SignIn />);
+    render(
+      wrappedWithRouterAndReduxComponent(<SignIn onSubmit={handleSubmit} />)
+    );
+    waitForComponentToPaint(<SignIn onSubmit={handleSubmit} />);
 
     const email = screen.getByTestId("sign-in-email");
     expect(email).toContainHTML("");
@@ -56,18 +55,20 @@ describe("Sign in Inputs", () => {
 describe("Sign in Formik", () => {
   test("rendering and submitting a basic Formik form", async () => {
     const handleSubmit = jest.fn();
-    render(wrappedWithRouterAndReduxComponent(<SignIn />));
+    render(
+      wrappedWithRouterAndReduxComponent(<SignIn onSubmit={handleSubmit} />)
+    );
 
     userEvent.type(screen.getByTestId(/email/i), "a@mail.ru");
     userEvent.type(screen.getByTestId(/password/i), "11111111");
 
     userEvent.click(screen.getByRole("button", { name: "Sign in" }));
 
-    // await waitFor(() =>
-    //   expect(handleSubmit).toHaveBeenCalledWith({
-    //     email: "a@mail.ru",
-    //     password: "11111111",
-    //   })
-    // );
+    await waitFor(() =>
+      expect(handleSubmit).toHaveBeenCalledWith({
+        email: "a@mail.ru",
+        password: "11111111",
+      })
+    );
   });
 });
