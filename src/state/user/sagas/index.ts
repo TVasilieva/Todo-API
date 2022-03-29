@@ -106,6 +106,7 @@ function* editWorker(action: ActionPayload<EditProfileRequest>) {
       email: response.data.data.email,
       name: response.data.data.name,
     };
+    console.log(account.name);
 
     yield put(editProfileResponse(account));
   } catch (error) {

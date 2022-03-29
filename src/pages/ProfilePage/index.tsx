@@ -102,7 +102,6 @@ const ProfilePage: FC = () => {
                 </>
               )}
             </AppDropzone>
-
             {/* {!isEditMenuOpened && !isLoading ? ( */}
             {!isEditMenuOpened ? (
               <div className="profile__name">{username}</div>
@@ -137,6 +136,7 @@ const ProfilePage: FC = () => {
               )}
               <NoPhotographyRoundedIcon
                 className="profile__tools_remove"
+                data-testid="remove-image"
                 onClick={handleRemoveImage}
               />
             </div>
