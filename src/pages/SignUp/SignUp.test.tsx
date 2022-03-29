@@ -5,7 +5,6 @@ import { wrappedWithRouterAndReduxComponent } from "utils/wrapComponent";
 
 import SignUp from "./index";
 import userEvent from "@testing-library/user-event";
-import { waitForComponentToPaint } from "utils/waitFor";
 
 describe("Sign up Button", () => {
   test("renders button", () => {
@@ -36,7 +35,6 @@ describe("Sign up Inputs", () => {
     render(
       wrappedWithRouterAndReduxComponent(<SignUp onSubmit={handleSubmit} />)
     );
-    waitForComponentToPaint(<SignUp onSubmit={handleSubmit} />);
 
     const email = screen.getByTestId("sign-up-email");
     expect(email).toContainHTML("");
@@ -48,20 +46,24 @@ describe("Sign up Inputs", () => {
     expect(screen.getByTestId("sign-up-email")).toContainHTML("test@mail.ru");
 
     const password = screen.getByTestId("sign-up-password");
-    expect(screen.getByTestId("sign-up-password")).toContainHTML("");
+    expect(await screen.findByTestId("sign-up-password")).toContainHTML("");
     userEvent.type(password, "11111111");
-    expect(screen.getByTestId("sign-up-password")).toContainHTML("11111111");
+    expect(await screen.findByTestId("sign-up-password")).toContainHTML(
+      "11111111"
+    );
 
     const repeatPassword = screen.getByTestId("sign-up-repeat-password");
     expect(repeatPassword).toContainHTML("");
     userEvent.type(repeatPassword, "11111111");
-    expect(screen.getByTestId("sign-up-repeat-password")).toContainHTML(
+    expect(await screen.findByTestId("sign-up-repeat-password")).toContainHTML(
       "11111111"
     );
 
     const username = screen.getByTestId("sign-up-username");
     userEvent.type(username, "Tonya");
-    expect(screen.getByTestId("sign-up-username")).toContainHTML("Tonya");
+    expect(await screen.findByTestId("sign-up-username")).toContainHTML(
+      "Tonya"
+    );
   });
 });
 

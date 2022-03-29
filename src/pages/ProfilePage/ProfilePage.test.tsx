@@ -4,7 +4,7 @@ import ProfilePage from ".";
 import { wrappedWithRouterAndReduxComponent } from "utils/wrapComponent";
 import userEvent from "@testing-library/user-event";
 import Input from "components/Input";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 
 describe("Main Image", () => {
   test("one image in profile section", () => {
@@ -87,13 +87,11 @@ describe("Edit section", () => {
 });
 
 describe("Functions", () => {
-  test("handleRemoveImage", () => {
-    const wrapper = shallow(
-      wrappedWithRouterAndReduxComponent(<ProfilePage />)
-    );
-    wrapper.find("remove-image").simulate("click");
+  it("handleRemoveImage", () => {
+    const wrapper = mount(wrappedWithRouterAndReduxComponent(<ProfilePage />));
+    wrapper.find(".profile__tools").simulate("click"); //???????????? why .profile__tools_remove DOESN'T WORK??
 
-    const image = screen.getByRole("image");
-    expect(image).toHaveAttribute("src", "/");
+    const image = screen.getAllByRole("img")[1];
+    expect(image).toHaveAttribute("src", "./assets/icon.png");
   });
 });

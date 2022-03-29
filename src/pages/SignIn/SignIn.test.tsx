@@ -5,7 +5,6 @@ import { wrappedWithRouterAndReduxComponent } from "utils/wrapComponent";
 
 import SignIn from "./index";
 import userEvent from "@testing-library/user-event";
-import { waitForComponentToPaint } from "utils/waitFor";
 
 describe("Sign in Button", () => {
   test("renders button", () => {
@@ -33,7 +32,6 @@ describe("Sign in Inputs", () => {
     render(
       wrappedWithRouterAndReduxComponent(<SignIn onSubmit={handleSubmit} />)
     );
-    waitForComponentToPaint(<SignIn onSubmit={handleSubmit} />);
 
     const email = screen.getByTestId("sign-in-email");
     expect(email).toContainHTML("");
@@ -42,13 +40,17 @@ describe("Sign in Inputs", () => {
       target: { value: "test@mail.ru" },
     });
 
-    expect(screen.getByTestId("sign-in-email")).toContainHTML("test@mail.ru");
+    expect(await screen.findByTestId("sign-in-email")).toContainHTML(
+      "test@mail.ru"
+    );
 
     const password = screen.getByTestId("sign-in-password");
-    expect(screen.getByTestId("sign-in-password")).toContainHTML("");
+    expect(await screen.findByTestId("sign-in-password")).toContainHTML("");
     userEvent.type(password, "11111111");
 
-    expect(screen.getByTestId("sign-in-password")).toContainHTML("11111111");
+    expect(await screen.findByTestId("sign-in-password")).toContainHTML(
+      "11111111"
+    );
   });
 });
 

@@ -32,7 +32,7 @@ describe("App", () => {
 });
 
 describe("Router tests", () => {
-  test("Logout", () => {
+  test("Logout", async () => {
     render(
       wrappedWithReduxComponent(
         <MemoryRouter>
@@ -40,10 +40,13 @@ describe("Router tests", () => {
         </MemoryRouter>
       )
     );
-    //   const image = screen.getByAltText("logo");
-    //   fireEvent.click(image);
-    //   const logout = screen.getByTestId("logout");
-    //   fireEvent.click(logout);
-    //   expect(screen.getByText(/todo app/i)).toBeInTheDocument();
+
+    const image = screen.getByAltText("logo-img");
+    fireEvent.click(image);
+
+    const logout = screen.getByTestId("logout");
+    fireEvent.click(logout);
+    screen.debug();
+    //expect(await screen.findByText(/todo app/i)).toBeInTheDocument(); // HOW TO TEST ROUTER
   });
 });

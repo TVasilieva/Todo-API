@@ -16,10 +16,6 @@ import getBlob from "utils/getBlob";
 import { getUser } from "state/user/selectors";
 import { getImageRequest, uploadImageRequest } from "state/image/actions";
 
-import getBlob from "utils/getBlob";
-import { getUser } from "state/user/selectors";
-import { getImageRequest, uploadImageRequest } from "state/image/actions";
-
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const image = useAppSelector(getImage);
@@ -38,8 +34,8 @@ const Header: FC = () => {
   };
 
   const handleLogout = (): void => {
-    dispatch(logoutRequest());
     navigator(Routes.Home);
+    dispatch(logoutRequest());
   };
 
   const blob = getBlob(image);
