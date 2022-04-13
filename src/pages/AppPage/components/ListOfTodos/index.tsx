@@ -1,37 +1,14 @@
-import { FC, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC } from "react";
 import "./style.scss";
-import Props from "./types";
-import { useAppDispatch, useAppSelector } from "state";
-import { getFilteredTodos, getTodosIsLoading } from "state/todos/selectors";
+import { useAppSelector } from "state";
+import { getTodosIsLoading } from "state/todos/selectors";
 
-import TodoItem from "pages/AppPage/components/TodoItem";
 import Loader from "components/Loader";
+import { ComponentProps } from "./types";
 
-import { Todo } from "models/todo";
-import {
-  getNumberCompletedTodosRequest,
-  removeTodoRequest,
-} from "state/todos/actions";
-
-const ListOfTodos: FC<Props> = () => {
-  const dispatch = useAppDispatch();
-
-  const filteredTodos = useAppSelector(getFilteredTodos);
+const ListOfTodos: FC<ComponentProps> = ({ filteredTodos, todoItems }) => {
   const isLoading = useAppSelector(getTodosIsLoading);
-
-  useEffect(() => {
-    dispatch(getNumberCompletedTodosRequest());
-  }, [filteredTodos.length]);
-
-  const handleRemoveTodo = (id: string) => (): void => {
-    dispatch(removeTodoRequest(id));
-  };
-
-  const todoItems = filteredTodos.map((todo: Todo) => {
-    return (
-      <TodoItem key={todo.id} todo={todo} handleRemoveTodo={handleRemoveTodo} />
-    );
-  });
 
   return (
     <div className="todo-list">

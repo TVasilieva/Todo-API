@@ -6,6 +6,6 @@ export default interface Props {
 
 export default interface ComponentProps {
   todo: Todo;
-  handleRemoveTodo: any;
-  handleCompleted?: any;
+  handleRemoveTodo: (todo: Todo) => () => void;
+  handleCompleted: (id: string, completed: boolean) => () => void;
 }

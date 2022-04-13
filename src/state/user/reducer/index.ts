@@ -27,6 +27,7 @@ export const userReducer = (
         ...state,
         accountIsLoading: false,
         account: action.payload,
+        username: action.payload.name,
       };
     case UserActions.REGISTRATION_RESPONSE_ERROR:
       return {
@@ -46,6 +47,7 @@ export const userReducer = (
         ...state,
         accountIsLoading: false,
         account: action.payload,
+        username: action.payload.name,
       };
     case UserActions.LOGIN_RESPONSE_ERROR:
       return {
@@ -75,7 +77,8 @@ export const userReducer = (
       return {
         ...state,
         accountIsLoading: false,
-        username: action.payload,
+        account: action.payload,
+        username: action.payload.name,
       };
     case UserActions.GET_USER_RESPONSE_ERROR:
       return {
@@ -93,6 +96,7 @@ export const userReducer = (
       return {
         ...state,
         account: action.payload,
+        username: action.payload.name,
         accountIsLoading: false,
         accountError: null,
       };

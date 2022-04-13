@@ -57,8 +57,8 @@ export const logoutResponseError = (error: any) =>
 
 export const getUserRequest = () =>
   actionCreator<UserActions>(UserActions.GET_USER_REQUEST);
-export const getUserResponse = (data: string) =>
-  actionCreator<UserActions, string>(UserActions.GET_USER_RESPONSE, data);
+export const getUserResponse = (data: Account) =>
+  actionCreator<UserActions, Account>(UserActions.GET_USER_RESPONSE, data);
 export const getUserResponseError = (error: any) =>
   actionCreator<UserActions, any>(UserActions.GET_USER_RESPONSE_ERROR, error);
 

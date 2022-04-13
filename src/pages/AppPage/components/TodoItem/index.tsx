@@ -7,23 +7,7 @@ import Props from "./types";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-import { useAppDispatch } from "state";
-import { updateTodoRequest } from "state/todos/actions";
-
-const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
-  const dispatch = useAppDispatch();
-
-  const handleCompleted = (id: string, completed: boolean) => (): void => {
-    dispatch(
-      updateTodoRequest({
-        id,
-        completed: {
-          completed: !completed,
-        },
-      })
-    );
-  };
-
+const TodoItem: FC<Props> = ({ todo, handleRemoveTodo, handleCompleted }) => {
   const style = classNames("round", todo.completed && "complited");
 
   return (
@@ -37,7 +21,11 @@ const TodoItem: FC<Props> = ({ todo, handleRemoveTodo }) => {
         onChange={handleCompleted(todo.id, todo.completed)}
       />
       <label htmlFor={todo.name}>{todo.name}</label>
-      <IconButton aria-label="delete" onClick={handleRemoveTodo(todo.id)}>
+      <IconButton
+        aria-label="delete"
+        size="large"
+        onClick={handleRemoveTodo(todo)}
+      >
         <DeleteOutlineIcon />
       </IconButton>
     </div>

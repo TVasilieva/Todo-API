@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from "react";
 import "./style.scss";
 import Portal from "components/Portal";
@@ -11,9 +12,6 @@ import { useAppDispatch, useAppSelector } from "state";
 import { logoutRequest } from "state/user/actions";
 import { useNavigate } from "react-router-dom";
 import { getImage } from "state/image/selectors";
-import { getImageRequest, uploadImageRequest } from "state/image/actions";
-import { getUser } from "state/user/selectors";
-
 import getBlob from "utils/getBlob";
 import { getUser } from "state/user/selectors";
 import { getImageRequest, uploadImageRequest } from "state/image/actions";
@@ -31,13 +29,13 @@ const Header: FC = () => {
     if (image) dispatch(uploadImageRequest(image as File));
   }, [account?.id]);
 
-  const toggleDropdownMenu = () => {
+  const toggleDropdownMenu = (): void => {
     setIsOpened(!isOpened);
   };
 
   const handleLogout = (): void => {
-    dispatch(logoutRequest());
     navigator(Routes.Home);
+    dispatch(logoutRequest());
   };
 
   const blob = getBlob(image);
@@ -48,13 +46,18 @@ const Header: FC = () => {
         <div className="header__logo">
           <CatchingPokemonSharpIcon
             sx={{ color: common.white, fontSize: "40px" }}
+            data-testid="logo"
           />
           <h1 className="header__title">todo</h1>
         </div>
-        <div className="header__account" onClick={toggleDropdownMenu}>
+        <div
+          className="header__account"
+          data-testid="header-account"
+          onClick={toggleDropdownMenu}
+        >
           <img
             src={image ? blob : "./assets/icon.png"}
-            alt="logo"
+            alt="logo-img"
             className="header__image"
           />
           {isOpened && (

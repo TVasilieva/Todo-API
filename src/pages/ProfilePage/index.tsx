@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from "react";
 
 import "./style.scss";
@@ -16,6 +17,7 @@ import { editProfileRequest, getUserRequest } from "state/user/actions";
 import { getImage, getImageIsLoading } from "state/image/selectors";
 import { getImageRequest, removeImageRequest } from "state/image/actions";
 import getBlob from "utils/getBlob";
+import Input from "components/Input";
 
 const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -43,6 +45,7 @@ const ProfilePage: FC = () => {
   };
 
   const handleEditProfile = (): void => {
+    toggleEditMenu();
     if (name) {
       dispatch(
         editProfileRequest({
@@ -50,7 +53,6 @@ const ProfilePage: FC = () => {
         })
       );
       dispatch(getUserRequest());
-      toggleEditMenu();
     }
   };
 
@@ -76,69 +78,71 @@ const ProfilePage: FC = () => {
 
   return (
     <>
-      <Header />
-      <Portal>
-        <div className="profile">
-          <AppDropzone>
-            {!image && !imageIsLoading ? (
-              <img
-                src="./assets/icon.png"
-                alt="logo"
-                className="profile__image"
-              />
-            ) : image && !imageIsLoading ? (
-              <img src={blob} alt="logo" className="profile__image" />
-            ) : (
-              <>
+      <div data-testid="profile-link">
+        <Header />
+        <Portal>
+          <div className="profile" data-testid="profile">
+            <AppDropzone>
+              {!image && !imageIsLoading ? (
                 <img
                   src="./assets/icon.png"
                   alt="logo"
                   className="profile__image"
                 />
-                <Loader />
-              </>
-            )}
-          </AppDropzone>
-
-          {!isEditMenuOpened && !isLoading ? (
-            <div className="profile__name">{username}</div>
-          ) : username ? (
-            <input
-              className="profile__input"
-              placeholder="type your name..."
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              maxLength={25}
-              onKeyDown={handleKeyDown}
-            />
-          ) : (
-            <Loader />
-          )}
-          <div className="profile__tools">
-            <AppDropzone>
-              <AddAPhotoSharpIcon className="profile__tools_add" />
+              ) : image && !imageIsLoading ? (
+                <img src={blob} alt="logo" className="profile__image" />
+              ) : (
+                <>
+                  <img
+                    src="./assets/icon.png"
+                    alt="logo"
+                    className="profile__image"
+                  />
+                  <Loader />
+                </>
+              )}
             </AppDropzone>
+            {/* {!isEditMenuOpened && !isLoading ? ( */}
             {!isEditMenuOpened ? (
-              <EditSharpIcon
-                className="profile__tools_edit"
-                onClick={toggleEditMenu}
-              />
+              <div className="profile__name">{username}</div>
             ) : (
-              <AddCircleOutlineIcon
-                className="profile__tools_save"
-                onClick={handleEditProfile}
+              // ) : username ? (
+              <Input
+                name={name}
+                handleKeyDown={handleKeyDown}
+                onInputChange={(e) => setName(e.target.value)}
               />
             )}
-            <NoPhotographyRoundedIcon
-              className="profile__tools_remove"
-              onClick={handleRemoveImage}
-            />
+            {/* ) : (
+             <Loader />
+             )} */}
+            <div className="profile__tools">
+              <AppDropzone>
+                <AddAPhotoSharpIcon className="profile__tools_add" />
+              </AppDropzone>
+              {!isEditMenuOpened ? (
+                <EditSharpIcon
+                  className="profile__tools_edit"
+                  data-testid="edit-profile"
+                  onKeyDown={() => console.log("key pressed")}
+                  onClick={toggleEditMenu}
+                />
+              ) : (
+                <AddCircleOutlineIcon
+                  className="profile__tools_save"
+                  data-testid="save-profile"
+                  onClick={handleEditProfile}
+                />
+              )}
+              <NoPhotographyRoundedIcon
+                className="profile__tools_remove"
+                data-testid="remove-image"
+                onClick={handleRemoveImage}
+              />
+            </div>
           </div>
-        </div>
-      </Portal>
+        </Portal>
+      </div>
     </>
   );
 };

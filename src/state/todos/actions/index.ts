@@ -47,10 +47,10 @@ export const addTodoResponse = (data: Todo) =>
 export const addTodoResponseError = (error: any) =>
   actionCreator<TodosActions, any>(TodosActions.ADD_TODO_RESPONSE_ERROR, error);
 
-export const removeTodoRequest = (id: string) =>
-  actionCreator<TodosActions, string>(TodosActions.REMOVE_TODO_REQUEST, id);
-export const removeTodoResponse = (id: string) =>
-  actionCreator<TodosActions, string>(TodosActions.REMOVE_TODO_RESPONSE, id);
+export const removeTodoRequest = (data: Todo) =>
+  actionCreator<TodosActions, Todo>(TodosActions.REMOVE_TODO_REQUEST, data);
+export const removeTodoResponse = (data: Todo) =>
+  actionCreator<TodosActions, Todo>(TodosActions.REMOVE_TODO_RESPONSE, data);
 export const removeTodoResponseError = (error: any) =>
   actionCreator<TodosActions, any>(
     TodosActions.REMOVE_TODO_RESPONSE_ERROR,

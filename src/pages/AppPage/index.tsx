@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, FC, useEffect, useState } from "react";
 
 import Header from "components/Header";
@@ -17,15 +18,21 @@ import {
   addTodoRequest,
   getNumberCompletedTodosRequest,
   getTodosRequest,
+  removeTodoRequest,
+  updateTodoRequest,
 } from "state/todos/actions";
 import { getUserRequest } from "state/user/actions";
 import { getIsLoading, getUsername } from "state/user/selectors";
-import { getTodos } from "state/todos/selectors";
+import { getFilteredTodos, getTodos } from "state/todos/selectors";
+import { Todo } from "models/todo";
+import TodoItem from "./components/TodoItem";
+import Greeting from "components/Greeting";
 
 const AppPage: FC = () => {
   const dispatch = useAppDispatch();
 
   const username = useAppSelector(getUsername);
+  const filteredTodos = useAppSelector(getFilteredTodos);
   const todos = useAppSelector(getTodos);
   const isLoading = useAppSelector(getIsLoading);
 
@@ -57,37 +64,64 @@ const AppPage: FC = () => {
     setValue("");
   };
 
+  const handleRemoveTodo = (todo: Todo) => (): void => {
+    dispatch(removeTodoRequest(todo));
+  };
+
+  const handleCompleted = (id: string, completed: boolean) => (): void => {
+    dispatch(
+      updateTodoRequest({
+        id,
+        completed: {
+          completed: !completed,
+        },
+      })
+    );
+  };
+
+  const todoItems = filteredTodos.map((todo: Todo) => {
+    return (
+      <TodoItem
+        key={todo.id}
+        todo={todo}
+        handleRemoveTodo={handleRemoveTodo}
+        handleCompleted={handleCompleted}
+      />
+    );
+  });
+
   const disabled = !value;
   const placeholder = "Currently typing...";
 
   return (
     <>
-      <Header />
-      <Portal>
-        <div className="user-page">
-          {username && (
-            <h2 className="user-page__greeting">Welcome, {username}!</h2>
-          )}
-          <Textarea
-            Button={
-              <Button
-                Icon={<AddIcon />}
-                classes="add-btn"
-                color="secondary"
-                aria-label="add"
-                disabled={disabled}
-                onClick={handleAddTodo}
-              />
-            }
-            value={value}
-            placeholder={placeholder}
-            disabled={disabled}
-            handleChange={handleChange}
-          />
-          <ListOfTodos />
-          <Footer filter={filter} onChangeFilter={handleChangeFilter} />
-        </div>
-      </Portal>
+      <div data-testid="app-link">
+        <Header />
+        <Portal>
+          <div className="user-page">
+            <Greeting username={username} />
+            <Textarea
+              Button={
+                <Button
+                  Icon={<AddIcon />}
+                  classes="add-btn"
+                  size="medium"
+                  color="secondary"
+                  aria-label="add"
+                  disabled={disabled}
+                  onClick={handleAddTodo}
+                />
+              }
+              value={value}
+              placeholder={placeholder}
+              disabled={disabled}
+              handleChange={handleChange}
+            />
+            <ListOfTodos todoItems={todoItems} filteredTodos={filteredTodos} />
+            <Footer filter={filter} onChangeFilter={handleChangeFilter} />
+          </div>
+        </Portal>
+      </div>
     </>
   );
 };

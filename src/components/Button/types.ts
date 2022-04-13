@@ -1,6 +1,6 @@
 export default interface ComponentProps {
   disabled: boolean;
-  Icon: JSX.Element;
+  Icon?: JSX.Element;
   classes?: string;
   size?: "small" | "medium" | "large" | undefined;
   color?:

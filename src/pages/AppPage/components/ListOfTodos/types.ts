@@ -1,9 +1,6 @@
 import { Todo } from "models/todo";
 
-export default interface Props {}
-
-export default interface ComponentProps {
-  todos?: Todo[];
-  todoItems?: JSX.Element[];
-  isLoading?: boolean;
+export interface ComponentProps {
+  todoItems: JSX.Element[];
+  filteredTodos: Todo[];
 }

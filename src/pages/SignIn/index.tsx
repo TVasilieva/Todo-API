@@ -1,22 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
 import "./style.scss";
 
-import { loginRequest } from "state/user/actions";
-import { useAppDispatch, useAppSelector } from "state";
-import { LoginRequest } from "api/types";
+import { useAppSelector } from "state";
 import { getIsLoading, getUser } from "state/user/selectors";
 import { Routes } from "constants/routes";
-import { InitialValuesSignIn } from "./types";
+import { ComponentProps, InitialValuesSignIn } from "./types";
 import { validateSignIn } from "validation";
 
 const initialValues: InitialValuesSignIn = { email: "", password: "" };
 
-const SignIn: FC = () => {
-  const dispatch = useAppDispatch();
-
+const SignIn: FC<ComponentProps> = ({ onSubmit }) => {
   const account = useAppSelector(getUser);
   const isLoading = useAppSelector(getIsLoading);
 
@@ -25,13 +22,8 @@ const SignIn: FC = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: validateSignIn,
-    onSubmit: () => {
-      const data: LoginRequest = {
-        email,
-        password,
-      };
-
-      dispatch(loginRequest(data));
+    onSubmit: ({ email, password }) => {
+      onSubmit({ email, password });
     },
   });
 
@@ -42,7 +34,11 @@ const SignIn: FC = () => {
   const { email, password } = formik.values;
 
   return (
-    <form className="sign__form" onSubmit={formik.handleSubmit}>
+    <form
+      className="sign__form"
+      onSubmit={formik.handleSubmit}
+      data-testid="sign-in"
+    >
       <input
         className="sign__input"
         placeholder="Email"
@@ -50,6 +46,7 @@ const SignIn: FC = () => {
         name="email"
         value={email}
         onChange={formik.handleChange}
+        data-testid="sign-in-email"
       />
       {formik.touched.email && formik.errors.email && (
         <p className="formik_error">{formik.errors.email}</p>
@@ -62,6 +59,7 @@ const SignIn: FC = () => {
         name="password"
         value={password}
         onChange={formik.handleChange}
+        data-testid="sign-in-password"
       />
       {formik.touched.password && formik.errors.password && (
         <p className="formik_error">{formik.errors.password}</p>
