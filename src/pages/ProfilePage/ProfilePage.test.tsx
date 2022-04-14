@@ -89,9 +89,9 @@ describe("Edit section", () => {
 describe("Functions", () => {
   it("handleRemoveImage", () => {
     const wrapper = mount(wrappedWithRouterAndReduxComponent(<ProfilePage />));
-    wrapper.find(".profile__tools").simulate("click"); //???????????? why .profile__tools_remove DOESN'T WORK??
+    wrapper.find(".profile__tools").simulate("click");
 
     const image = screen.getAllByRole("img")[1];
-    expect(image).toHaveAttribute("src", "./assets/icon.png");
+    expect(image).toHaveAttribute("src", "icon.png");
   });
 });

@@ -30,23 +30,3 @@ describe("App", () => {
     expect(oneBgImage).toHaveLength(1);
   });
 });
-
-describe("Router tests", () => {
-  test("Logout", async () => {
-    render(
-      wrappedWithReduxComponent(
-        <MemoryRouter>
-          <AppPage />
-        </MemoryRouter>
-      )
-    );
-
-    const image = screen.getByAltText("logo-img");
-    fireEvent.click(image);
-
-    const logout = screen.getByTestId("logout");
-    fireEvent.click(logout);
-    screen.debug();
-    //expect(await screen.findByText(/todo app/i)).toBeInTheDocument(); // HOW TO TEST ROUTER
-  });
-});

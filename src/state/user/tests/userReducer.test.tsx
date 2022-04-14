@@ -87,19 +87,6 @@ describe("Registration User Action", () => {
       avatar: "",
     });
   });
-
-  test("registration generator", () => {
-    // expect(
-    //   registrationWorker({
-    //     type: UserActions.REGISTRATION_REQUEST,
-    //     payload: {
-    //       name: "Eric Cartman",
-    //       email: "eric@mail.ru",
-    //       password: "1111111",
-    //     },
-    //   })
-    // ).toHaveBeenCalled();
-  });
 });
 
 describe("Logout User Action", () => {

@@ -85,7 +85,7 @@ const ProfilePage: FC = () => {
             <AppDropzone>
               {!image && !imageIsLoading ? (
                 <img
-                  src="./assets/icon.png"
+                  src={require("../../assets/icon.png")}
                   alt="logo"
                   className="profile__image"
                 />
@@ -94,7 +94,7 @@ const ProfilePage: FC = () => {
               ) : (
                 <>
                   <img
-                    src="./assets/icon.png"
+                    src={require("../../assets/icon.png")}
                     alt="logo"
                     className="profile__image"
                   />
@@ -102,20 +102,15 @@ const ProfilePage: FC = () => {
                 </>
               )}
             </AppDropzone>
-            {/* {!isEditMenuOpened && !isLoading ? ( */}
             {!isEditMenuOpened ? (
               <div className="profile__name">{username}</div>
             ) : (
-              // ) : username ? (
               <Input
                 name={name}
                 handleKeyDown={handleKeyDown}
                 onInputChange={(e) => setName(e.target.value)}
               />
             )}
-            {/* ) : (
-             <Loader />
-             )} */}
             <div className="profile__tools">
               <AppDropzone>
                 <AddAPhotoSharpIcon className="profile__tools_add" />

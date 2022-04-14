@@ -56,6 +56,6 @@ describe("Navigation", () => {
 
     render(wrappedWithRouterAndReduxComponent(<MainPage />));
 
-    expect(history.location.pathname).toEqual("/"); //???????????????????? /todo
+    expect(history.location.pathname).toEqual("/");
   });
 });

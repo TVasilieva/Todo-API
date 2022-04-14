@@ -56,7 +56,7 @@ const Header: FC = () => {
           onClick={toggleDropdownMenu}
         >
           <img
-            src={image ? blob : "./assets/icon.png"}
+            src={image ? blob : require("../../assets/icon.png")}
             alt="logo-img"
             className="header__image"
           />

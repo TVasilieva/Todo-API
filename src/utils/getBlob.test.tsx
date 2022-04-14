@@ -12,10 +12,7 @@ describe("GetBlob function", () => {
     const url = "https://citaty.info/files/characters/633.jpg";
     getBlob(url);
     const image = screen.getByRole("img");
-    expect(image).toHaveAttribute(
-      "src",
-      "./assets/icon.png" //????????????????
-    );
+    expect(image).toHaveAttribute("src", "icon.png");
   });
 
   window.URL.createObjectURL = jest.fn();
