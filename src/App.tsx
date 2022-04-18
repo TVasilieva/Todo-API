@@ -11,11 +11,12 @@ import NotFoundPage from "pages/NotFoundPage";
 import ProtectedRoute from "components/ProtectedRoute";
 
 import { Routes as RouteName } from "./constants/routes";
+import { basename } from "constants/basename";
 
 const App: FC = () => {
   return (
     <Layout>
-      <Router>
+      <Router basename={basename}>
         <Routes>
           <Route path={RouteName.Home} element={<MainPage />} />
           <Route
